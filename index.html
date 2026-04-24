@@ -914,14 +914,18 @@
 <body>
 <div class="container">
 
-  <!-- iOS non-Safari banner -->
-  <div class="ios-banner" id="iosBanner">
-    <span class="ios-banner-icon">🦁</span>
+  <!-- In-app / restricted browser banner -->
+  <div class="ios-banner" id="browserBanner">
+    <span class="ios-banner-icon">🔊</span>
     <div>
-      <strong>Для iPhone и iPad:</strong> озвучка и запись голоса работают только в <a href="https://apps.apple.com/app/safari/id1146562112" target="_blank">Safari</a>. В Opera, Firefox и других браузерах на iOS эти функции заблокированы Apple.<br>
-      <span style="opacity:0.8;">Остальные функции тренажёра работают в любом браузере.</span>
+      <strong>Озвучка и запись голоса не работают во встроенном браузере.</strong><br>
+      <span id="browserBannerHint">Открой эту страницу во внешнем браузере (Chrome, Safari, Firefox): нажми «⋮» или «…» в правом верхнем углу и выбери «Открыть в браузере», либо скопируй ссылку кнопкой ниже.</span><br>
+      <span style="opacity:0.8;">Остальные функции тренажёра работают здесь без проблем.</span>
+      <div style="margin-top:10px;">
+        <button type="button" class="btn" onclick="copyAppLink(event)">📋 Скопировать ссылку</button>
+      </div>
     </div>
-    <button class="ios-banner-close" onclick="dismissIosBanner()" title="Закрыть">✕</button>
+    <button class="ios-banner-close" onclick="dismissBrowserBanner()" title="Закрыть">✕</button>
   </div>
 
   <header>
@@ -3267,19 +3271,53 @@ function escapeJs(s) {
   return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
 
-// ============ iOS Banner ============
+// ============ Restricted / in-app browser banner ============
 (function() {
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  const isSafari = /^((?!chrome|android|crios|fxios|opera|opios).)*safari/i.test(navigator.userAgent);
-  if (isIOS && !isSafari) {
-    const banner = document.getElementById('iosBanner');
+  const ua = navigator.userAgent;
+  const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  const isSafari = /^((?!chrome|android|crios|fxios|opera|opios).)*safari/i.test(ua);
+  const isAndroidWebview = /Android.*; wv\)/i.test(ua);
+  const isKnownInApp = /FBAN|FBAV|FB_IAB|Instagram|Line\/|Telegram|TgWebView|MicroMessenger/i.test(ua);
+  const isRestricted = (isIOS && !isSafari) || isAndroidWebview || isKnownInApp;
+  if (isRestricted) {
+    const banner = document.getElementById('browserBanner');
     if (banner) banner.classList.add('visible');
+    if (isIOS && !isSafari) {
+      const hint = document.getElementById('browserBannerHint');
+      if (hint) hint.textContent = 'На iPhone/iPad озвучка работает только в Safari. Нажми «⋮» или «…» и выбери «Открыть в Safari», либо скопируй ссылку кнопкой ниже.';
+    }
   }
 })();
 
-function dismissIosBanner() {
-  const banner = document.getElementById('iosBanner');
+function dismissBrowserBanner() {
+  const banner = document.getElementById('browserBanner');
   if (banner) banner.classList.remove('visible');
+}
+
+async function copyAppLink(ev) {
+  const btn = ev && ev.currentTarget;
+  const url = window.location.href;
+  let ok = false;
+  try {
+    await navigator.clipboard.writeText(url);
+    ok = true;
+  } catch (_) {
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { ok = document.execCommand('copy'); } catch (__) {}
+    document.body.removeChild(ta);
+  }
+  if (ok && btn) {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Скопировано';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  } else if (!ok) {
+    prompt('Скопируй ссылку вручную:', url);
+  }
 }
 
 // ============ Init ============
