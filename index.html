@@ -1385,11 +1385,25 @@ const PROF_WORDS = {
   ],
 };
 
-// Возвращает профессиональные слова для текущей группы (или пустой массив)
+// Возвращает профессиональные слова для текущей группы (или пустой массив).
+// Каждое слово помечается полем group — это позволяет при следующих загрузках
+// отфильтровать S-слова других групп из общей БД.
 function getProfWords() {
   if (!CURRENT_GROUP || !PROF_WORDS[CURRENT_GROUP]) return [];
-  return PROF_WORDS[CURRENT_GROUP];
+  return PROF_WORDS[CURRENT_GROUP].map(w => ({ ...w, group: CURRENT_GROUP }));
 }
+
+// Обратный индекс: word|level → group (по всем hard-coded PROF_WORDS).
+// Нужен для разметки старых S-записей в БД, которые были сохранены до появления поля group.
+const PROF_WORD_GROUP_INDEX = (() => {
+  const idx = new Map();
+  for (const [g, arr] of Object.entries(PROF_WORDS)) {
+    for (const w of arr) {
+      idx.set(w.word.toLowerCase() + '|' + w.level, g);
+    }
+  }
+  return idx;
+})();
 
 // ============ Starred persistence via localStorage ============
 // Ключ зависит от группы — у каждой группы своё избранное на устройстве
@@ -1660,7 +1674,30 @@ async function loadWords() {
     }
   }
 
-  state.words = items;
+  // Миграция: проставляем group у S-слов, которые попали в БД до появления этого поля.
+  // Нужно, чтобы у учителя/тестировщика, открывавшего несколько групп, S-слова не перемешивались.
+  const needsGroupStamp = items.filter(w => w.level === 'S' && !w.group);
+  if (needsGroupStamp.length > 0) {
+    const toSave = [];
+    for (const w of needsGroupStamp) {
+      const g = PROF_WORD_GROUP_INDEX.get(w.word.toLowerCase() + '|' + w.level);
+      if (g) {
+        w.group = g;
+        toSave.push(w);
+      }
+    }
+    if (toSave.length > 0) {
+      try { await dbBulkPut(toSave); } catch(e) { console.warn('Не удалось проставить group:', e); }
+    }
+  }
+
+  // Показываем только S-слова текущей группы (или без группы — это пользовательские добавления).
+  // A1–C2 не фильтруем: они универсальны.
+  state.words = items.filter(w => {
+    if (w.level !== 'S') return true;
+    if (!w.group) return true;
+    return w.group === CURRENT_GROUP;
+  });
   rebuildIndexes();
 
   // Восстанавливаем Избранное из localStorage (сохраняется между сессиями)
