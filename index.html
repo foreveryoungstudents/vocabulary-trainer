@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vocabulary Trainer — English A1–C2</title>
+<title>Vocabulary Trainer — A1–C2</title>
 <style>
   :root {
     --bg: #f7f5f0;
@@ -929,8 +929,8 @@
   </div>
 
   <header>
-    <h1>Vocabulary Trainer</h1>
-    <p class="subtitle">Английский словарь A1–C2 + профессиональная лексика — озвучка, транскрипция, проверка произношения</p>
+    <h1>Vocabulary Trainer — A1–C2</h1>
+    <p class="subtitle">Озвучка, транскрипция, проверка произношения</p>
     <div id="groupBadge"></div>
   </header>
 
@@ -1240,170 +1240,44 @@ const GROUP_META = {
 };
 
 // ============ Professional vocabulary per group ============
-// Редактируй этот объект для обновления словаря групп.
-// Каждое слово: { word, translation, ipa, example, level, topic }
-// level ДОЛЖЕН быть 'S' (специальный профессиональный уровень).
-const PROF_WORDS = {
-  it: [
-    { word: 'algorithm',    translation: 'алгоритм',          ipa: '/ˈælɡərɪðəm/',   example: 'This sorting algorithm is very efficient.',      level: 'S', topic: 'IT' },
-    { word: 'bandwidth',    translation: 'пропускная способность', ipa: '/ˈbændwɪdθ/', example: 'We need more bandwidth for video calls.',         level: 'S', topic: 'IT' },
-    { word: 'debug',        translation: 'отлаживать',         ipa: '/diːˈbʌɡ/',      example: 'I spent all day trying to debug this code.',      level: 'S', topic: 'IT' },
-    { word: 'deployment',   translation: 'развёртывание',      ipa: '/dɪˈplɔɪmənt/',  example: 'The deployment went smoothly last night.',         level: 'S', topic: 'IT' },
-    { word: 'encryption',   translation: 'шифрование',         ipa: '/ɪnˈkrɪpʃən/',   example: 'End-to-end encryption protects your messages.',   level: 'S', topic: 'IT' },
-    { word: 'framework',    translation: 'фреймворк',          ipa: '/ˈfreɪmwɜːk/',   example: 'React is a popular JavaScript framework.',         level: 'S', topic: 'IT' },
-    { word: 'latency',      translation: 'задержка',           ipa: '/ˈleɪtənsi/',    example: 'High latency makes online gaming frustrating.',    level: 'S', topic: 'IT' },
-    { word: 'repository',   translation: 'репозиторий',        ipa: '/rɪˈpɒzɪtəri/',  example: 'Push your changes to the repository.',            level: 'S', topic: 'IT' },
-    { word: 'scalability',  translation: 'масштабируемость',   ipa: '/ˌskeɪləˈbɪlɪti/', example: 'Scalability is key for growing applications.',   level: 'S', topic: 'IT' },
-    { word: 'syntax',       translation: 'синтаксис',          ipa: '/ˈsɪntæks/',     example: 'Check your syntax before running the code.',      level: 'S', topic: 'IT' },
-    { word: 'iteration',    translation: 'итерация',           ipa: '/ˌɪtəˈreɪʃən/',  example: 'Each iteration improved the product.',             level: 'S', topic: 'IT' },
-    { word: 'interface',    translation: 'интерфейс',          ipa: '/ˈɪntəfeɪs/',    example: 'Design a clean user interface.',                  level: 'S', topic: 'IT' },
-  ],
-  design: [
-    { word: 'mockup',       translation: 'макет',              ipa: '/ˈmɒkʌp/',       example: 'Share the mockup with the client first.',         level: 'S', topic: 'Дизайн' },
-    { word: 'typography',   translation: 'типографика',        ipa: '/tɪˈpɒɡrəfi/',   example: 'Good typography improves readability.',            level: 'S', topic: 'Дизайн' },
-    { word: 'hierarchy',    translation: 'иерархия',           ipa: '/ˈhaɪərɑːki/',   example: 'Visual hierarchy guides the user\'s eye.',         level: 'S', topic: 'Дизайн' },
-    { word: 'palette',      translation: 'палитра',            ipa: '/ˈpælɪt/',       example: 'Choose a colour palette that fits the brand.',    level: 'S', topic: 'Дизайн' },
-    { word: 'wireframe',    translation: 'вайрфрейм',          ipa: '/ˈwaɪəfreɪm/',   example: 'We start every project with a wireframe.',        level: 'S', topic: 'Дизайн' },
-    { word: 'contrast',     translation: 'контраст',           ipa: '/ˈkɒntrɑːst/',   example: 'High contrast makes text easier to read.',        level: 'S', topic: 'Дизайн' },
-    { word: 'grid',         translation: 'сетка',              ipa: '/ɡrɪd/',         example: 'Align all elements to the grid.',                 level: 'S', topic: 'Дизайн' },
-    { word: 'prototype',    translation: 'прототип',           ipa: '/ˈprəʊtətaɪp/',  example: 'Test the prototype with real users.',             level: 'S', topic: 'Дизайн' },
-    { word: 'kerning',      translation: 'кернинг',            ipa: '/ˈkɜːnɪŋ/',      example: 'Adjust the kerning for better letter spacing.',   level: 'S', topic: 'Дизайн' },
-    { word: 'iteration',    translation: 'итерация',           ipa: '/ˌɪtəˈreɪʃən/',  example: 'Design is all about iteration and feedback.',     level: 'S', topic: 'Дизайн' },
-    { word: 'accessibility',translation: 'доступность',        ipa: '/əkˌsesɪˈbɪlɪti/', example: 'Design with accessibility in mind.',            level: 'S', topic: 'Дизайн' },
-    { word: 'alignment',    translation: 'выравнивание',       ipa: '/əˈlaɪnmənt/',   example: 'Check the alignment of all elements.',            level: 'S', topic: 'Дизайн' },
-  ],
-  marketing: [
-    { word: 'conversion',   translation: 'конверсия',          ipa: '/kənˈvɜːʃən/',   example: 'Our conversion rate increased by 20%.',           level: 'S', topic: 'Маркетинг' },
-    { word: 'engagement',   translation: 'вовлечённость',      ipa: '/ɪnˈɡeɪdʒmənt/', example: 'High engagement means people love your content.', level: 'S', topic: 'Маркетинг' },
-    { word: 'funnel',       translation: 'воронка',            ipa: '/ˈfʌnəl/',       example: 'Move leads through the sales funnel.',            level: 'S', topic: 'Маркетинг' },
-    { word: 'impressions',  translation: 'показы',             ipa: '/ɪmˈprɛʃənz/',   example: 'The ad got 10,000 impressions overnight.',        level: 'S', topic: 'Маркетинг' },
-    { word: 'persona',      translation: 'персона (портрет аудитории)', ipa: '/pɜːˈsəʊnə/', example: 'Define your target persona before writing copy.', level: 'S', topic: 'Маркетинг' },
-    { word: 'reach',        translation: 'охват',              ipa: '/riːtʃ/',         example: 'Organic reach has declined on social media.',     level: 'S', topic: 'Маркетинг' },
-    { word: 'ROI',          translation: 'возврат инвестиций', ipa: '/ˌɑːr.oʊˈaɪ/',  example: 'Calculate the ROI of each campaign.',             level: 'S', topic: 'Маркетинг' },
-    { word: 'segmentation', translation: 'сегментация',        ipa: '/ˌseɡmənˈteɪʃən/', example: 'Market segmentation helps target the right people.', level: 'S', topic: 'Маркетинг' },
-    { word: 'brand equity', translation: 'ценность бренда',    ipa: '/brænd ˈɛkwɪti/', example: 'Apple has enormous brand equity worldwide.',      level: 'S', topic: 'Маркетинг' },
-    { word: 'call to action', translation: 'призыв к действию', ipa: '/kɔːl tʊ ˈækʃən/', example: 'Every landing page needs a strong call to action.', level: 'S', topic: 'Маркетинг' },
-    { word: 'copywriting',  translation: 'копирайтинг',        ipa: '/ˈkɒpiˌraɪtɪŋ/', example: 'Good copywriting drives sales.',                   level: 'S', topic: 'Маркетинг' },
-    { word: 'niche',        translation: 'ниша',               ipa: '/niːʃ/',          example: 'Find your niche before scaling.',                  level: 'S', topic: 'Маркетинг' },
-  ],
-  tourism: [
-    { word: 'itinerary',    translation: 'маршрут/план поездки', ipa: '/aɪˈtɪnərəri/', example: 'Send the clients their itinerary by email.',      level: 'S', topic: 'Туризм' },
-    { word: 'amenities',    translation: 'удобства',            ipa: '/əˈmiːnɪtiz/',   example: 'The hotel offers excellent amenities.',            level: 'S', topic: 'Туризм' },
-    { word: 'concierge',    translation: 'консьерж',            ipa: '/ˈkɒnsiˌeɪʒ/',  example: 'Ask the concierge for restaurant recommendations.', level: 'S', topic: 'Туризм' },
-    { word: 'excursion',    translation: 'экскурсия',           ipa: '/ɪkˈskɜːʃən/',   example: 'Book an excursion to the old town.',               level: 'S', topic: 'Туризм' },
-    { word: 'hospitality',  translation: 'гостеприимство',      ipa: '/ˌhɒspɪˈtælɪti/', example: 'Hospitality is the core of the tourism industry.', level: 'S', topic: 'Туризм' },
-    { word: 'occupancy',    translation: 'заполняемость',       ipa: '/ˈɒkjʊpənsi/',   example: 'The hotel reached 95% occupancy in summer.',      level: 'S', topic: 'Туризм' },
-    { word: 'layover',      translation: 'пересадка/стоянка',   ipa: '/ˈleɪˌoʊvər/',   example: 'We have a 3-hour layover in Dubai.',              level: 'S', topic: 'Туризм' },
-    { word: 'all-inclusive', translation: 'всё включено',       ipa: '/ɔːl ɪnˈkluːsɪv/', example: 'They chose an all-inclusive resort.',             level: 'S', topic: 'Туризм' },
-    { word: 'peak season',  translation: 'высокий сезон',       ipa: '/piːk ˈsiːzən/',  example: 'Prices double during peak season.',               level: 'S', topic: 'Туризм' },
-    { word: 'check-in',     translation: 'заселение',           ipa: '/ˈtʃek ɪn/',     example: 'Check-in time is 3 PM.',                          level: 'S', topic: 'Туризм' },
-    { word: 'visa',         translation: 'виза',                ipa: '/ˈviːzə/',       example: 'Apply for your visa at least a month in advance.', level: 'S', topic: 'Туризм' },
-    { word: 'guided tour',  translation: 'экскурсия с гидом',   ipa: '/ˈɡaɪdɪd tʊə/', example: 'The guided tour lasts two hours.',                level: 'S', topic: 'Туризм' },
-  ],
-  beads: [
-    // История
-    { word: 'chronicle',      translation: 'хроника',             ipa: '/ˈkrɒnɪkəl/',    example: 'The medieval chronicle described the battle in detail.',      level: 'S', topic: 'История' },
-    { word: 'dynasty',        translation: 'династия',            ipa: '/ˈdɪnəsti/',      example: 'The Tudor dynasty ruled England for over a century.',         level: 'S', topic: 'История' },
-    { word: 'manuscript',     translation: 'рукопись',            ipa: '/ˈmænjʊskrɪpt/', example: 'The monk spent years copying the ancient manuscript.',        level: 'S', topic: 'История' },
-    { word: 'feudal',         translation: 'феодальный',          ipa: '/ˈfjuːdəl/',      example: 'The feudal system shaped medieval society.',                  level: 'S', topic: 'История' },
-    { word: 'era',            translation: 'эпоха',               ipa: '/ˈɪərə/',         example: 'The Victorian era brought great social change.',              level: 'S', topic: 'История' },
-    { word: 'heritage',       translation: 'наследие',            ipa: '/ˈherɪtɪdʒ/',    example: 'We must protect our cultural heritage.',                      level: 'S', topic: 'История' },
-    { word: 'relic',          translation: 'реликвия',            ipa: '/ˈrɛlɪk/',        example: 'The museum displays relics from ancient Rome.',               level: 'S', topic: 'История' },
-    { word: 'civilisation',   translation: 'цивилизация',         ipa: '/ˌsɪvɪlaɪˈzeɪʃən/', example: 'Ancient Egypt was a remarkable civilisation.',             level: 'S', topic: 'История' },
+// Слова загружаются из внешних JSON-файлов: data/{group}-vocab.json
+// Чтобы обновить словарь группы — отредактируй нужный файл и залей на GitHub.
 
-    // Искусство
-    { word: 'masterpiece',    translation: 'шедевр',              ipa: '/ˈmɑːstəpiːs/',  example: 'The painting is considered a masterpiece of the Renaissance.', level: 'S', topic: 'Искусство' },
-    { word: 'canvas',         translation: 'холст',               ipa: '/ˈkænvəs/',       example: 'The artist prepared a fresh canvas before starting.',         level: 'S', topic: 'Искусство' },
-    { word: 'portrait',       translation: 'портрет',             ipa: '/ˈpɔːtrɪt/',      example: 'She sat for a portrait in the artist\'s studio.',             level: 'S', topic: 'Искусство' },
-    { word: 'gallery',        translation: 'галерея',             ipa: '/ˈɡæləri/',       example: 'The gallery opened a new exhibition on Impressionism.',       level: 'S', topic: 'Искусство' },
-    { word: 'brushstroke',    translation: 'мазок кисти',         ipa: '/ˈbrʌʃstrəʊk/',  example: 'Each brushstroke was deliberate and precise.',                level: 'S', topic: 'Искусство' },
-    { word: 'perspective',    translation: 'перспектива',         ipa: '/pəˈspektɪv/',    example: 'Renaissance artists mastered the art of perspective.',        level: 'S', topic: 'Искусство' },
-    { word: 'mural',          translation: 'фреска/роспись стены', ipa: '/ˈmjʊərəl/',     example: 'The mural covered the entire wall of the town hall.',        level: 'S', topic: 'Искусство' },
-    { word: 'sculptor',       translation: 'скульптор',           ipa: '/ˈskʌlptə/',      example: 'The sculptor worked with marble for thirty years.',           level: 'S', topic: 'Искусство' },
+// Кэш загруженных профессиональных слов (заполняется один раз при старте)
+let _profWordsCache = null;
 
-    // Литература — общие термины
-    { word: 'narrator',       translation: 'рассказчик',          ipa: '/nəˈreɪtə/',      example: 'The narrator speaks directly to the reader.',                level: 'S', topic: 'Литература' },
-    { word: 'plot',           translation: 'сюжет',               ipa: '/plɒt/',           example: 'The plot twists kept readers guessing until the end.',       level: 'S', topic: 'Литература' },
-    { word: 'metaphor',       translation: 'метафора',            ipa: '/ˈmetəfə/',        example: 'Time is a thief is a powerful metaphor.',                   level: 'S', topic: 'Литература' },
-    { word: 'irony',          translation: 'ирония',              ipa: '/ˈaɪərəni/',       example: 'O. Henry is famous for his use of irony and surprise.',     level: 'S', topic: 'Литература' },
-    { word: 'prose',          translation: 'проза',               ipa: '/prəʊz/',          example: 'Chekhov\'s prose is deceptively simple.',                   level: 'S', topic: 'Литература' },
-    { word: 'allegory',       translation: 'аллегория',           ipa: '/ˈæləɡəri/',      example: 'The Wind in the Willows works as a gentle allegory.',        level: 'S', topic: 'Литература' },
-    { word: 'wit',            translation: 'остроумие',           ipa: '/wɪt/',            example: 'Terry Pratchett\'s wit made serious ideas accessible.',      level: 'S', topic: 'Литература' },
-    { word: 'satire',         translation: 'сатира',              ipa: '/ˈsætaɪə/',        example: 'Pratchett used satire to comment on human nature.',          level: 'S', topic: 'Литература' },
-
-    // Мэри Поппинс (P.L. Travers)
-    { word: 'brisk',          translation: 'бодрый, живой',       ipa: '/brɪsk/',          example: 'Mary Poppins walked at a brisk pace down the lane.',        level: 'S', topic: 'Мэри Поппинс' },
-    { word: 'prim',           translation: 'чопорный, аккуратный', ipa: '/prɪm/',          example: 'She was prim and proper in everything she did.',            level: 'S', topic: 'Мэри Поппинс' },
-    { word: 'practically',    translation: 'практически',         ipa: '/ˈpræktɪkli/',    example: 'Practically perfect in every way.',                          level: 'S', topic: 'Мэри Поппинс' },
-    { word: 'enchant',        translation: 'очаровывать',         ipa: '/ɪnˈtʃɑːnt/',     example: 'The children were enchanted by her magical stories.',        level: 'S', topic: 'Мэри Поппинс' },
-    { word: 'nanny',          translation: 'няня',                ipa: '/ˈnæni/',          example: 'The nanny arrived with the east wind.',                      level: 'S', topic: 'Мэри Поппинс' },
-
-    // Ветер в ивах (Kenneth Grahame)
-    { word: 'burrow',         translation: 'нора',                ipa: '/ˈbʌrəʊ/',         example: 'Mole emerged from his burrow on a spring morning.',          level: 'S', topic: 'Ветер в ивах' },
-    { word: 'riverbank',      translation: 'берег реки',          ipa: '/ˈrɪvəbæŋk/',     example: 'Ratty lived happily on the riverbank.',                      level: 'S', topic: 'Ветер в ивах' },
-    { word: 'boisterous',     translation: 'шумный, буйный',      ipa: '/ˈbɔɪstərəs/',    example: 'Toad was boisterous and impossible to ignore.',              level: 'S', topic: 'Ветер в ивах' },
-    { word: 'wander',         translation: 'бродить',             ipa: '/ˈwɒndə/',         example: 'Mole loved to wander through the Wild Wood.',               level: 'S', topic: 'Ветер в ивах' },
-    { word: 'cosy',           translation: 'уютный',              ipa: '/ˈkəʊzi/',         example: 'Badger\'s home was dark but wonderfully cosy.',              level: 'S', topic: 'Ветер в ивах' },
-
-    // О. Генри
-    { word: 'twist',          translation: 'неожиданный поворот', ipa: '/twɪst/',          example: 'O. Henry\'s stories always end with a surprising twist.',   level: 'S', topic: 'О. Генри' },
-    { word: 'coincidence',    translation: 'совпадение',          ipa: '/kəʊˈɪnsɪdəns/',  example: 'What a coincidence — they had bought each other gifts.',    level: 'S', topic: 'О. Генри' },
-    { word: 'shabby',         translation: 'потрёпанный, бедный', ipa: '/ˈʃæbi/',          example: 'He wore a shabby coat but had a generous heart.',           level: 'S', topic: 'О. Генри' },
-    { word: 'sacrifice',      translation: 'жертва, пожертвовать', ipa: '/ˈsækrɪfaɪs/',   example: 'Each character makes a sacrifice out of love.',              level: 'S', topic: 'О. Генри' },
-    { word: 'tenement',       translation: 'доходный дом',        ipa: '/ˈtenɪmənt/',      example: 'They lived in a cramped tenement in New York.',              level: 'S', topic: 'О. Генри' },
-
-    // Терри Пратчетт
-    { word: 'discworld',      translation: 'Плоский мир',         ipa: '/ˈdɪskwɜːld/',    example: 'Discworld sits on four elephants standing on a turtle.',    level: 'S', topic: 'Терри Пратчетт' },
-    { word: 'footnote',       translation: 'сноска',              ipa: '/ˈfʊtnəʊt/',       example: 'Pratchett\'s footnotes are often funnier than the text.',   level: 'S', topic: 'Терри Пратчетт' },
-    { word: 'absurd',         translation: 'абсурдный',           ipa: '/əbˈsɜːd/',        example: 'The absurd situations highlight real human behaviour.',      level: 'S', topic: 'Терри Пратчетт' },
-    { word: 'wizard',         translation: 'волшебник',           ipa: '/ˈwɪzəd/',         example: 'Unseen University is full of incompetent wizards.',         level: 'S', topic: 'Терри Пратчетт' },
-    { word: 'mortality',      translation: 'смертность, смертное', ipa: '/mɔːˈtælɪti/',   example: 'Death appears as a character to explore mortality.',         level: 'S', topic: 'Терри Пратчетт' },
-
-    // Киплинг
-    { word: 'jungle',         translation: 'джунгли',             ipa: '/ˈdʒʌŋɡəl/',      example: 'Mowgli grew up in the jungle among wolves.',                level: 'S', topic: 'Киплинг' },
-    { word: 'pack',           translation: 'стая',                ipa: '/pæk/',            example: 'The wolf pack welcomed Mowgli as one of their own.',        level: 'S', topic: 'Киплинг' },
-    { word: 'law',            translation: 'закон',               ipa: '/lɔː/',            example: 'The Law of the Jungle keeps the pack alive.',               level: 'S', topic: 'Киплинг' },
-    { word: 'empire',         translation: 'империя',             ipa: '/ˈempaɪə/',        example: 'Kipling wrote during the height of the British Empire.',    level: 'S', topic: 'Киплинг' },
-    { word: 'burden',         translation: 'бремя',               ipa: '/ˈbɜːdən/',        example: 'His poem about the burden of responsibility sparked debate.', level: 'S', topic: 'Киплинг' },
-
-    // Чехов
-    { word: 'melancholy',     translation: 'меланхолия, грусть',  ipa: '/ˈmelənkəli/',    example: 'Chekhov\'s plays are filled with quiet melancholy.',         level: 'S', topic: 'Чехов' },
-    { word: 'provincial',     translation: 'провинциальный',      ipa: '/prəˈvɪnʃəl/',    example: 'His characters are trapped in provincial life.',             level: 'S', topic: 'Чехов' },
-    { word: 'longing',        translation: 'тоска, томление',     ipa: '/ˈlɒŋɪŋ/',         example: 'The sisters feel a deep longing to go to Moscow.',          level: 'S', topic: 'Чехов' },
-    { word: 'mundane',        translation: 'обыденный',           ipa: '/mʌnˈdeɪn/',       example: 'Chekhov finds drama in the most mundane moments.',          level: 'S', topic: 'Чехов' },
-    { word: 'compassion',     translation: 'сострадание',         ipa: '/kəmˈpæʃən/',     example: 'He writes with great compassion for ordinary people.',       level: 'S', topic: 'Чехов' },
-
-    // Кино
-    { word: 'screenplay',     translation: 'сценарий',            ipa: '/ˈskriːnpleɪ/',   example: 'She adapted the novel into a screenplay.',                   level: 'S', topic: 'Кино' },
-    { word: 'cinematography', translation: 'кинематография',      ipa: '/ˌsɪnɪməˈtɒɡrəfi/', example: 'The film won an award for its stunning cinematography.',    level: 'S', topic: 'Кино' },
-    { word: 'protagonist',    translation: 'главный герой',       ipa: '/prəˈtæɡənɪst/',  example: 'The protagonist faces an impossible moral choice.',          level: 'S', topic: 'Кино' },
-    { word: 'genre',          translation: 'жанр',                ipa: '/ˈʒɒnrə/',         example: 'Film noir is a genre defined by shadow and cynicism.',      level: 'S', topic: 'Кино' },
-    { word: 'soundtrack',     translation: 'саундтрек',           ipa: '/ˈsaʊndtræk/',    example: 'The soundtrack perfectly matched the mood of the film.',    level: 'S', topic: 'Кино' },
-    { word: 'adaptation',     translation: 'экранизация',         ipa: '/ˌædæpˈteɪʃən/',  example: 'The adaptation stayed true to the spirit of the book.',     level: 'S', topic: 'Кино' },
-    { word: 'close-up',       translation: 'крупный план',        ipa: '/ˈkləʊs ʌp/',     example: 'A close-up of her face revealed the character\'s fear.',    level: 'S', topic: 'Кино' },
-    { word: 'director',       translation: 'режиссёр',            ipa: '/dɪˈrektə/',       example: 'The director had a very distinctive visual style.',          level: 'S', topic: 'Кино' },
-  ],
-};
-
-// Возвращает профессиональные слова для текущей группы (или пустой массив).
-// Каждое слово помечается полем group — это позволяет при следующих загрузках
-// отфильтровать S-слова других групп из общей БД.
-function getProfWords() {
-  if (!CURRENT_GROUP || !PROF_WORDS[CURRENT_GROUP]) return [];
-  return PROF_WORDS[CURRENT_GROUP].map(w => ({ ...w, group: CURRENT_GROUP }));
+async function loadProfWords() {
+  if (!CURRENT_GROUP) return [];
+  // Группы без отдельного проф. файла (например, beads) хранят слова иначе
+  const GROUPS_WITH_FILES = ['it', 'design', 'marketing', 'tourism', 'beads'];
+  if (!GROUPS_WITH_FILES.includes(CURRENT_GROUP)) return [];
+  try {
+    const res = await fetch(`./data/${CURRENT_GROUP}-vocab.json`);
+    if (!res.ok) { console.warn(`Не удалось загрузить data/${CURRENT_GROUP}-vocab.json`); return []; }
+    const words = await res.json();
+    return words.map(w => ({ ...w, group: CURRENT_GROUP }));
+  } catch(e) {
+    console.warn('Ошибка загрузки проф. словаря:', e);
+    return [];
+  }
 }
 
-// Обратный индекс: word|level → group (по всем hard-coded PROF_WORDS).
-// Нужен для разметки старых S-записей в БД, которые были сохранены до появления поля group.
-const PROF_WORD_GROUP_INDEX = (() => {
+function getProfWords() {
+  // Синхронный fallback — возвращает уже загруженный кэш (или пустой массив до загрузки)
+  return _profWordsCache || [];
+}
+
+// Обратный индекс: word|level → group (строится после загрузки проф. слов)
+// Используется для разметки старых S-записей без поля group.
+let PROF_WORD_GROUP_INDEX = new Map();
+
+function buildProfWordGroupIndex(words) {
   const idx = new Map();
-  for (const [g, arr] of Object.entries(PROF_WORDS)) {
-    for (const w of arr) {
-      idx.set(w.word.toLowerCase() + '|' + w.level, g);
-    }
+  for (const w of words) {
+    if (w.group) idx.set(w.word.toLowerCase() + '|S', w.group);
   }
-  return idx;
-})();
+  PROF_WORD_GROUP_INDEX = idx;
+}
 
 // ============ Starred persistence via localStorage ============
 // Ключ зависит от группы — у каждой группы своё избранное на устройстве
@@ -1637,6 +1511,11 @@ async function migrateFromLocalStorage() {
 
 async function loadWords() {
   state.db = await openDB();
+
+  // Загружаем профессиональный словарь из внешнего JSON (один раз)
+  _profWordsCache = await loadProfWords();
+  buildProfWordGroupIndex(_profWordsCache);
+
   let items = await dbGetAll();
   if (items.length === 0) {
     // Первый запуск — пробуем миграцию из localStorage, иначе seed
@@ -1666,7 +1545,7 @@ async function loadWords() {
   // Внешний JSON-сид (Food & Drink): подгружаем недостающие записи без перезаписи пользовательских данных.
   // Файл лежит рядом с index.html, кэшируется браузером.
   try {
-    const res = await fetch('./food-and-drink-vocab.json');
+    const res = await fetch('./general-vocab.json');
     if (res.ok) {
       const foodSeed = await res.json();
       const seedKey = w => w.word.toLowerCase() + '|' + w.level + '|' + (w.example || '');
@@ -1679,7 +1558,7 @@ async function loadWords() {
       }
     }
   } catch(e) {
-    console.warn('Не удалось загрузить food-and-drink-vocab.json:', e);
+    console.warn('Не удалось загрузить general-vocab.json:', e);
   }
 
   // Миграция: для старых записей добавляем поле exampleTranslation, если его нет
@@ -1784,11 +1663,13 @@ function speak(text, rate = 0.9) {
 function renderGroupBadge() {
   const el = document.getElementById('groupBadge');
   if (!el) return;
-  const meta = GROUP_META[CURRENT_GROUP];
-  if (!meta) {
+  if (!CURRENT_GROUP || !GROUP_META[CURRENT_GROUP]) {
     el.innerHTML = '';
+    el.style.display = 'none';
     return;
   }
+  el.style.display = '';
+  const meta = GROUP_META[CURRENT_GROUP];
   el.innerHTML = `<span class="group-badge" style="background:${meta.color}">${meta.icon} ${meta.label}</span>`;
 }
 
