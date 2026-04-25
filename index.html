@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vocabulary Trainer — A1–C2</title>
+<title>Vocabulary Trainer — English A1–C2</title>
 <style>
   :root {
     --bg: #f7f5f0;
@@ -929,8 +929,8 @@
   </div>
 
   <header>
-    <h1>Vocabulary Trainer — A1–C2</h1>
-    <p class="subtitle">Озвучка, транскрипция, проверка произношения</p>
+    <h1>Vocabulary Trainer</h1>
+    <p class="subtitle">Английский словарь A1–C2 + профессиональная лексика — озвучка, транскрипция, проверка произношения</p>
     <div id="groupBadge"></div>
   </header>
 
@@ -1545,7 +1545,7 @@ async function loadWords() {
   // Внешний JSON-сид (Food & Drink): подгружаем недостающие записи без перезаписи пользовательских данных.
   // Файл лежит рядом с index.html, кэшируется браузером.
   try {
-    const res = await fetch('./general-vocab.json');
+    const res = await fetch('./food-and-drink-vocab.json');
     if (res.ok) {
       const foodSeed = await res.json();
       const seedKey = w => w.word.toLowerCase() + '|' + w.level + '|' + (w.example || '');
@@ -1558,7 +1558,7 @@ async function loadWords() {
       }
     }
   } catch(e) {
-    console.warn('Не удалось загрузить general-vocab.json:', e);
+    console.warn('Не удалось загрузить food-and-drink-vocab.json:', e);
   }
 
   // Миграция: для старых записей добавляем поле exampleTranslation, если его нет
@@ -1663,13 +1663,11 @@ function speak(text, rate = 0.9) {
 function renderGroupBadge() {
   const el = document.getElementById('groupBadge');
   if (!el) return;
-  if (!CURRENT_GROUP || !GROUP_META[CURRENT_GROUP]) {
+  const meta = GROUP_META[CURRENT_GROUP];
+  if (!meta) {
     el.innerHTML = '';
-    el.style.display = 'none';
     return;
   }
-  el.style.display = '';
-  const meta = GROUP_META[CURRENT_GROUP];
   el.innerHTML = `<span class="group-badge" style="background:${meta.color}">${meta.icon} ${meta.label}</span>`;
 }
 

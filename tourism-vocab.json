@@ -1,0 +1,98 @@
+[
+  {
+    "word": "itinerary",
+    "translation": "маршрут/план поездки",
+    "ipa": "/aɪˈtɪnərəri/",
+    "example": "Send the clients their itinerary by email.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "amenities",
+    "translation": "удобства",
+    "ipa": "/əˈmiːnɪtiz/",
+    "example": "The hotel offers excellent amenities.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "concierge",
+    "translation": "консьерж",
+    "ipa": "/ˈkɒnsiˌeɪʒ/",
+    "example": "Ask the concierge for restaurant recommendations.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "excursion",
+    "translation": "экскурсия",
+    "ipa": "/ɪkˈskɜːʃən/",
+    "example": "Book an excursion to the old town.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "hospitality",
+    "translation": "гостеприимство",
+    "ipa": "/ˌhɒspɪˈtælɪti/",
+    "example": "Hospitality is the core of the tourism industry.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "occupancy",
+    "translation": "заполняемость",
+    "ipa": "/ˈɒkjʊpənsi/",
+    "example": "The hotel reached 95% occupancy in summer.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "layover",
+    "translation": "пересадка/стоянка",
+    "ipa": "/ˈleɪˌoʊvər/",
+    "example": "We have a 3-hour layover in Dubai.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "all-inclusive",
+    "translation": "всё включено",
+    "ipa": "/ɔːl ɪnˈkluːsɪv/",
+    "example": "They chose an all-inclusive resort.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "peak season",
+    "translation": "высокий сезон",
+    "ipa": "/piːk ˈsiːzən/",
+    "example": "Prices double during peak season.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "check-in",
+    "translation": "заселение",
+    "ipa": "/ˈtʃek ɪn/",
+    "example": "Check-in time is 3 PM.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "visa",
+    "translation": "виза",
+    "ipa": "/ˈviːzə/",
+    "example": "Apply for your visa at least a month in advance.",
+    "level": "S",
+    "topic": "Туризм"
+  },
+  {
+    "word": "guided tour",
+    "translation": "экскурсия с гидом",
+    "ipa": "/ˈɡaɪdɪd tʊə/",
+    "example": "The guided tour lasts two hours.",
+    "level": "S",
+    "topic": "Туризм"
+  }
+]
