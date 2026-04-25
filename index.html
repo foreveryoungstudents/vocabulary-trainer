@@ -1663,6 +1663,25 @@ async function loadWords() {
     }
   }
 
+  // Внешний JSON-сид (Food & Drink): подгружаем недостающие записи без перезаписи пользовательских данных.
+  // Файл лежит рядом с index.html, кэшируется браузером.
+  try {
+    const res = await fetch('./food-and-drink-vocab.json');
+    if (res.ok) {
+      const foodSeed = await res.json();
+      const seedKey = w => w.word.toLowerCase() + '|' + w.level + '|' + (w.example || '');
+      const existingKeys = new Set(items.map(seedKey));
+      const toAdd = foodSeed.filter(w => !existingKeys.has(seedKey(w)));
+      if (toAdd.length > 0) {
+        const newRecords = toAdd.map(w => ({ ...w, starred: false }));
+        await dbBulkPut(newRecords);
+        items = await dbGetAll();
+      }
+    }
+  } catch(e) {
+    console.warn('Не удалось загрузить food-and-drink-vocab.json:', e);
+  }
+
   // Миграция: для старых записей добавляем поле exampleTranslation, если его нет
   const needsUpdate = items.filter(w => w.exampleTranslation === undefined);
   if (needsUpdate.length > 0) {
