@@ -1171,58 +1171,17 @@ function getTopicIcon(topic) {
 // Встроенный базовый словарь
 const SEED_WORDS = [
   // A1
-  { word: 'hello', translation: 'привет', ipa: '/həˈləʊ/', example: 'Hello, how are you?', level: 'A1', topic: 'Семья' },
-  { word: 'family', translation: 'семья', ipa: '/ˈfæməli/', example: 'I have a big family.', level: 'A1', topic: 'Семья' },
-  { word: 'mother', translation: 'мама', ipa: '/ˈmʌðə/', example: 'My mother is kind.', level: 'A1', topic: 'Семья' },
-  { word: 'apple', translation: 'яблоко', ipa: '/ˈæpəl/', example: 'I eat an apple every day.', level: 'A1', topic: 'Еда' },
-  { word: 'bread', translation: 'хлеб', ipa: '/brɛd/', example: 'Bread and butter, please.', level: 'A1', topic: 'Еда' },
-  { word: 'water', translation: 'вода', ipa: '/ˈwɔːtə/', example: 'A glass of water.', level: 'A1', topic: 'Еда' },
-  { word: 'house', translation: 'дом', ipa: '/haʊs/', example: 'My house is big.', level: 'A1', topic: 'Дом' },
-  { word: 'room', translation: 'комната', ipa: '/ruːm/', example: 'This is my room.', level: 'A1', topic: 'Дом' },
-  { word: 'cat', translation: 'кошка', ipa: '/kæt/', example: 'The cat is sleeping.', level: 'A1', topic: 'Животные' },
-  { word: 'dog', translation: 'собака', ipa: '/dɒɡ/', example: 'The dog is barking.', level: 'A1', topic: 'Животные' },
-  { word: 'red', translation: 'красный', ipa: '/rɛd/', example: 'The red car.', level: 'A1', topic: 'Цвета' },
-  { word: 'blue', translation: 'синий', ipa: '/bluː/', example: 'The sky is blue.', level: 'A1', topic: 'Цвета' },
-  { word: 'happy', translation: 'счастливый', ipa: '/ˈhæpi/', example: 'I am happy today.', level: 'A1', topic: 'Эмоции' },
-  { word: 'sun', translation: 'солнце', ipa: '/sʌn/', example: 'The sun is bright.', level: 'A1', topic: 'Погода' },
+  { word: 'hello', translation: 'привет', ipa: '/həˈləʊ/', example: 'Hello, how are you?', level: 'A1', topic: 'Общение' },
   // A2
   { word: 'weather', translation: 'погода', ipa: '/ˈwɛðə/', example: 'The weather is nice.', level: 'A2', topic: 'Погода' },
-  { word: 'breakfast', translation: 'завтрак', ipa: '/ˈbrɛkfəst/', example: 'I had breakfast at 8.', level: 'A2', topic: 'Еда' },
-  { word: 'vegetable', translation: 'овощ', ipa: '/ˈvɛdʒtəbəl/', example: 'Eat more vegetables.', level: 'A2', topic: 'Еда' },
-  { word: 'journey', translation: 'путешествие', ipa: '/ˈdʒɜːni/', example: 'A long journey home.', level: 'A2', topic: 'Путешествия' },
-  { word: 'airport', translation: 'аэропорт', ipa: '/ˈeəpɔːt/', example: 'Meet me at the airport.', level: 'A2', topic: 'Путешествия' },
-  { word: 'office', translation: 'офис', ipa: '/ˈɒfɪs/', example: 'I work in an office.', level: 'A2', topic: 'Работа' },
-  { word: 'exercise', translation: 'упражнение', ipa: '/ˈɛksəsaɪz/', example: 'Daily exercise is healthy.', level: 'A2', topic: 'Спорт' },
-  { word: 'computer', translation: 'компьютер', ipa: '/kəmˈpjuːtə/', example: 'I use a computer at work.', level: 'A2', topic: 'Технологии' },
   // B1
   { word: 'achieve', translation: 'достигать', ipa: '/əˈtʃiːv/', example: 'She achieved her goal.', level: 'B1', topic: 'Работа' },
-  { word: 'environment', translation: 'окружающая среда', ipa: '/ɪnˈvaɪrənmənt/', example: 'Protect the environment.', level: 'B1', topic: 'Природа' },
-  { word: 'experience', translation: 'опыт', ipa: '/ɪkˈspɪəriəns/', example: 'I have work experience.', level: 'B1', topic: 'Работа' },
-  { word: 'opportunity', translation: 'возможность', ipa: '/ˌɒpəˈtjuːnɪti/', example: 'A great opportunity for growth.', level: 'B1', topic: 'Работа' },
-  { word: 'consider', translation: 'рассматривать', ipa: '/kənˈsɪdə/', example: 'Consider your options.', level: 'B1', topic: 'Абстрактные' },
-  { word: 'improve', translation: 'улучшать', ipa: '/ɪmˈpruːv/', example: 'I want to improve my English.', level: 'B1', topic: 'Образование' },
-  { word: 'journey', translation: 'путешествие/путь', ipa: '/ˈdʒɜːni/', example: 'A journey of self-discovery.', level: 'B1', topic: 'Абстрактные' },
   // B2
   { word: 'acknowledge', translation: 'признавать', ipa: '/əkˈnɒlɪdʒ/', example: 'He acknowledged his mistake.', level: 'B2', topic: 'Абстрактные' },
-  { word: 'sustainable', translation: 'устойчивый', ipa: '/səˈsteɪnəbəl/', example: 'Sustainable development matters.', level: 'B2', topic: 'Природа' },
-  { word: 'entrepreneur', translation: 'предприниматель', ipa: '/ˌɒntrəprəˈnɜː/', example: 'A successful entrepreneur.', level: 'B2', topic: 'Бизнес' },
-  { word: 'negotiate', translation: 'вести переговоры', ipa: '/nɪˈɡəʊʃieɪt/', example: 'Negotiate a better salary.', level: 'B2', topic: 'Бизнес' },
-  { word: 'perspective', translation: 'точка зрения', ipa: '/pəˈspɛktɪv/', example: 'Try a different perspective.', level: 'B2', topic: 'Абстрактные' },
-  { word: 'analyze', translation: 'анализировать', ipa: '/ˈænəlaɪz/', example: 'Analyze the data carefully.', level: 'B2', topic: 'Наука' },
   // C1
-  { word: 'ubiquitous', translation: 'повсеместный', ipa: '/juːˈbɪkwɪtəs/', example: 'Smartphones are ubiquitous.', level: 'C1', topic: 'Абстрактные' },
-  { word: 'articulate', translation: 'чётко выражать', ipa: '/ɑːˈtɪkjʊleɪt/', example: 'She articulates her ideas well.', level: 'C1', topic: 'Абстрактные' },
-  { word: 'compelling', translation: 'убедительный', ipa: '/kəmˈpɛlɪŋ/', example: 'A compelling argument.', level: 'C1', topic: 'Абстрактные' },
-  { word: 'discrepancy', translation: 'расхождение', ipa: '/dɪsˈkrɛpənsi/', example: 'A discrepancy in the numbers.', level: 'C1', topic: 'Наука' },
-  { word: 'endeavor', translation: 'стремление', ipa: '/ɪnˈdɛvə/', example: 'A noble endeavor.', level: 'C1', topic: 'Абстрактные' },
   { word: 'scrutinize', translation: 'тщательно изучать', ipa: '/ˈskruːtɪnaɪz/', example: 'Scrutinize the contract.', level: 'C1', topic: 'Бизнес' },
   // C2
   { word: 'quintessential', translation: 'квинтэссенциальный', ipa: '/ˌkwɪntɪˈsɛnʃəl/', example: 'The quintessential English gentleman.', level: 'C2', topic: 'Абстрактные' },
-  { word: 'ephemeral', translation: 'недолговечный', ipa: '/ɪˈfɛmərəl/', example: 'The ephemeral nature of fame.', level: 'C2', topic: 'Абстрактные' },
-  { word: 'serendipity', translation: 'счастливая случайность', ipa: '/ˌsɛrənˈdɪpɪti/', example: 'Meeting you was pure serendipity.', level: 'C2', topic: 'Абстрактные' },
-  { word: 'pernicious', translation: 'пагубный', ipa: '/pəˈnɪʃəs/', example: 'A pernicious influence on youth.', level: 'C2', topic: 'Политика' },
-  { word: 'juxtapose', translation: 'сопоставлять', ipa: '/ˈdʒʌkstəpəʊz/', example: 'Juxtapose old and new styles.', level: 'C2', topic: 'Искусство' },
-  { word: 'cacophony', translation: 'какофония', ipa: '/kəˈkɒfəni/', example: 'A cacophony of voices.', level: 'C2', topic: 'Искусство' },
 ];
 
 // ============ Group / Specialisation ============
