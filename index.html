@@ -263,6 +263,7 @@
     border-radius: var(--radius-lg);
     padding: 2rem;
     margin-bottom: 1rem;
+    position: relative;
   }
   .empty-state {
     text-align: center;
@@ -272,6 +273,7 @@
   .word-display {
     text-align: center;
     margin-bottom: 1.5rem;
+    position: relative;
   }
   .word-main {
     font-size: 40px;
@@ -958,6 +960,15 @@
 
   <div class="topics-grid" id="topicsGrid"></div>
 
+  <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
+    <button id="editLockBtn" onclick="toggleEditMode()" style="
+      background:none;border:1px solid var(--border);border-radius:8px;
+      padding:5px 12px;font-size:13px;cursor:pointer;font-family:inherit;
+      color:var(--text-soft);opacity:0.5;transition:all 0.15s;
+      display:none;
+    " title="Редактирование заблокировано">🔒 Редактировать</button>
+  </div>
+
   <div class="study-area" id="studyArea">
     <div class="empty-state">
       <p>Выберите тему выше, чтобы начать изучение слов</p>
@@ -1312,6 +1323,7 @@ let state = {
   micStream: null,
   lastRecordingUrl: null,
   trainingMode: 'topic',  // 'topic' | 'starred'
+  editMode: false,        // разблокировка редактирования полей карточки
   saveQueue: new Set(),   // id слов, которые надо сохранить (для дебаунса)
   saveTimer: null,
   db: null,
@@ -1804,11 +1816,15 @@ function renderStudyArea() {
   const words = getCurrentWords();
   if (words.length === 0) {
     area.innerHTML = '<div class="empty-state"><p>В этой теме пока нет слов. Добавьте новое слово.</p></div>';
+    document.getElementById('editLockBtn').style.display = 'none';
     return;
   }
   if (state.currentIndex >= words.length) state.currentIndex = 0;
   const word = words[state.currentIndex];
   area.innerHTML = renderWordCard(word, words.length);
+  const lockBtn = document.getElementById('editLockBtn');
+  if (lockBtn) { lockBtn.style.display = 'inline-block'; updateLockBtn(); }
+  saveLastPosition();
 }
 
 function renderWordCard(word, total) {
@@ -1853,8 +1869,8 @@ function renderWordCard(word, total) {
       <button class="${!state.showTranslation ? 'active' : ''}" onclick="toggleMode(false)">Скрыть перевод</button>
     </div>
     <div class="card-meta">
-      <span class="card-meta-badge level" data-field="level" onclick="startEdit('level')" title="Изменить уровень">${escapeHtml(word.level)}</span>
-      <span class="card-meta-badge" data-field="topic" onclick="startEdit('topic')" title="Изменить тему">📁 ${escapeHtml(word.topic)}</span>
+      <span class="card-meta-badge level" data-field="level" onclick="if(state.editMode) startEdit('level')" title="Изменить уровень">${escapeHtml(word.level)}</span>
+      <span class="card-meta-badge" data-field="topic" onclick="if(state.editMode) startEdit('topic')" title="Изменить тему">📁 ${escapeHtml(word.topic)}</span>
     </div>
     <div class="word-display" id="wordDisplay">
       ${starBtn}
@@ -1878,7 +1894,7 @@ function renderWordCard(word, total) {
     <div class="feedback" id="feedback"></div>
     <div class="recorded-audio" id="recordedAudio"></div>
     ${exampleBlock}
-    <div class="edit-hint">Кликните по любому полю, чтобы отредактировать</div>
+    ${state.editMode ? '<div class="edit-hint">Кликните по любому полю, чтобы отредактировать</div>' : ''}
     <div class="nav-controls">
       <button class="btn" onclick="prevWord()">← Назад</button>
       <div class="progress">${state.currentIndex + 1} / ${total}</div>
@@ -1911,11 +1927,28 @@ function onTranslationClick(event) {
     el.classList.remove('hidden');
     return;
   }
+  if (!state.editMode) return;
   startEdit('translation');
 }
 
 // === Inline editing ===
+function toggleEditMode() {
+  state.editMode = !state.editMode;
+  updateLockBtn();
+}
+
+function updateLockBtn() {
+  const btn = document.getElementById('editLockBtn');
+  if (!btn) return;
+  btn.textContent = state.editMode ? '🔓 Редактировать' : '🔒 Редактировать';
+  btn.style.color = state.editMode ? 'var(--accent)' : 'var(--text-soft)';
+  btn.style.opacity = state.editMode ? '1' : '0.5';
+  btn.style.borderColor = state.editMode ? 'var(--accent)' : 'var(--border)';
+  btn.title = state.editMode ? 'Редактирование включено — нажмите чтобы заблокировать' : 'Редактирование заблокировано — нажмите чтобы включить';
+}
+
 function startEdit(field) {
+  if (!state.editMode) return;
   const w = state.wordsById.get(state.currentWordId);
   if (!w) return;
   const el = document.querySelector(`[data-field="${field}"]`);
@@ -2103,6 +2136,33 @@ function nextWord() {
   const words = getCurrentWords();
   state.currentIndex = (state.currentIndex + 1) % words.length;
   renderStudyArea();
+}
+
+// ============ Position persistence ============
+function saveLastPosition() {
+  if (!state.currentTopic) return;
+  localStorage.setItem('vocab_last_pos', JSON.stringify({
+    level: state.currentLevel,
+    topic: state.currentTopic,
+    index: state.currentIndex
+  }));
+}
+
+function restoreLastPosition() {
+  try {
+    const raw = localStorage.getItem('vocab_last_pos');
+    if (!raw) return false;
+    const { level, topic, index } = JSON.parse(raw);
+    // Проверяем что уровень и тема существуют
+    const ids = state.topicIndex.get(level + '|' + topic);
+    if (!ids || ids.length === 0) return false;
+    state.currentLevel = level;
+    state.currentTopic = topic;
+    state.currentIndex = Math.min(index, ids.length - 1);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 // ============ Recording + Pronunciation check ============
@@ -3275,6 +3335,7 @@ async function copyAppLink(ev) {
     return;
   }
   renderGroupBadge();
+  restoreLastPosition();
   renderLevelBar();
   renderTopics();
   renderStudyArea();
