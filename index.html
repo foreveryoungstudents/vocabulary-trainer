@@ -947,6 +947,7 @@
     <button class="btn" onclick="openBulkImport()">+ Список / таблица</button>
     <button class="btn" onclick="openSearch()">Поиск</button>
     <button class="btn" onclick="openFavorites()">★ Избранное</button>
+    <button class="btn" onclick="openStarredList()" title="Просмотр избранного списком">📋 Список</button>
     <button class="btn ghost" onclick="exportTsv()" title="Скачать словарь в виде TSV-таблицы для Excel/Google Sheets">📤 Экспорт TSV</button>
     <button class="btn ghost" onclick="exportData()" title="Скачать словарь в JSON для бэкапа">JSON</button>
     <button class="btn ghost" onclick="document.getElementById('importFile').click()" title="Импорт из JSON">📥 Импорт</button>
@@ -3279,6 +3280,86 @@ async function copyAppLink(ev) {
   renderStudyArea();
 })();
 
+// ============ Starred List (side panel) ============
+function openStarredList() {
+  renderStarredList();
+  document.getElementById('starredListPanel').style.display = 'flex';
+  document.getElementById('starredListBackdrop').style.display = 'block';
+}
+
+function closeStarredList() {
+  document.getElementById('starredListPanel').style.display = 'none';
+  document.getElementById('starredListBackdrop').style.display = 'none';
+}
+
+function renderStarredList() {
+  const words = [...state.starredIds]
+    .map(id => state.wordsById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => a.word.localeCompare(b.word));
+
+  document.getElementById('starredListCount').textContent =
+    words.length ? `(${words.length})` : '';
+
+  const listEl = document.getElementById('starredWordsList');
+  const emptyEl = document.getElementById('starredListEmpty');
+
+  if (words.length === 0) {
+    listEl.innerHTML = '';
+    emptyEl.style.display = 'block';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  listEl.innerHTML = words.map(w => `
+    <div class="sl-row" onclick="toggleStarredTranslation(this)" style="
+      padding:9px 1.1rem;cursor:pointer;border-bottom:1px solid var(--border);
+      display:flex;flex-direction:column;gap:2px;
+      transition:background 0.1s;
+    " onmouseenter="this.style.background='var(--bg)'" onmouseleave="this.style.background=''">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+        <span style="font-size:15px;font-weight:500">${escapeHtml(w.word)}${w.hint ? `<span style="font-size:12px;font-weight:400;color:var(--text-muted)"> ${escapeHtml(w.hint)}</span>` : ''}</span>
+        <button onclick="event.stopPropagation();removeFromStarredList(${w.id})" title="Убрать из избранного" style="
+          background:none;border:none;cursor:pointer;color:var(--warning);
+          font-size:15px;padding:0;line-height:1;flex-shrink:0;opacity:0.7;
+        ">★</button>
+      </div>
+      <div class="sl-translation" style="
+        display:none;font-size:13px;color:var(--text-muted);padding-top:2px;
+      ">${escapeHtml(w.translation)}${w.ipa ? `<span style="color:var(--text-soft);margin-left:6px">${escapeHtml(w.ipa)}</span>` : ''}</div>
+    </div>
+  `).join('');
+}
+
+function toggleStarredTranslation(row) {
+  const t = row.querySelector('.sl-translation');
+  t.style.display = t.style.display === 'none' ? 'block' : 'none';
+}
+
+async function removeFromStarredList(id) {
+  await toggleStar(id);
+  renderStarredList();
+}
+
+function copyStarredWords() {
+  const words = [...state.starredIds]
+    .map(id => state.wordsById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => a.word.localeCompare(b.word))
+    .map(w => w.word)
+    .join('\n');
+
+  if (!words) return;
+  const btn = document.getElementById('copyStarredBtn');
+  navigator.clipboard.writeText(words).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Скопировано';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  }).catch(() => {
+    prompt('Скопируй вручную:', words);
+  });
+}
+
 // Close modals on overlay click
 document.querySelectorAll('.modal-overlay').forEach(m => {
   m.addEventListener('click', e => {
@@ -3286,5 +3367,34 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
   });
 });
 </script>
+<!-- Starred List Panel -->
+<div id="starredListBackdrop" onclick="closeStarredList()" style="
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:900;
+"></div>
+<div id="starredListPanel" style="
+  display:none;position:fixed;top:0;right:0;height:100%;width:340px;max-width:92vw;
+  background:var(--surface);border-left:1px solid var(--border);
+  box-shadow:-4px 0 24px rgba(0,0,0,0.13);z-index:901;
+  display:none;flex-direction:column;
+">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.1rem 0.75rem;border-bottom:1px solid var(--border)">
+    <span style="font-weight:500;font-size:15px">★ Избранное &nbsp;<span id="starredListCount" style="font-size:13px;font-weight:400;color:var(--text-muted)"></span></span>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button id="copyStarredBtn" onclick="copyStarredWords()" title="Копировать список слов" style="
+        background:none;border:1px solid var(--border);border-radius:6px;
+        padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:inherit;
+      ">📋 Копировать</button>
+      <button onclick="closeStarredList()" style="
+        background:none;border:none;font-size:20px;cursor:pointer;
+        color:var(--text-muted);line-height:1;padding:2px 4px;
+      ">×</button>
+    </div>
+  </div>
+  <div id="starredListEmpty" style="display:none;padding:3rem 1.5rem;text-align:center;color:var(--text-muted);font-size:14px">
+    Избранное пусто.<br>Отмечайте слова звёздочкой во время учёбы.
+  </div>
+  <div id="starredWordsList" style="flex:1;overflow-y:auto;padding:0.5rem 0"></div>
+</div>
+
 </body>
 </html>
