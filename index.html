@@ -3341,22 +3341,44 @@ async function removeFromStarredList(id) {
   renderStarredList();
 }
 
-function copyStarredWords() {
+function downloadStarredCsv() {
   const words = [...state.starredIds]
+    .map(id => state.wordsById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => a.word.localeCompare(b.word));
+
+  if (!words.length) return;
+
+  const esc = v => `"${String(v || '').replace(/"/g, '""')}"`;
+  const rows = [
+    ['word','hint','translation','ipa','example','exampleTranslation','level','topic'].map(esc).join(','),
+    ...words.map(w => [w.word, w.hint||'', w.translation, w.ipa||'', w.example||'', w.exampleTranslation||'', w.level, w.topic].map(esc).join(','))
+  ].join('\r\n');
+
+  const blob = new Blob(['﻿' + rows], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'starred-words.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function copyStarredWords() {
+  const text = [...state.starredIds]
     .map(id => state.wordsById.get(id))
     .filter(Boolean)
     .sort((a, b) => a.word.localeCompare(b.word))
     .map(w => w.word)
     .join('\n');
 
-  if (!words) return;
+  if (!text) return;
   const btn = document.getElementById('copyStarredBtn');
-  navigator.clipboard.writeText(words).then(() => {
+  navigator.clipboard.writeText(text).then(() => {
     const orig = btn.textContent;
     btn.textContent = '✓ Скопировано';
     setTimeout(() => { btn.textContent = orig; }, 2000);
   }).catch(() => {
-    prompt('Скопируй вручную:', words);
+    prompt('Скопируй вручную:', text);
   });
 }
 
@@ -3384,6 +3406,10 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
         background:none;border:1px solid var(--border);border-radius:6px;
         padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:inherit;
       ">📋 Копировать</button>
+      <button onclick="downloadStarredCsv()" title="Скачать CSV" style="
+        background:none;border:1px solid var(--border);border-radius:6px;
+        padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:inherit;
+      ">⬇ CSV</button>
       <button onclick="closeStarredList()" style="
         background:none;border:none;font-size:20px;cursor:pointer;
         color:var(--text-muted);line-height:1;padding:2px 4px;
