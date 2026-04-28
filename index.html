@@ -948,7 +948,7 @@
     <button class="btn primary" onclick="openAddWord()">+ Добавить слово</button>
     <button class="btn" onclick="openBulkImport()">+ Список / таблица</button>
     <button class="btn" onclick="openSearch()">Поиск</button>
-    <button class="btn" onclick="openFavorites()">★ Избранное</button>
+    <button id="favoritesBtn" class="btn" onclick="openFavorites()">★ Избранное</button>
     <button class="btn" onclick="openStarredList()" title="Просмотр избранного списком">📋 Список</button>
     <button class="btn ghost" onclick="exportTsv()" title="Скачать словарь в виде TSV-таблицы для Excel/Google Sheets">📤 Экспорт TSV</button>
     <button class="btn ghost" onclick="exportData()" title="Скачать словарь в JSON для бэкапа">JSON</button>
@@ -2946,8 +2946,8 @@ function openFavorites() {
   state.trainingMode = 'starred';
   state.currentIndex = 0;
   state.currentTopic = null;
-  // Перерисуем всё
   document.querySelectorAll('.topic-card.active').forEach(el => el.classList.remove('active'));
+  document.getElementById('favoritesBtn').classList.add('primary');
   renderTopics();
   renderStudyArea();
 }
@@ -2955,6 +2955,7 @@ function openFavorites() {
 function exitFavorites() {
   state.trainingMode = 'topic';
   state.currentIndex = 0;
+  document.getElementById('favoritesBtn').classList.remove('primary');
   renderStudyArea();
 }
 
@@ -3385,9 +3386,16 @@ function renderStarredList() {
           font-size:15px;padding:0;line-height:1;flex-shrink:0;opacity:0.7;
         ">★</button>
       </div>
-      <div class="sl-translation" style="
-        display:none;font-size:13px;color:var(--text-muted);padding-top:2px;
-      ">${escapeHtml(w.translation)}${w.ipa ? `<span style="color:var(--text-soft);margin-left:6px">${escapeHtml(w.ipa)}</span>` : ''}</div>
+      <div class="sl-translation" style="display:none;padding-top:6px">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:4px">
+          ${escapeHtml(w.translation)}${w.ipa ? `<span style="color:var(--text-soft);margin-left:6px">${escapeHtml(w.ipa)}</span>` : ''}
+        </div>
+        ${w.example ? `<div style="font-size:12px;color:var(--text-soft);font-style:italic;margin-bottom:4px">"${escapeHtml(w.example)}"</div>` : ''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:2px">
+          ${w.topic ? `<span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 6px;color:var(--text-muted)">📁 ${escapeHtml(w.topic)}</span>` : ''}
+          ${w.level ? `<span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 6px;color:var(--text-muted)">${escapeHtml(w.level)}</span>` : ''}
+        </div>
+      </div>
     </div>
   `).join('');
 }
@@ -3463,10 +3471,6 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
   <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.1rem 0.75rem;border-bottom:1px solid var(--border)">
     <span style="font-weight:500;font-size:15px">★ Избранное &nbsp;<span id="starredListCount" style="font-size:13px;font-weight:400;color:var(--text-muted)"></span></span>
     <div style="display:flex;gap:6px;align-items:center">
-      <button id="copyStarredBtn" onclick="copyStarredWords()" title="Копировать список слов" style="
-        background:none;border:1px solid var(--border);border-radius:6px;
-        padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:inherit;
-      ">📋 Копировать</button>
       <button onclick="downloadStarredCsv()" title="Скачать CSV" style="
         background:none;border:1px solid var(--border);border-radius:6px;
         padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:inherit;
