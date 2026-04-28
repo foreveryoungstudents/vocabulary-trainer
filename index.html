@@ -1876,7 +1876,15 @@ function renderWordCard(word, total) {
       ${starBtn}
       <h2 class="word-main editable" data-field="word" onclick="startEdit('word')">${escapeHtml(word.word)}</h2>
       ${word.hint ? `<p class="word-hint editable" data-field="hint" onclick="startEdit('hint')">${escapeHtml(word.hint)}</p>` : `<p class="word-hint editable" data-field="hint" onclick="startEdit('hint')" style="color:var(--text-soft);font-style:italic;">+ подсказка</p>`}
-      <p class="word-transcription editable" data-field="ipa" onclick="startEdit('ipa')">${escapeHtml(word.ipa || '') || '<span style="color:var(--text-soft);font-style:italic;">+ транскрипция</span>'}</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px">
+        <p class="word-transcription editable" data-field="ipa" onclick="startEdit('ipa')" style="margin:0">${escapeHtml(word.ipa || '') || '<span style="color:var(--text-soft);font-style:italic;">+ транскрипция</span>'}</p>
+        <button onclick="fetchIpa(${word.id})" id="fetchIpaBtn" title="Подтянуть транскрипцию из словаря" style="
+          background:none;border:1px solid var(--border);border-radius:6px;
+          padding:2px 7px;font-size:11px;cursor:pointer;color:var(--text-muted);
+          font-family:inherit;white-space:nowrap;flex-shrink:0;
+          transition:all 0.15s;
+        ">IPA ↓</button>
+      </div>
       <p class="word-translation editable ${state.showTranslation ? '' : 'hidden'}" data-field="translation" onclick="onTranslationClick(event)">${escapeHtml(word.translation)}</p>
     </div>
     <div class="controls">
@@ -2138,7 +2146,69 @@ function nextWord() {
   renderStudyArea();
 }
 
-// ============ Position persistence ============
+// ============ Fetch IPA from Free Dictionary API ============
+async function fetchIpa(wordId) {
+  const w = state.wordsById.get(wordId);
+  if (!w) return;
+
+  const btn = document.getElementById('fetchIpaBtn');
+  if (btn) { btn.textContent = '...'; btn.disabled = true; }
+
+  // Очищаем вхождение: убираем скобки, спецсимволы, берём только слова
+  const rawWords = w.word
+    .replace(/\(.*?\)/g, '')       // убрать (hint)
+    .replace(/[^a-zA-Z\s\'\-]/g, ' ')  // оставить буквы, апостроф, дефис
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  async function getIpaForWord(token) {
+    try {
+      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(token.toLowerCase())}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      for (const entry of data) {
+        for (const phonetic of (entry.phonetics || [])) {
+          if (phonetic.text && phonetic.text.startsWith('/')) {
+            // Вернуть содержимое без слэшей — склеим потом
+            return phonetic.text.replace(/^\/|\/$/g, '');
+          }
+        }
+        if (entry.phonetic) return entry.phonetic.replace(/^\/|\/$/g, '');
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  try {
+    const parts = await Promise.all(rawWords.map(getIpaForWord));
+    const found = parts.filter(Boolean);
+
+    if (found.length === 0) throw new Error('no IPA found');
+
+    // Склеиваем через пробел и оборачиваем в слэши
+    const ipa = '/' + found.join(' ') + '/';
+
+    w.ipa = ipa;
+    await saveWord(w);
+    renderStudyArea();
+
+  } catch (e) {
+    if (btn) {
+      btn.textContent = '✗';
+      btn.style.color = 'var(--danger, #e53)';
+      btn.title = 'Не найдено для: ' + w.word;
+      setTimeout(() => {
+        btn.textContent = 'IPA ↓';
+        btn.style.color = '';
+        btn.disabled = false;
+        btn.title = 'Подтянуть транскрипцию из словаря';
+      }, 2000);
+    }
+  }
+}
+
+
 function saveLastPosition() {
   if (!state.currentTopic) return;
   localStorage.setItem('vocab_last_pos', JSON.stringify({
