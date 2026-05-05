@@ -1,0 +1,98 @@
+[
+  {
+    "word": "mockup",
+    "translation": "макет",
+    "ipa": "/ˈmɒkʌp/",
+    "example": "Share the mockup with the client first.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "typography",
+    "translation": "типографика",
+    "ipa": "/tɪˈpɒɡrəfi/",
+    "example": "Good typography improves readability.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "hierarchy",
+    "translation": "иерархия",
+    "ipa": "/ˈhaɪərɑːki/",
+    "example": "Visual hierarchy guides the user's eye.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "palette",
+    "translation": "палитра",
+    "ipa": "/ˈpælɪt/",
+    "example": "Choose a colour palette that fits the brand.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "wireframe",
+    "translation": "вайрфрейм",
+    "ipa": "/ˈwaɪəfreɪm/",
+    "example": "We start every project with a wireframe.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "contrast",
+    "translation": "контраст",
+    "ipa": "/ˈkɒntrɑːst/",
+    "example": "High contrast makes text easier to read.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "grid",
+    "translation": "сетка",
+    "ipa": "/ɡrɪd/",
+    "example": "Align all elements to the grid.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "prototype",
+    "translation": "прототип",
+    "ipa": "/ˈprəʊtətaɪp/",
+    "example": "Test the prototype with real users.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "kerning",
+    "translation": "кернинг",
+    "ipa": "/ˈkɜːnɪŋ/",
+    "example": "Adjust the kerning for better letter spacing.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "iteration",
+    "translation": "итерация",
+    "ipa": "/ˌɪtəˈreɪʃən/",
+    "example": "Design is all about iteration and feedback.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "accessibility",
+    "translation": "доступность",
+    "ipa": "/əkˌsesɪˈbɪlɪti/",
+    "example": "Design with accessibility in mind.",
+    "level": "S",
+    "topic": "Дизайн"
+  },
+  {
+    "word": "alignment",
+    "translation": "выравнивание",
+    "ipa": "/əˈlaɪnmənt/",
+    "example": "Check the alignment of all elements.",
+    "level": "S",
+    "topic": "Дизайн"
+  }
+]

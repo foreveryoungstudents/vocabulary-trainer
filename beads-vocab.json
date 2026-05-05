@@ -1,0 +1,258 @@
+[
+  {
+    "word": "chronicle",
+    "translation": "хроника",
+    "ipa": "/ˈkrɒnɪkəl/",
+    "example": "The medieval chronicle described the battle in detail.",
+    "level": "S",
+    "topic": "История"
+  },
+  {
+    "word": "dynasty",
+    "translation": "династия",
+    "ipa": "/ˈdɪnəsti/",
+    "example": "The Tudor dynasty ruled England for over a century.",
+    "level": "S",
+    "topic": "История"
+  },
+  {
+    "word": "manuscript",
+    "translation": "рукопись",
+    "ipa": "/ˈmænjʊskrɪpt/",
+    "example": "The monk spent years copying the ancient manuscript.",
+    "level": "S",
+    "topic": "История"
+  },
+  {
+    "word": "feudal",
+    "translation": "феодальный",
+    "ipa": "/ˈfjuːdəl/",
+    "example": "The feudal system shaped medieval society.",
+    "level": "S",
+    "topic": "История"
+  },
+  {
+    "word": "era",
+    "translation": "эпоха",
+    "ipa": "/ˈɪərə/",
+    "example": "The Victorian era brought great social change.",
+    "level": "S",
+    "topic": "История"
+  },
+  {
+    "word": "heritage",
+    "translation": "наследие",
+    "ipa": "/ˈherɪtɪdʒ/",
+    "example": "We must protect our cultural heritage.",
+    "level": "S",
+    "topic": "История"
+  },
+  {
+    "word": "relic",
+    "translation": "реликвия",
+    "ipa": "/ˈrɛlɪk/",
+    "example": "The museum displays relics from ancient Rome.",
+    "level": "S",
+    "topic": "История"
+  },
+  {
+    "word": "civilisation",
+    "translation": "цивилизация",
+    "ipa": "/ˌsɪvɪlaɪˈzeɪʃən/",
+    "example": "Ancient Egypt was a remarkable civilisation.",
+    "level": "S",
+    "topic": "История"
+  },
+  {
+    "word": "masterpiece",
+    "translation": "шедевр",
+    "ipa": "/ˈmɑːstəpiːs/",
+    "example": "The painting is considered a masterpiece of the Renaissance.",
+    "level": "S",
+    "topic": "Искусство"
+  },
+  {
+    "word": "canvas",
+    "translation": "холст",
+    "ipa": "/ˈkænvəs/",
+    "example": "The artist prepared a fresh canvas before starting.",
+    "level": "S",
+    "topic": "Искусство"
+  },
+  {
+    "word": "portrait",
+    "translation": "портрет",
+    "ipa": "/ˈpɔːtrɪt/",
+    "example": "She sat for a portrait in the artist's studio.",
+    "level": "S",
+    "topic": "Искусство"
+  },
+  {
+    "word": "gallery",
+    "translation": "галерея",
+    "ipa": "/ˈɡæləri/",
+    "example": "The gallery opened a new exhibition on Impressionism.",
+    "level": "S",
+    "topic": "Искусство"
+  },
+  {
+    "word": "brushstroke",
+    "translation": "мазок кисти",
+    "ipa": "/ˈbrʌʃstrəʊk/",
+    "example": "Each brushstroke was deliberate and precise.",
+    "level": "S",
+    "topic": "Искусство"
+  },
+  {
+    "word": "perspective",
+    "translation": "перспектива",
+    "ipa": "/pəˈspektɪv/",
+    "example": "Renaissance artists mastered the art of perspective.",
+    "level": "S",
+    "topic": "Искусство"
+  },
+  {
+    "word": "mural",
+    "translation": "фреска/роспись стены",
+    "ipa": "/ˈmjʊərəl/",
+    "example": "The mural covered the entire wall of the town hall.",
+    "level": "S",
+    "topic": "Искусство"
+  },
+  {
+    "word": "sculptor",
+    "translation": "скульптор",
+    "ipa": "/ˈskʌlptə/",
+    "example": "The sculptor worked with marble for thirty years.",
+    "level": "S",
+    "topic": "Искусство"
+  },
+  {
+    "word": "narrator",
+    "translation": "рассказчик",
+    "ipa": "/nəˈreɪtə/",
+    "example": "The narrator speaks directly to the reader.",
+    "level": "S",
+    "topic": "Литература"
+  },
+  {
+    "word": "plot",
+    "translation": "сюжет",
+    "ipa": "/plɒt/",
+    "example": "The plot twists kept readers guessing until the end.",
+    "level": "S",
+    "topic": "Литература"
+  },
+  {
+    "word": "metaphor",
+    "translation": "метафора",
+    "ipa": "/ˈmetəfə/",
+    "example": "Time is a thief is a powerful metaphor.",
+    "level": "S",
+    "topic": "Литература"
+  },
+  {
+    "word": "irony",
+    "translation": "ирония",
+    "ipa": "/ˈaɪərəni/",
+    "example": "O. Henry is famous for his use of irony and surprise.",
+    "level": "S",
+    "topic": "Литература"
+  },
+  {
+    "word": "prose",
+    "translation": "проза",
+    "ipa": "/prəʊz/",
+    "example": "Chekhov's prose is deceptively simple.",
+    "level": "S",
+    "topic": "Литература"
+  },
+  {
+    "word": "allegory",
+    "translation": "аллегория",
+    "ipa": "/ˈæləɡəri/",
+    "example": "The Wind in the Willows works as a gentle allegory.",
+    "level": "S",
+    "topic": "Литература"
+  },
+  {
+    "word": "wit",
+    "translation": "остроумие",
+    "ipa": "/wɪt/",
+    "example": "Terry Pratchett's wit made serious ideas accessible.",
+    "level": "S",
+    "topic": "Литература"
+  },
+  {
+    "word": "satire",
+    "translation": "сатира",
+    "ipa": "/ˈsætaɪə/",
+    "example": "Pratchett used satire to comment on human nature.",
+    "level": "S",
+    "topic": "Литература"
+  },
+  {
+    "word": "screenplay",
+    "translation": "сценарий",
+    "ipa": "/ˈskriːnpleɪ/",
+    "example": "She adapted the novel into a screenplay.",
+    "level": "S",
+    "topic": "Кино"
+  },
+  {
+    "word": "cinematography",
+    "translation": "кинематография",
+    "ipa": "/ˌsɪnɪməˈtɒɡrəfi/",
+    "example": "The film won an award for its stunning cinematography.",
+    "level": "S",
+    "topic": "Кино"
+  },
+  {
+    "word": "protagonist",
+    "translation": "главный герой",
+    "ipa": "/prəˈtæɡənɪst/",
+    "example": "The protagonist faces an impossible moral choice.",
+    "level": "S",
+    "topic": "Кино"
+  },
+  {
+    "word": "genre",
+    "translation": "жанр",
+    "ipa": "/ˈʒɒnrə/",
+    "example": "Film noir is a genre defined by shadow and cynicism.",
+    "level": "S",
+    "topic": "Кино"
+  },
+  {
+    "word": "soundtrack",
+    "translation": "саундтрек",
+    "ipa": "/ˈsaʊndtræk/",
+    "example": "The soundtrack perfectly matched the mood of the film.",
+    "level": "S",
+    "topic": "Кино"
+  },
+  {
+    "word": "adaptation",
+    "translation": "экранизация",
+    "ipa": "/ˌædæpˈteɪʃən/",
+    "example": "The adaptation stayed true to the spirit of the book.",
+    "level": "S",
+    "topic": "Кино"
+  },
+  {
+    "word": "close-up",
+    "translation": "крупный план",
+    "ipa": "/ˈkləʊs ʌp/",
+    "example": "A close-up of her face revealed the character's fear.",
+    "level": "S",
+    "topic": "Кино"
+  },
+  {
+    "word": "director",
+    "translation": "режиссёр",
+    "ipa": "/dɪˈrektə/",
+    "example": "The director had a very distinctive visual style.",
+    "level": "S",
+    "topic": "Кино"
+  }
+]
