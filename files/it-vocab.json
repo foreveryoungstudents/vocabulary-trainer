@@ -1,0 +1,98 @@
+[
+  {
+    "word": "algorithm",
+    "translation": "алгоритм",
+    "ipa": "/ˈælɡərɪðəm/",
+    "example": "This sorting algorithm is very efficient.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "bandwidth",
+    "translation": "пропускная способность",
+    "ipa": "/ˈbændwɪdθ/",
+    "example": "We need more bandwidth for video calls.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "debug",
+    "translation": "отлаживать",
+    "ipa": "/diːˈbʌɡ/",
+    "example": "I spent all day trying to debug this code.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "deployment",
+    "translation": "развёртывание",
+    "ipa": "/dɪˈplɔɪmənt/",
+    "example": "The deployment went smoothly last night.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "encryption",
+    "translation": "шифрование",
+    "ipa": "/ɪnˈkrɪpʃən/",
+    "example": "End-to-end encryption protects your messages.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "framework",
+    "translation": "фреймворк",
+    "ipa": "/ˈfreɪmwɜːk/",
+    "example": "React is a popular JavaScript framework.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "latency",
+    "translation": "задержка",
+    "ipa": "/ˈleɪtənsi/",
+    "example": "High latency makes online gaming frustrating.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "repository",
+    "translation": "репозиторий",
+    "ipa": "/rɪˈpɒzɪtəri/",
+    "example": "Push your changes to the repository.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "scalability",
+    "translation": "масштабируемость",
+    "ipa": "/ˌskeɪləˈbɪlɪti/",
+    "example": "Scalability is key for growing applications.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "syntax",
+    "translation": "синтаксис",
+    "ipa": "/ˈsɪntæks/",
+    "example": "Check your syntax before running the code.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "iteration",
+    "translation": "итерация",
+    "ipa": "/ˌɪtəˈreɪʃən/",
+    "example": "Each iteration improved the product.",
+    "level": "S",
+    "topic": "IT"
+  },
+  {
+    "word": "interface",
+    "translation": "интерфейс",
+    "ipa": "/ˈɪntəfeɪs/",
+    "example": "Design a clean user interface.",
+    "level": "S",
+    "topic": "IT"
+  }
+]
