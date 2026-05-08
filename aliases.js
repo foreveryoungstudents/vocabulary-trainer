@@ -127,7 +127,7 @@ const TOPONYM_ALIASES = {
 
   // --- Россия: города ---
   'moscow':             ['moskow', 'mosko', 'mosco'],
-  'moskva':             ['moskow'],
+  'moskva':             ['moskow', 'moskau'],
   'saint petersburg':   ['saint peterburg', 'st petersburg', 'saint petersberg', 'san petersburg'],
   'st petersburg':      ['saint peterburg', 'st peterburg'],
   'novosibirsk':        ['novo sibirsk', 'novosibirk', 'novo sibirk'],
