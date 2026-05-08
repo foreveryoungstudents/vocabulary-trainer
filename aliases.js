@@ -42,7 +42,7 @@ const TOPONYM_ALIASES = {
 
   // --- Европейские ---
   'reykjavik':      ['rack yawvik', 'rake ya vik', 'rake yaw vik', 'reick ya vik'],
-  'kyiv':           ['kiev', 'keev', 'key iv'],
+  'kyiv':           ['kiev', 'keev', 'key iv', 'kia', 'ki'],
   'dubai':          ['doo bye', 'do buy'],
   'qatar':          ['cutter', 'katar', 'gutter'],
   'cairo':          ['kyro', 'kayro'],
