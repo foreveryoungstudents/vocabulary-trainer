@@ -95,7 +95,7 @@ const TOPONYM_ALIASES = {
   'reykjanes':      ['rake ya nes', 'rake nes'],
 
   // --- Москва: улицы и районы ---
-  'arbat':              ['our butt', 'are butt', 'our bat', 'are bat', 'arbot', 'ar bat'],
+  'arbat':              ['our butt', 'are butt', 'our bat', 'are bat', 'arbot', 'ar bat', 'autobot'],
   'tverskaya':          ['tverskaia', 'tver skaya'],
   'lubyanka':           ['lu byanka', 'loobianka', 'lu bianka'],
   'kitai-gorod':        ['kitai gorod', 'kite gorod', 'kitay gorod'],
