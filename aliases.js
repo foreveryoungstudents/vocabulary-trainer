@@ -96,6 +96,8 @@ const TOPONYM_ALIASES = {
 
   // --- Москва: улицы и районы ---
   'arbat':              ['our butt', 'are butt', 'our bat', 'are bat', 'arbot', 'ar bat', 'autobot'],
+  'tsar bell':          ['barbell',],
+  'tsar cannon':        ['zara cannon',],
   'tverskaya':          ['tverskaia', 'tver skaya'],
   'lubyanka':           ['lu byanka', 'loobianka', 'lu bianka'],
   'kitai-gorod':        ['kitai gorod', 'kite gorod', 'kitay gorod'],
