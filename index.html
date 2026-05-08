@@ -2399,7 +2399,7 @@ window.addEventListener('beforeunload', () => {
 
 // Нормализация строки для сравнения: нижний регистр, убираем пунктуацию
 function normalizeForMatch(s) {
-  return s.toLowerCase().replace(/[.,!?;:'"()\-]/g, '').replace(/\s+/g, ' ').trim();
+  return s.toLowerCase().replace(/-/g, ' ').replace(/[.,!?;:'"()]/g, '').replace(/\s+/g, ' ').trim();
 }
 
 // Нормализует строку ещё и по BR/US: заменяет каждое слово на US-вариант (если есть)
