@@ -122,7 +122,7 @@ const TOPONYM_ALIASES = {
   'magadan':            ['maga dan', 'ma gadan'],
   'yakutia':            ['ya kutia', 'yakootia'],
   'chukotka':           ['choo kotka', 'chu kotka'],
-  'tsar bell':          ['charbel'],
+  'tsar bell':          ['zarbel', 'sarbel', 'zar bell', 'sar bell', 'charbel', 'barbel'],
   'tsar cannon':        ['sarah cannon'],
 
   // --- Россия: города ---
