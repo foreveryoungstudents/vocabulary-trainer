@@ -1,0 +1,3957 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Trainer — English A1–C2</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --border: rgba(0,0,0,0.1);
+    --border-strong: rgba(0,0,0,0.18);
+    --text: #1a1a1a;
+    --text-muted: #6b6b66;
+    --text-soft: #9a9a94;
+    --accent: #c96442;
+    --accent-soft: #faece7;
+    --success: #1d9e75;
+    --success-soft: #e1f5ee;
+    --danger: #e24b4a;
+    --danger-soft: #fceaea;
+    --info: #378add;
+    --info-soft: #e6f1fb;
+    --warning: #ba7517;
+    --warning-soft: #faeeda;
+    --radius-sm: 6px;
+    --radius: 10px;
+    --radius-lg: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a18;
+      --surface: #242422;
+      --border: rgba(255,255,255,0.1);
+      --border-strong: rgba(255,255,255,0.2);
+      --text: #ececea;
+      --text-muted: #a8a8a2;
+      --text-soft: #6b6b66;
+      --accent: #e28060;
+      --accent-soft: #3a1f17;
+      --success-soft: #0f3b2d;
+      --danger-soft: #3d1818;
+      --info-soft: #0c2a4c;
+      --warning-soft: #3d2a10;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
+  }
+  header {
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .level-bar {
+    display: flex;
+    gap: 6px;
+    margin: 1.25rem 0;
+    flex-wrap: wrap;
+  }
+  .level-btn {
+    flex: 1;
+    min-width: 60px;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .level-btn:hover { border-color: var(--border-strong); }
+  .level-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  .level-btn.special {
+    border-style: dashed;
+    border-left-width: 2px;
+    margin-left: 8px;
+  }
+  .level-btn.special:not(.active) {
+    background: var(--info-soft, #eaf4fb);
+  }
+  .level-btn.special.active {
+    background: var(--info, #2b7bb8);
+    border-color: var(--info, #2b7bb8);
+    border-style: solid;
+  }
+  .level-desc {
+    font-size: 12px;
+    opacity: 0.7;
+    display: block;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 8px 14px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn:hover { border-color: var(--border-strong); background: var(--bg); }
+  .btn.primary {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  .btn.primary:hover { opacity: 0.9; }
+  .btn.ghost {
+    background: transparent;
+  }
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .topic-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+    font-family: inherit;
+    color: var(--text);
+    position: relative;
+  }
+  .topic-card:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+  .topic-card.active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+  .topic-edit-icon {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border: 0.5px solid transparent;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 0;
+    font-family: inherit;
+    z-index: 2;
+  }
+  .topic-card:hover .topic-edit-icon {
+    display: inline-flex;
+  }
+  .topic-edit-icon:hover {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .topic-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .topic-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .topic-count {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* Icon picker modal */
+  .icon-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+    margin: 12px 0;
+    max-height: 260px;
+    overflow-y: auto;
+    padding: 4px;
+  }
+  .icon-picker-grid button {
+    aspect-ratio: 1;
+    font-size: 22px;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.12s;
+    padding: 0;
+    font-family: inherit;
+  }
+  .icon-picker-grid button:hover {
+    border-color: var(--accent);
+    transform: scale(1.1);
+  }
+  .icon-picker-grid button.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    border-width: 1.5px;
+  }
+  .icon-picker-custom {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 0.5px solid var(--border);
+  }
+  .icon-picker-custom input {
+    flex: 1;
+    font-size: 22px;
+    text-align: center;
+  }
+  .study-area {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+  }
+  .word-display {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .word-main {
+    font-size: 40px;
+    font-weight: 500;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .word-transcription {
+    font-family: "Charis SIL", "Doulos SIL", "Times New Roman", serif;
+    font-size: 18px;
+    color: var(--info);
+    margin: 0 0 4px;
+  }
+  .word-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 4px;
+    font-style: italic;
+  }
+  .word-translation {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin: 6px 0 0;
+  }
+  .word-translation.hidden { filter: blur(6px); cursor: pointer; }
+  .word-example {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    font-style: italic;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: var(--radius);
+    border-left: 2px solid var(--border);
+  }
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .icon-btn:hover { border-color: var(--border-strong); background: var(--bg); }
+  .icon-btn.recording {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: white;
+    animation: pulse 1.2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  .nav-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+    gap: 12px;
+  }
+  .progress {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    flex: 1;
+  }
+  .feedback {
+    margin-top: 1rem;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: var(--success-soft); color: var(--success); }
+  .feedback.incorrect { background: var(--danger-soft); color: var(--danger); }
+  .feedback.info { background: var(--info-soft); color: var(--info); }
+  .feedback-detail {
+    margin-top: 4px;
+    font-size: 12px;
+    opacity: 0.85;
+  }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal h3 {
+    margin: 0 0 1rem;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .form-row {
+    margin-bottom: 12px;
+  }
+  .form-row label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    padding: 9px 12px;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .form-row textarea { resize: vertical; min-height: 60px; }
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 1.25rem;
+  }
+  .word-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+  }
+  .word-list-item {
+    padding: 10px 14px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+  }
+  .word-list-item:last-child { border-bottom: none; }
+  .word-list-item .delete {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  .word-list-item .delete:hover { background: var(--danger-soft); }
+  .mode-toggle {
+    display: inline-flex;
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 3px;
+    gap: 2px;
+    margin-bottom: 1rem;
+  }
+  .mode-toggle button {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-family: inherit;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+  .mode-toggle button.active {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .voice-select {
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--text);
+    max-width: 220px;
+  }
+  .recorded-audio {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+  }
+  .recorded-audio audio {
+    height: 36px;
+  }
+  .hint {
+    font-size: 12px;
+    color: var(--text-soft);
+    text-align: center;
+    margin-top: 8px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--info-soft);
+    color: var(--info);
+    margin-left: 6px;
+  }
+  .modal.wide { max-width: 720px; }
+  .bulk-textarea {
+    width: 100%;
+    min-height: 180px;
+    padding: 10px 12px;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: var(--text);
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .format-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--bg);
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .format-hint code {
+    background: var(--surface);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  .preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 10px;
+  }
+  .preview-table th, .preview-table td {
+    padding: 6px 8px;
+    text-align: left;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .preview-table th {
+    font-weight: 500;
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .preview-table tr.invalid { opacity: 0.5; background: var(--danger-soft); }
+  .preview-wrap {
+    max-height: 280px;
+    overflow-y: auto;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .preview-summary {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 10px 0 6px;
+  }
+  .preview-summary .count-ok { color: var(--success); font-weight: 500; }
+  .preview-summary .count-bad { color: var(--danger); font-weight: 500; }
+  .row-inline {
+    display: flex;
+    gap: 10px;
+  }
+  .row-inline > * { flex: 1; }
+
+  /* Star button in word card */
+  .word-display { position: relative; }
+  .star-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--text-soft);
+    transition: all 0.15s;
+    line-height: 1;
+    font-family: inherit;
+    padding: 0;
+    z-index: 10;
+  }
+  .star-btn:hover { border-color: var(--border-strong); color: var(--warning); }
+  .star-btn.starred {
+    color: var(--warning);
+    border-color: var(--warning);
+    background: var(--warning-soft);
+  }
+  @media (max-width: 600px) {
+    .star-btn { width: 36px; height: 36px; font-size: 18px; }
+  }
+
+  /* Level + topic badges on card */
+  .card-meta {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+  .card-meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.12s;
+    background: var(--bg);
+  }
+  .card-meta-badge:hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+    background: var(--surface);
+  }
+  .card-meta-badge.level {
+    font-weight: 600;
+    color: var(--info);
+    border-color: var(--info);
+  }
+
+  /* Example section with translation and mic */
+  .example-block {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border-radius: var(--radius);
+    border-left: 2px solid var(--info);
+  }
+  .example-text {
+    font-style: italic;
+    color: var(--text);
+    cursor: text;
+    border-radius: 4px;
+    padding: 2px 6px;
+    transition: background 0.12s;
+  }
+  .example-text:hover { background: var(--surface); outline: 0.5px dashed var(--border-strong); }
+  .example-translation {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: text;
+    border-radius: 4px;
+    padding: 2px 6px;
+    transition: background 0.12s;
+  }
+  .example-translation:hover { background: var(--surface); outline: 0.5px dashed var(--border-strong); }
+  .example-translation.empty { font-style: italic; color: var(--text-soft); }
+  .example-controls {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .example-controls .icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .example-controls .icon-btn svg { width: 16px; height: 16px; }
+
+  /* Starred training mode banner */
+  .starred-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--warning-soft);
+    color: var(--warning);
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  /* Search modal */
+  .search-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 6px 0 10px;
+    min-height: 16px;
+  }
+  .search-results {
+    max-height: 55vh;
+    overflow-y: auto;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .search-results:empty { display: none; }
+  .search-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 0.5px solid var(--border);
+    gap: 10px;
+  }
+  .search-item:last-child { border-bottom: none; }
+  .search-item:hover { background: var(--bg); }
+  .search-item-main { flex: 1; min-width: 0; }
+  .search-item-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+  }
+  .search-item-line strong { font-size: 15px; }
+  .search-item-ipa {
+    font-family: "Charis SIL", "Doulos SIL", "Times New Roman", serif;
+    font-size: 13px;
+    color: var(--info);
+  }
+  .star-badge { color: var(--warning); font-size: 14px; }
+  .search-item-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .search-item-example {
+    font-size: 12px;
+    color: var(--text-soft);
+    font-style: italic;
+    margin-top: 3px;
+  }
+  .search-item-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .icon-small {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 14px;
+    transition: all 0.15s;
+    font-family: inherit;
+    padding: 0;
+  }
+  .icon-small:hover { border-color: var(--border-strong); background: var(--bg); color: var(--text); }
+  .icon-small.danger:hover { color: var(--danger); border-color: var(--danger); background: var(--danger-soft); }
+
+  /* Inline editing on card */
+  .editable {
+    cursor: text;
+    border-radius: 4px;
+    padding: 2px 6px;
+    transition: background 0.12s;
+    position: relative;
+  }
+  .editable:hover {
+    background: var(--bg);
+    outline: 0.5px dashed var(--border-strong);
+  }
+  .editable.editing {
+    background: var(--surface);
+    outline: 1px solid var(--info);
+  }
+  .edit-input {
+    width: 100%;
+    background: var(--surface);
+    border: 0.5px solid var(--info);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    text-align: inherit;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .edit-input.word-input {
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .edit-input.ipa-input {
+    font-family: "Charis SIL", "Doulos SIL", "Times New Roman", serif;
+    font-size: 18px;
+    text-align: center;
+    color: var(--info);
+  }
+  .edit-input.translation-input {
+    font-size: 16px;
+    text-align: center;
+  }
+  .edit-input.example-input {
+    font-size: 14px;
+    font-style: italic;
+  }
+  .edit-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  .edit-btn {
+    padding: 4px 12px;
+    font-size: 12px;
+    font-family: inherit;
+    border: 0.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .edit-btn.save {
+    background: var(--info);
+    color: white;
+    border-color: var(--info);
+  }
+  .edit-btn.save:hover { opacity: 0.9; }
+  .edit-btn:hover { border-color: var(--border-strong); }
+  .edit-input.level-input,
+  .edit-input.topic-input,
+  .edit-input.exampleTranslation-input {
+    font-size: 13px;
+  }
+  /* Когда редактируется бейдж — разворачиваем его на полную ширину */
+  .card-meta-badge.editing {
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: default;
+    min-width: 200px;
+  }
+  .card-meta-badge.editing:hover {
+    background: transparent;
+  }
+  .edit-hint {
+    font-size: 11px;
+    color: var(--text-soft);
+    text-align: center;
+    margin-top: 8px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 1rem; }
+    .word-main { font-size: 32px; }
+    .study-area { padding: 1.25rem; }
+    .topics-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+
+  /* Group badge */
+  .group-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.01em;
+  }
+
+  /* iOS Safari banner */
+  .ios-banner {
+    display: none;
+    background: #fff8e6;
+    border: 1.5px solid #f0c040;
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    color: #7a5800;
+    line-height: 1.5;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .ios-banner.visible { display: flex; }
+  .ios-banner-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .ios-banner a {
+    color: #c96442;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .ios-banner a:hover { text-decoration: underline; }
+  .ios-banner-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #aaa;
+    padding: 0 0 0 8px;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+  @media (prefers-color-scheme: dark) {
+    .ios-banner {
+      background: #2e2510;
+      border-color: #8a6d00;
+      color: #f0c866;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- In-app / restricted browser banner -->
+  <div class="ios-banner" id="browserBanner">
+    <span class="ios-banner-icon">🔊</span>
+    <div>
+      <strong>Озвучка и запись голоса не работают во встроенном браузере.</strong><br>
+      <span id="browserBannerHint">Открой эту страницу во внешнем браузере (Chrome, Safari, Firefox): нажми «⋮» или «…» в правом верхнем углу и выбери «Открыть в браузере», либо скопируй ссылку кнопкой ниже.</span><br>
+      <span style="opacity:0.8;">Остальные функции тренажёра работают здесь без проблем.</span>
+      <div style="margin-top:10px;">
+        <button type="button" class="btn" onclick="copyAppLink(event)">📋 Скопировать ссылку</button>
+      </div>
+    </div>
+    <button class="ios-banner-close" onclick="dismissBrowserBanner()" title="Закрыть">✕</button>
+  </div>
+
+  <header>
+    <h1>Vocabulary Trainer</h1>
+    <p class="subtitle">Английский словарь A1–C2 + профессиональная лексика — озвучка, транскрипция, проверка произношения</p>
+    <div id="groupBadge"></div>
+  </header>
+
+  <div class="level-bar" id="levelBar"></div>
+
+  <div class="toolbar">
+    <button class="btn primary" onclick="openAddWord()">+ Добавить слово</button>
+    <button class="btn" onclick="openBulkImport()">+ Список / таблица</button>
+    <button class="btn" onclick="openSearch()">Поиск</button>
+    <button id="favoritesBtn" class="btn" onclick="openFavorites()">★ Избранное</button>
+    <button class="btn" onclick="openStarredList()" title="Просмотр избранного списком">📋 Список</button>
+    <button class="btn ghost" onclick="exportTsv()" title="Скачать словарь в виде TSV-таблицы для Excel/Google Sheets">📤 Экспорт TSV</button>
+    <button class="btn ghost" onclick="exportData()" title="Скачать словарь в JSON для бэкапа">JSON</button>
+    <button class="btn ghost" onclick="document.getElementById('importFile').click()" title="Импорт из JSON">📥 Импорт</button>
+    <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+    <button class="btn ghost" onclick="clearLevelData()" title="Очистить все слова текущего уровня" style="color: var(--danger, #c0392b);">🗑 Очистить уровень</button>
+    <select id="voiceSelect" class="voice-select" title="Голос озвучки" aria-label="Голос озвучки"></select>
+  </div>
+
+  <div class="topics-grid" id="topicsGrid"></div>
+
+  <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
+    <button id="editLockBtn" onclick="toggleEditMode()" style="
+      background:none;border:1px solid var(--border);border-radius:8px;
+      padding:5px 12px;font-size:13px;cursor:pointer;font-family:inherit;
+      color:var(--text-soft);opacity:0.5;transition:all 0.15s;
+      display:none;
+    " title="Редактирование заблокировано">🔒 Редактировать</button>
+    <button id="saveCardBtn" onclick="saveCardEdits()" style="
+      background:var(--accent);border:none;border-radius:8px;
+      padding:5px 16px;font-size:13px;cursor:pointer;font-family:inherit;
+      color:#fff;font-weight:600;transition:all 0.15s;
+      display:none;
+    " title="Сохранить все изменения карточки">💾 Сохранить</button>
+  </div>
+
+  <div class="study-area" id="studyArea">
+    <div class="empty-state">
+      <p>Выберите тему выше, чтобы начать изучение слов</p>
+    </div>
+  </div>
+</div>
+
+<!-- Add word modal -->
+<div class="modal-overlay" id="addWordModal">
+  <div class="modal">
+    <h3>Добавить слово</h3>
+    <div class="form-row">
+      <label for="wordInput">Слово на английском *</label>
+      <input type="text" id="wordInput" placeholder="example">
+    </div>
+    <div class="form-row">
+      <label for="translationInput">Перевод *</label>
+      <input type="text" id="translationInput" placeholder="пример">
+    </div>
+    <div class="form-row">
+      <label for="transcriptionInput">Транскрипция (необязательно, будет подставлена автоматически)</label>
+      <input type="text" id="transcriptionInput" placeholder="/ɪɡˈzɑːmpəl/">
+    </div>
+    <div class="form-row">
+      <label for="hintInput">Подсказка (часть речи, значение и т.п., необязательно)</label>
+      <input type="text" id="hintInput" placeholder="n, brightness / adj, not heavy / phrase">
+    </div>
+    <div class="form-row">
+      <label for="exampleInput">Пример использования (необязательно)</label>
+      <textarea id="exampleInput" placeholder="This is a good example."></textarea>
+    </div>
+    <div class="form-row">
+      <label for="levelSelect">Уровень</label>
+      <select id="levelSelect">
+        <option value="A1">A1 — Начинающий</option>
+        <option value="A2">A2 — Элементарный</option>
+        <option value="B1">B1 — Средний</option>
+        <option value="B2">B2 — Выше среднего</option>
+        <option value="C1">C1 — Продвинутый</option>
+        <option value="C2">C2 — Владение</option>
+        <option value="S">S — Специальный</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label for="topicSelect">Тема</label>
+      <select id="topicSelect"></select>
+    </div>
+    <div class="form-row">
+      <label for="newTopicInput">Или новая тема</label>
+      <input type="text" id="newTopicInput" placeholder="Например: Путешествия">
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('addWordModal')">Отмена</button>
+      <button class="btn primary" onclick="saveWord()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Search modal -->
+<div class="modal-overlay" id="searchModal">
+  <div class="modal wide">
+    <h3>Поиск по словарю</h3>
+    <div class="form-row">
+      <input type="text" id="searchInput" placeholder="Введите английское слово или перевод..." oninput="onSearchInput(event)" aria-label="Поиск по словарю">
+    </div>
+    <div id="searchHint" class="search-hint"></div>
+    <div id="searchResults" class="search-results"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('searchModal')">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- Icon picker modal -->
+<div class="modal-overlay" id="iconPickerModal">
+  <div class="modal">
+    <h3>Иконка для темы «<span id="iconPickerTopic"></span>»</h3>
+    <div class="icon-picker-grid" id="iconPickerGrid"></div>
+    <div class="icon-picker-custom">
+      <label for="iconPickerInput" style="font-size:13px; color:var(--text-muted);">Добавить эмодзи в коллекцию:</label>
+      <div style="display:flex;gap:6px;align-items:center;margin-top:4px;">
+        <input type="text" id="iconPickerInput" maxlength="8" placeholder="🎯" aria-label="Свой смайл"
+          style="font-size:22px;width:56px;text-align:center;padding:4px;"
+          oninput="previewCustomIcon(this.value)">
+        <span id="iconPickerPreview" style="font-size:28px;min-width:36px;text-align:center;"></span>
+        <button class="btn" onclick="applyCustomIcon(false)" title="Применить только к этой теме">Применить</button>
+        <button class="btn primary" onclick="applyCustomIcon(true)" title="Добавить в коллекцию навсегда">+ В коллекцию</button>
+      </div>
+      <div id="userEmojiRow" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;min-height:0;"></div>
+    </div>
+    <div class="modal-actions" style="margin-top: 12px;">
+      <button class="btn ghost" onclick="resetTopicIcon()">Сбросить</button>
+      <button class="btn ghost" onclick="exportTopicIcons()" title="Скачать topic-icons.json для загрузки на GitHub">⬇️ Экспорт иконок</button>
+      <button class="btn" onclick="closeModal('iconPickerModal')">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bulk import modal -->
+<div class="modal-overlay" id="bulkImportModal">
+  <div class="modal wide">
+    <h3>Добавить список или таблицу</h3>
+    <div class="format-hint">
+      Вставьте данные из Excel / Google Sheets, CSV или просто список. Поддерживаются форматы:<br>
+      • <code>word, перевод, транскрипция, пример</code> — CSV (запятая или точка с запятой)<br>
+      • <code>word &#9;&nbsp;перевод&nbsp;&#9;&nbsp;транскрипция</code> — таблица из Excel (табуляция)<br>
+      • <code>word — перевод</code>, <code>word - перевод</code>, <code>word: перевод</code> — простые списки<br>
+      Обязательны только слово и перевод. Транскрипция подтянется автоматически при сохранении.
+    </div>
+    <div class="row-inline" style="margin-bottom: 10px;">
+      <div class="form-row" style="margin-bottom: 0;">
+        <label for="bulkLevelSelect">Уровень по умолчанию</label>
+        <select id="bulkLevelSelect">
+          <option value="A1">A1 — Начинающий</option>
+          <option value="A2">A2 — Элементарный</option>
+          <option value="B1">B1 — Средний</option>
+          <option value="B2">B2 — Выше среднего</option>
+          <option value="C1">C1 — Продвинутый</option>
+          <option value="C2">C2 — Владение</option>
+          <option value="S">S — Специальный</option>
+        </select>
+      </div>
+      <div class="form-row" style="margin-bottom: 0;">
+        <label for="bulkTopicInput">Тема по умолчанию</label>
+        <input type="text" id="bulkTopicInput" placeholder="Например: Путешествия">
+      </div>
+    </div>
+    <div class="form-row">
+      <label for="bulkTextarea">Данные</label>
+      <textarea id="bulkTextarea" class="bulk-textarea" placeholder="apple, яблоко, /ˈæpəl/, I eat an apple.
+bread — хлеб
+water: вода
+house&#9;дом&#9;/haʊs/&#9;My house is big."></textarea>
+    </div>
+    <div class="modal-actions" style="justify-content: space-between;">
+      <button class="btn ghost" onclick="bulkShowExample()">Пример</button>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn" onclick="bulkParse()">Предпросмотр</button>
+        <button class="btn" onclick="closeModal('bulkImportModal')">Отмена</button>
+      </div>
+    </div>
+    <div id="bulkPreviewArea" style="display: none; margin-top: 1rem;">
+      <div class="preview-summary" id="bulkPreviewSummary"></div>
+      <div class="preview-wrap">
+        <table class="preview-table">
+          <thead>
+            <tr>
+              <th>Слово</th>
+              <th>Перевод</th>
+              <th>Транскрипция</th>
+              <th>Hint</th>
+              <th>Уровень</th>
+              <th>Тема</th>
+            </tr>
+          </thead>
+          <tbody id="bulkPreviewBody"></tbody>
+        </table>
+      </div>
+      <div class="modal-actions" style="flex-wrap: wrap;">
+        <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); margin-right: auto;">
+          <input type="checkbox" id="bulkAutoIpa" checked>
+          Подтянуть транскрипции автоматически (медленнее)
+        </label>
+        <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); margin-right: auto;">
+          <input type="checkbox" id="bulkUpdateExisting" checked>
+          Обновлять существующие (по word + уровень + hint)
+        </label>
+        <button class="btn primary" onclick="bulkConfirm()">Добавить в словарь</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="aliases.js"></script>
+<script>
+// ============ Data ============
+const LEVELS = [
+  { code: 'A1', name: 'Начинающий' },
+  { code: 'A2', name: 'Элементарный' },
+  { code: 'B1', name: 'Средний' },
+  { code: 'B2', name: 'Выше среднего' },
+  { code: 'C1', name: 'Продвинутый' },
+  { code: 'C2', name: 'Владение' },
+  { code: 'S',  name: 'Специальный' },
+];
+
+// Иконки загружаются из data/topic-icons.json при старте (loadTopicIcons).
+// Чтобы добавить новую тему для всех пользователей — отредактируй этот файл и залей на GitHub.
+let DEFAULT_TOPIC_ICONS = {};
+
+// Пользовательские иконки (хранятся в IndexedDB через ключ 'topicIcons')
+// Применяются поверх DEFAULT_TOPIC_ICONS
+let USER_TOPIC_ICONS = {};
+
+// Геттер: сначала пользовательская иконка (IndexedDB), потом из JSON-файла, потом 📁
+function getTopicIcon(topic) {
+  return USER_TOPIC_ICONS[topic] || DEFAULT_TOPIC_ICONS[topic] || '📁';
+}
+
+// Загружает ./data/topic-icons.json с сервера/GitHub и заполняет DEFAULT_TOPIC_ICONS.
+// Вызывается один раз при старте. Если файл недоступен — fallback 📁.
+async function loadTopicIcons() {
+  try {
+    const res = await fetch('./data/topic-icons.json');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data && typeof data === 'object') {
+      DEFAULT_TOPIC_ICONS = data;
+    }
+  } catch(e) {
+    console.warn('topic-icons.json не загружен:', e);
+  }
+}
+
+// Экспортирует объединённый словарь иконок (DEFAULT + USER) в topic-icons.json.
+// Залей получившийся файл на GitHub в папку data/ — и все пользователи получат твои назначения.
+function exportTopicIcons() {
+  const merged = Object.assign({}, DEFAULT_TOPIC_ICONS, USER_TOPIC_ICONS);
+  const json = JSON.stringify(merged, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'topic-icons.json';
+  a.click();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+}
+
+// Встроенный базовый словарь
+const SEED_WORDS = [
+  // A1
+  { word: 'hello', translation: 'привет', ipa: '/həˈləʊ/', example: 'Hello, how are you?', level: 'A1', topic: 'Общение' },
+  // A2
+  { word: 'weather', translation: 'погода', ipa: '/ˈwɛðə/', example: 'The weather is nice.', level: 'A2', topic: 'Погода' },
+  // B1
+  { word: 'achieve', translation: 'достигать', ipa: '/əˈtʃiːv/', example: 'She achieved her goal.', level: 'B1', topic: 'Работа' },
+  // B2
+  { word: 'acknowledge', translation: 'признавать', ipa: '/əkˈnɒlɪdʒ/', example: 'He acknowledged his mistake.', level: 'B2', topic: 'Абстрактные' },
+  // C1
+  { word: 'scrutinize', translation: 'тщательно изучать', ipa: '/ˈskruːtɪnaɪz/', example: 'Scrutinize the contract.', level: 'C1', topic: 'Бизнес' },
+  // C2
+  { word: 'quintessential', translation: 'квинтэссенциальный', ipa: '/ˌkwɪntɪˈsɛnʃəl/', example: 'The quintessential English gentleman.', level: 'C2', topic: 'Абстрактные' },
+];
+
+// ============ Group / Specialisation ============
+// Определяем группу из URL: ?group=it  или  ?group=design  и т.д.
+// Поддерживаемые значения: it, design, marketing, tourism  (можно добавлять)
+const URL_PARAMS   = new URLSearchParams(window.location.search);
+const CURRENT_GROUP = (URL_PARAMS.get('group') || '').toLowerCase().trim();
+
+const GROUP_META = {
+  it:        { label: 'IT',              icon: '💻', color: '#2563eb' },
+  design:    { label: 'Дизайн',         icon: '🎨', color: '#7c3aed' },
+  marketing: { label: 'Маркетинг',      icon: '📣', color: '#c96442' },
+  tourism:   { label: 'Туризм',         icon: '🗺️', color: '#0891b2' },
+  beads:     { label: 'Game of Beads',  icon: '📿', color: '#b45309' },
+};
+
+// ============ Professional vocabulary per group ============
+// Слова загружаются из внешних JSON-файлов: data/{group}-vocab.json
+// Чтобы обновить словарь группы — отредактируй нужный файл и залей на GitHub.
+
+// Кэш загруженных профессиональных слов (заполняется один раз при старте)
+let _profWordsCache = null;
+
+async function loadProfWords() {
+  if (!CURRENT_GROUP) return [];
+  // Группы без отдельного проф. файла (например, beads) хранят слова иначе
+  const GROUPS_WITH_FILES = ['it', 'design', 'marketing', 'tourism', 'beads'];
+  if (!GROUPS_WITH_FILES.includes(CURRENT_GROUP)) return [];
+  try {
+    const res = await fetch(`./data/${CURRENT_GROUP}-vocab.json`);
+    if (!res.ok) { console.warn(`Не удалось загрузить data/${CURRENT_GROUP}-vocab.json`); return []; }
+    const words = await res.json();
+    return words.map(w => ({ ...w, group: CURRENT_GROUP }));
+  } catch(e) {
+    console.warn('Ошибка загрузки проф. словаря:', e);
+    return [];
+  }
+}
+
+function getProfWords() {
+  // Синхронный fallback — возвращает уже загруженный кэш (или пустой массив до загрузки)
+  return _profWordsCache || [];
+}
+
+// Обратный индекс: word|level → group (строится после загрузки проф. слов)
+// Используется для разметки старых S-записей без поля group.
+let PROF_WORD_GROUP_INDEX = new Map();
+
+function buildProfWordGroupIndex(words) {
+  const idx = new Map();
+  for (const w of words) {
+    if (w.group) idx.set(w.word.toLowerCase() + '|S', w.group);
+  }
+  PROF_WORD_GROUP_INDEX = idx;
+}
+
+// ============ Starred persistence via localStorage ============
+// Ключ зависит от группы — у каждой группы своё избранное на устройстве
+function starredKey() {
+  return 'vocab_starred_' + (CURRENT_GROUP || 'local');
+}
+
+function loadStarredFromLS() {
+  try {
+    const raw = localStorage.getItem(starredKey());
+    if (!raw) return new Set();
+    return new Set(JSON.parse(raw));
+  } catch(e) { return new Set(); }
+}
+
+function saveStarredToLS(starredWords) {
+  // Сохраняем массив слов (строк) а не id — id могут меняться при пересеве
+  try {
+    const words = [...starredWords].map(id => {
+      const w = state.wordsById.get(id);
+      return w ? (w.word + '|' + w.level) : null;
+    }).filter(Boolean);
+    localStorage.setItem(starredKey(), JSON.stringify(words));
+  } catch(e) {}
+}
+
+// Восстанавливает starred из localStorage по ключу word|level
+function restoreStarredFromLS() {
+  try {
+    const raw = localStorage.getItem(starredKey());
+    if (!raw) return;
+    const keys = new Set(JSON.parse(raw));
+    let changed = false;
+    for (const w of state.words) {
+      const k = w.word + '|' + w.level;
+      if (keys.has(k) && !w.starred) {
+        w.starred = true;
+        state.starredIds.add(w.id);
+        scheduleSave(w.id);
+        changed = true;
+      }
+    }
+  } catch(e) {}
+}
+
+// ============ State ============
+let state = {
+  currentLevel: 'A1',
+  currentTopic: null,
+  currentIndex: 0,
+  words: [],              // массив всех слов, каждое: {id, word, translation, ipa, example, level, topic, starred}
+  wordsById: new Map(),   // id → word для O(1) поиска
+  topicIndex: new Map(),  // "A1|Еда" → [id, id, ...]
+  starredIds: new Set(),  // id избранных слов
+  voices: [],
+  selectedVoice: null,
+  mediaRecorder: null,
+  recordedChunks: [],
+  isRecording: false,
+  showTranslation: true,
+  micStream: null,
+  lastRecordingUrl: null,
+  trainingMode: 'topic',  // 'topic' | 'starred'
+  editMode: false,        // разблокировка редактирования полей карточки
+  pendingEdits: {},       // буфер несохранённых изменений карточки
+  saveQueue: new Set(),   // id слов, которые надо сохранить (для дебаунса)
+  saveTimer: null,
+  db: null,
+};
+
+// ============ Storage: IndexedDB ============
+const DB_NAME = 'vocabDB';
+const DB_VERSION = 3;
+const STORE = 'words';
+const SETTINGS_STORE = 'settings';
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      const oldVersion = e.oldVersion;
+      // При обновлении до версии 3 — полный сброс (новый сид)
+      if (oldVersion < 3) {
+        if (db.objectStoreNames.contains(STORE)) db.deleteObjectStore(STORE);
+        if (db.objectStoreNames.contains(SETTINGS_STORE)) db.deleteObjectStore(SETTINGS_STORE);
+      }
+      if (!db.objectStoreNames.contains(STORE)) {
+        const store = db.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
+        store.createIndex('level_topic', ['level', 'topic']);
+        store.createIndex('starred', 'starred');
+      }
+      if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
+        db.createObjectStore(SETTINGS_STORE, { keyPath: 'key' });
+      }
+    };
+    req.onsuccess = (e) => resolve(e.target.result);
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+
+function dbTx(mode) {
+  return state.db.transaction(STORE, mode).objectStore(STORE);
+}
+
+// Хранение настроек (key-value)
+function dbGetSetting(key) {
+  return new Promise((resolve) => {
+    try {
+      const tx = state.db.transaction(SETTINGS_STORE, 'readonly');
+      const req = tx.objectStore(SETTINGS_STORE).get(key);
+      req.onsuccess = () => resolve(req.result ? req.result.value : null);
+      req.onerror = () => resolve(null);
+    } catch(e) { resolve(null); }
+  });
+}
+function dbSetSetting(key, value) {
+  return new Promise((resolve, reject) => {
+    try {
+      const tx = state.db.transaction(SETTINGS_STORE, 'readwrite');
+      tx.objectStore(SETTINGS_STORE).put({ key, value });
+      tx.oncomplete = () => resolve();
+      tx.onerror = (e) => reject(e.target.error);
+    } catch(e) { reject(e); }
+  });
+}
+
+// Массовая запись — одна транзакция для всего массива.
+// Записи с id → put (обновление), без id → add (вставка с autoincrement).
+function dbBulkPut(records) {
+  return new Promise((resolve, reject) => {
+    const tx = state.db.transaction(STORE, 'readwrite');
+    const store = tx.objectStore(STORE);
+    for (const r of records) {
+      const req = (r.id != null) ? store.put(r) : store.add(r);
+      req.onsuccess = (e) => { if (r.id == null) r.id = e.target.result; };
+    }
+    tx.oncomplete = () => resolve();
+    tx.onerror  = (e) => reject(e.target.error);
+    tx.onabort  = (e) => reject(e.target.error);
+  });
+}
+
+function dbGetAll() {
+  return new Promise((resolve, reject) => {
+    const req = dbTx('readonly').getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+
+function dbDelete(id) {
+  return new Promise((resolve, reject) => {
+    const req = dbTx('readwrite').delete(id);
+    req.onsuccess = () => resolve();
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+
+// Дебаунс автосохранения — пишем изменённые слова раз в ~500 мс
+function scheduleSave(id) {
+  state.saveQueue.add(id);
+  if (state.saveTimer) clearTimeout(state.saveTimer);
+  state.saveTimer = setTimeout(flushSaveQueue, 500);
+}
+
+async function flushSaveQueue() {
+  if (state.saveQueue.size === 0) return;
+  const ids = [...state.saveQueue];
+  state.saveQueue.clear();
+  const records = ids.map(id => state.wordsById.get(id)).filter(Boolean);
+  try {
+    await dbBulkPut(records);
+    backupToLocalStorage();
+  } catch(e) {
+    console.error('Save failed:', e);
+    alert('Ошибка сохранения в базу данных: ' + e.message);
+  }
+}
+
+// Резервная копия всего словаря в localStorage.
+// Срабатывает после каждого успешного сохранения в IndexedDB.
+function backupToLocalStorage() {
+  try {
+    const data = state.words.map(w => ({
+      word: w.word, translation: w.translation, ipa: w.ipa || '',
+      hint: w.hint || '', example: w.example || '',
+      exampleTranslation: w.exampleTranslation || '',
+      level: w.level, topic: w.topic, starred: !!w.starred,
+    }));
+    localStorage.setItem('vocabBackup', JSON.stringify(data));
+    localStorage.setItem('vocabBackupDate', new Date().toISOString());
+  } catch(e) {
+    // localStorage может быть переполнен — не критично
+    console.warn('localStorage backup failed:', e);
+  }
+}
+
+// Индексы
+function rebuildIndexes() {
+  state.wordsById = new Map();
+  state.topicIndex = new Map();
+  state.starredIds = new Set();
+  for (const w of state.words) {
+    state.wordsById.set(w.id, w);
+    const key = w.level + '|' + w.topic;
+    if (!state.topicIndex.has(key)) state.topicIndex.set(key, []);
+    state.topicIndex.get(key).push(w.id);
+    if (w.starred) state.starredIds.add(w.id);
+  }
+}
+
+function addWordToIndexes(w) {
+  state.words.push(w);
+  state.wordsById.set(w.id, w);
+  const key = w.level + '|' + w.topic;
+  if (!state.topicIndex.has(key)) state.topicIndex.set(key, []);
+  state.topicIndex.get(key).push(w.id);
+  if (w.starred) state.starredIds.add(w.id);
+}
+
+function removeWordFromIndexes(id) {
+  const w = state.wordsById.get(id);
+  if (!w) return;
+  state.wordsById.delete(id);
+  state.words = state.words.filter(x => x.id !== id);
+  const key = w.level + '|' + w.topic;
+  const arr = state.topicIndex.get(key);
+  if (arr) {
+    const idx = arr.indexOf(id);
+    if (idx >= 0) arr.splice(idx, 1);
+    if (arr.length === 0) state.topicIndex.delete(key);
+  }
+  state.starredIds.delete(id);
+}
+
+// Миграция из localStorage в IndexedDB (однократно)
+async function migrateFromLocalStorage() {
+  try {
+    const saved = localStorage.getItem('vocabWords');
+    if (!saved) return false;
+    const parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed) || parsed.length === 0) return false;
+    // Записываем в IndexedDB, назначая id автоинкрементом
+    const records = parsed.map(w => ({
+      word: w.word || '',
+      translation: w.translation || '',
+      ipa: w.ipa || '',
+      example: w.example || '',
+      exampleTranslation: w.exampleTranslation || '',
+      level: w.level || 'A1',
+      topic: w.topic || 'Разное',
+      starred: false,
+    }));
+    await dbBulkPut(records);
+    // Помечаем, что миграция выполнена, но сам localStorage пока оставляем как бэкап
+    localStorage.setItem('vocabMigrated', '1');
+    return true;
+  } catch(e) {
+    console.warn('Migration failed:', e);
+    return false;
+  }
+}
+
+async function loadWords() {
+  state.db = await openDB();
+
+  // Загружаем профессиональный словарь из внешнего JSON (один раз)
+  _profWordsCache = await loadProfWords();
+  buildProfWordGroupIndex(_profWordsCache);
+
+  let items = await dbGetAll();
+  if (items.length === 0) {
+    // Первый запуск — пробуем восстановить из резервной копии
+    const backup = localStorage.getItem('vocabBackup');
+    if (backup) {
+      try {
+        const parsed = JSON.parse(backup);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const date = localStorage.getItem('vocabBackupDate') || 'неизвестно';
+          const ok = confirm(
+            `База данных пуста. Найдена резервная копия от ${date.slice(0,10)} (${parsed.length} слов).\n\nВосстановить?`
+          );
+          if (ok) {
+            await dbBulkPut(parsed.map(w => ({ ...w, id: undefined })));
+            items = await dbGetAll();
+            rebuildIndexes(items);
+            renderAll();
+            return;
+          }
+        }
+      } catch(e) { console.warn('Backup restore failed:', e); }
+    }
+    // Пробуем миграцию из старого localStorage, иначе seed
+    const migrated = await migrateFromLocalStorage();
+    if (!migrated) {
+      // Seed: общий словарь + профессиональный блок группы
+      const baseRecords = SEED_WORDS.map(w => ({ ...w, starred: false, exampleTranslation: '' }));
+      const profRecords = getProfWords().map(w => ({ ...w, starred: false, exampleTranslation: '' }));
+      await dbBulkPut([...baseRecords, ...profRecords]);
+    }
+    items = await dbGetAll();
+  } else {
+    // При каждом запуске проверяем — есть ли новые проф. слова, которых ещё нет в БД
+    // (обновление словаря без потери пользовательских данных)
+    const profWords = getProfWords();
+    if (profWords.length > 0) {
+      const existingKeys = new Set(items.map(w => w.word.toLowerCase() + '|' + w.level));
+      const toAdd = profWords.filter(w => !existingKeys.has(w.word.toLowerCase() + '|' + w.level));
+      if (toAdd.length > 0) {
+        const newRecords = toAdd.map(w => ({ ...w, starred: false, exampleTranslation: '' }));
+        await dbBulkPut(newRecords);
+        items = await dbGetAll();
+      }
+    }
+  }
+
+  // Подгружаем general-vocab.json: новые слова добавляются, существующие обновляются
+  // (перевод, транскрипция, пример, hint), но starred студента сохраняется.
+  try {
+    const res = await fetch('./general-vocab.json');
+    if (res.ok) {
+      const generalSeed = await res.json();
+      items = await dbGetAll();
+      const existingMap = new Map(items.map(w => [w.word.toLowerCase() + '|' + w.level + '|' + (w.hint || ''), w]));
+      const toAdd = [];
+      const toUpdate = [];
+      for (const src of generalSeed) {
+        const key = src.word.toLowerCase() + '|' + src.level + '|' + (src.hint || '');
+        const existing = existingMap.get(key);
+        if (existing) {
+          // Обновляем поля из JSON, starred не трогаем
+          let changed = false;
+          for (const field of ['translation', 'ipa', 'example', 'exampleTranslation', 'topic', 'hint']) {
+            if (src[field] !== undefined && src[field] !== existing[field]) {
+              existing[field] = src[field];
+              changed = true;
+            }
+          }
+          if (changed) toUpdate.push(existing);
+        } else {
+          toAdd.push({ ...src, starred: false, exampleTranslation: src.exampleTranslation || '', hint: src.hint || '' });
+        }
+      }
+      if (toAdd.length > 0 || toUpdate.length > 0) {
+        await dbBulkPut([...toAdd, ...toUpdate]);
+        items = await dbGetAll();
+      }
+    }
+  } catch(e) {
+    console.warn('Не удалось загрузить general-vocab.json:', e);
+  }
+
+  // Миграция: для старых записей добавляем поле exampleTranslation и hint, если их нет
+  const needsUpdate = items.filter(w => w.exampleTranslation === undefined || w.hint === undefined);
+  if (needsUpdate.length > 0) {
+    needsUpdate.forEach(w => {
+      if (w.exampleTranslation === undefined) w.exampleTranslation = '';
+      if (w.hint === undefined) w.hint = '';
+    });
+    try {
+      await dbBulkPut(needsUpdate);
+    } catch(e) {
+      console.warn('Не удалось мигрировать поля:', e);
+    }
+  }
+
+  // Миграция: проставляем group у S-слов, которые попали в БД до появления этого поля.
+  // Нужно, чтобы у учителя/тестировщика, открывавшего несколько групп, S-слова не перемешивались.
+  const needsGroupStamp = items.filter(w => w.level === 'S' && !w.group);
+  if (needsGroupStamp.length > 0) {
+    const toSave = [];
+    for (const w of needsGroupStamp) {
+      const g = PROF_WORD_GROUP_INDEX.get(w.word.toLowerCase() + '|' + w.level);
+      if (g) {
+        w.group = g;
+        toSave.push(w);
+      }
+    }
+    if (toSave.length > 0) {
+      try { await dbBulkPut(toSave); } catch(e) { console.warn('Не удалось проставить group:', e); }
+    }
+  }
+
+  // Показываем только S-слова текущей группы (или без группы — это пользовательские добавления).
+  // A1–C2 не фильтруем: они универсальны.
+  state.words = items.filter(w => {
+    if (w.level !== 'S') return true;
+    if (!w.group) return true;
+    return w.group === CURRENT_GROUP;
+  });
+  rebuildIndexes();
+
+  // Восстанавливаем Избранное из localStorage (сохраняется между сессиями)
+  restoreStarredFromLS();
+
+  // Загружаем пользовательские иконки тем из settings store
+  try {
+    const saved = await dbGetSetting('topicIcons');
+    if (saved && typeof saved === 'object') {
+      USER_TOPIC_ICONS = saved;
+    }
+  } catch(e) {
+    console.warn('Не удалось загрузить пользовательские иконки:', e);
+  }
+}
+
+// ============ Speech Synthesis ============
+function initVoices() {
+  const voices = speechSynthesis.getVoices();
+  state.voices = voices.filter(v => v.lang.startsWith('en'));
+  const select = document.getElementById('voiceSelect');
+  select.innerHTML = '';
+  if (state.voices.length === 0) {
+    select.innerHTML = '<option>Голоса загружаются...</option>';
+    return;
+  }
+  // Приоритет естественным голосам
+  const preferred = ['Samantha', 'Google', 'Microsoft', 'Alex', 'Daniel', 'Karen', 'Moira'];
+  state.voices.sort((a, b) => {
+    const aScore = preferred.findIndex(p => a.name.includes(p));
+    const bScore = preferred.findIndex(p => b.name.includes(p));
+    return (aScore === -1 ? 99 : aScore) - (bScore === -1 ? 99 : bScore);
+  });
+  state.voices.forEach((v, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `${v.name} (${v.lang})`;
+    select.appendChild(opt);
+  });
+  state.selectedVoice = state.voices[0];
+  select.onchange = () => {
+    state.selectedVoice = state.voices[select.value];
+  };
+}
+if ('speechSynthesis' in window) {
+  speechSynthesis.onvoiceschanged = initVoices;
+  initVoices();
+}
+
+function speak(text, rate = 0.9) {
+  if (!('speechSynthesis' in window)) {
+    alert('Ваш браузер не поддерживает озвучку.');
+    return;
+  }
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  if (state.selectedVoice) utter.voice = state.selectedVoice;
+  utter.lang = state.selectedVoice ? state.selectedVoice.lang : 'en-US';
+  utter.rate = rate;
+  utter.pitch = 1;
+  speechSynthesis.speak(utter);
+}
+
+// ============ Group badge ============
+function renderGroupBadge() {
+  const el = document.getElementById('groupBadge');
+  if (!el) return;
+  const meta = GROUP_META[CURRENT_GROUP];
+  if (!meta) {
+    el.innerHTML = '';
+    return;
+  }
+  el.innerHTML = `<span class="group-badge" style="background:${meta.color}">${meta.icon} ${meta.label}</span>`;
+}
+
+// ============ Level bar ============
+function renderLevelBar() {
+  const bar = document.getElementById('levelBar');
+  bar.innerHTML = '';
+  LEVELS.forEach(lvl => {
+    // Уровень S показываем только если есть группа с профессиональными словами
+    if (lvl.code === 'S' && !CURRENT_GROUP) return;
+    const btn = document.createElement('button');
+    let cls = 'level-btn';
+    if (state.currentLevel === lvl.code) cls += ' active';
+    if (lvl.code === 'S') cls += ' special';
+    btn.className = cls;
+    // Для S показываем название группы вместо "Специальный"
+    const descText = lvl.code === 'S' && GROUP_META[CURRENT_GROUP]
+      ? GROUP_META[CURRENT_GROUP].label
+      : lvl.name;
+    btn.innerHTML = `${lvl.code}<span class="level-desc">${descText}</span>`;
+    btn.onclick = () => {
+      state.currentLevel = lvl.code;
+      state.currentTopic = null;
+      state.currentIndex = 0;
+      renderLevelBar();
+      renderTopics();
+      renderStudyArea();
+    };
+    bar.appendChild(btn);
+  });
+}
+
+// ============ Topics ============
+function getTopicsForLevel(level) {
+  const topics = [];
+  const prefix = level + '|';
+  for (const [key, ids] of state.topicIndex) {
+    if (key.startsWith(prefix)) {
+      topics.push({ name: key.slice(prefix.length), count: ids.length });
+    }
+  }
+  // Сортируем по убыванию количества, потом по алфавиту
+  topics.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+  return topics;
+}
+
+function renderTopics() {
+  const grid = document.getElementById('topicsGrid');
+  const topics = getTopicsForLevel(state.currentLevel);
+  grid.innerHTML = '';
+  if (topics.length === 0) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1; padding: 1.5rem;">Для уровня ' + state.currentLevel + ' пока нет тем. Добавьте слово, чтобы начать.</div>';
+    return;
+  }
+  topics.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'topic-card' + (state.currentTopic === t.name ? ' active' : '');
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.innerHTML = `
+      <button class="topic-edit-icon" title="Сменить иконку" aria-label="Сменить иконку" data-topic="${escapeHtml(t.name)}">✏</button>
+      <span class="topic-icon">${getTopicIcon(t.name)}</span>
+      <p class="topic-name">${escapeHtml(t.name)}</p>
+      <p class="topic-count">${t.count} ${pluralRu(t.count, 'слово', 'слова', 'слов')}</p>
+    `;
+    // Клик по самой карточке — переход в тему
+    card.onclick = (ev) => {
+      // Если кликнули по кнопке-карандашу — открываем picker, не переключаем тему
+      if (ev.target.closest('.topic-edit-icon')) {
+        ev.stopPropagation();
+        openIconPicker(t.name);
+        return;
+      }
+      state.currentTopic = t.name;
+      state.currentIndex = 0;
+      state.trainingMode = 'topic';
+      renderTopics();
+      renderStudyArea();
+    };
+    // Доступность клавиатурой: Enter = клик
+    card.onkeydown = (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        ev.preventDefault();
+        card.click();
+      }
+    };
+    grid.appendChild(card);
+  });
+}
+
+function pluralRu(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few;
+  return many;
+}
+
+// ============ Study area ============
+function getCurrentWords() {
+  if (state.trainingMode === 'starred') {
+    // Режим тренировки избранного — все избранные слова
+    return [...state.starredIds].map(id => state.wordsById.get(id)).filter(Boolean);
+  }
+  // Режим по теме — используем индекс
+  const ids = state.topicIndex.get(state.currentLevel + '|' + state.currentTopic);
+  if (!ids) return [];
+  return ids.map(id => state.wordsById.get(id)).filter(Boolean);
+}
+
+function renderStudyArea() {
+  const area = document.getElementById('studyArea');
+
+  // Режим тренировки избранного
+  if (state.trainingMode === 'starred') {
+    const words = getCurrentWords();
+    if (words.length === 0) {
+      area.innerHTML = `
+        <div class="starred-banner">
+          ★ Тренировка избранного
+          <button class="btn ghost" style="margin-left: auto;" onclick="exitFavorites()">Выйти</button>
+        </div>
+        <div class="empty-state"><p>Избранное пусто.</p></div>`;
+      return;
+    }
+    if (state.currentIndex >= words.length) state.currentIndex = 0;
+    const word = words[state.currentIndex];
+    area.innerHTML = renderWordCard(word, words.length) + `<div class="starred-banner" style="margin-top: 1rem;">★ Режим тренировки избранного — ${words.length} ${pluralRu(words.length, 'слово', 'слова', 'слов')}
+      <button class="btn ghost" style="margin-left: auto;" onclick="exitFavorites()">Выйти</button>
+    </div>`;
+    return;
+  }
+
+  if (!state.currentTopic) {
+    area.innerHTML = '<div class="empty-state"><p>Выберите тему выше, чтобы начать изучение слов</p></div>';
+    return;
+  }
+  const words = getCurrentWords();
+  if (words.length === 0) {
+    area.innerHTML = '<div class="empty-state"><p>В этой теме пока нет слов. Добавьте новое слово.</p></div>';
+    document.getElementById('editLockBtn').style.display = 'none';
+    return;
+  }
+  if (state.currentIndex >= words.length) state.currentIndex = 0;
+  const word = words[state.currentIndex];
+  area.innerHTML = renderWordCard(word, words.length);
+  const lockBtn = document.getElementById('editLockBtn');
+  if (lockBtn) { lockBtn.style.display = 'inline-block'; updateLockBtn(); }
+  saveLastPosition();
+}
+
+function renderWordCard(word, total) {
+  // Диагностика — если в браузере открыт DevTools, увидите что именно отображается
+  if (window.VOCAB_DEBUG) console.log('Rendering card:', word);
+  const starBtn = `<button class="star-btn ${word.starred ? 'starred' : ''}" onclick="event.stopPropagation(); toggleStar(${word.id})" title="${word.starred ? 'Убрать из избранного' : 'Добавить в избранное'}">
+    ${word.starred ? '★' : '☆'}
+  </button>`;
+  // Сохраняем id текущего слова для inline-редактирования
+  state.currentWordId = word.id;
+
+  // Блок примера — показывается только если есть example ИЛИ нужен placeholder
+  const exampleBlock = `
+    <div class="example-block" id="exampleBlock">
+      <div class="example-text editable" data-field="example" onclick="startEdit('example')">
+        ${word.example ? escapeHtml(word.example) : '<span style="color:var(--text-soft);font-style:italic;">+ добавить пример</span>'}
+      </div>
+      ${word.example ? `
+        <div class="example-translation editable ${word.exampleTranslation ? '' : 'empty'}" data-field="exampleTranslation" onclick="startEdit('exampleTranslation')">
+          ${word.exampleTranslation ? escapeHtml(word.exampleTranslation) : '+ добавить перевод примера'}
+        </div>
+        <div class="example-controls">
+          <button class="icon-btn" onclick="speakExampleCurrent(0.9)" title="Произнести пример">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
+          <button class="icon-btn" onclick="speakExampleCurrent(0.6)" title="Медленнее">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </button>
+          <button class="icon-btn" id="recordExampleBtn" onclick="toggleRecordExampleCurrent()" title="Записать произношение примера">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+        </div>
+        <div class="feedback" id="feedbackExample" style="margin-top:6px;"></div>
+        <div class="recorded-audio" id="recordedAudioExample"></div>
+      ` : ''}
+    </div>
+  `;
+
+  return `
+    <div class="mode-toggle">
+      <button class="${state.showTranslation ? 'active' : ''}" onclick="toggleMode(true)">Показывать перевод</button>
+      <button class="${!state.showTranslation ? 'active' : ''}" onclick="toggleMode(false)">Скрыть перевод</button>
+    </div>
+    <div class="card-meta">
+      <span class="card-meta-badge level" data-field="level" onclick="if(state.editMode) startEdit('level')" title="Изменить уровень">${escapeHtml(word.level)}</span>
+      <span class="card-meta-badge" data-field="topic" onclick="if(state.editMode) startEdit('topic')" title="Изменить тему">📁 ${escapeHtml(word.topic)}</span>
+    </div>
+    <div class="word-display" id="wordDisplay">
+      ${starBtn}
+      <h2 class="word-main editable" data-field="word" onclick="startEdit('word')">${escapeHtml(word.word)}</h2>
+      ${word.hint ? `<p class="word-hint editable" data-field="hint" onclick="startEdit('hint')">${escapeHtml(word.hint)}</p>` : `<p class="word-hint editable" data-field="hint" onclick="startEdit('hint')" style="color:var(--text-soft);font-style:italic;">+ подсказка</p>`}
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px">
+        <p class="word-transcription editable" data-field="ipa" onclick="startEdit('ipa')" style="margin:0">${escapeHtml(word.ipa || '') || '<span style="color:var(--text-soft);font-style:italic;">+ транскрипция</span>'}</p>
+        <button onclick="fetchIpa(${word.id})" id="fetchIpaBtn" title="Подтянуть транскрипцию из словаря" style="
+          background:none;border:1px solid var(--border);border-radius:6px;
+          padding:2px 7px;font-size:11px;cursor:pointer;color:var(--text-muted);
+          font-family:inherit;white-space:nowrap;flex-shrink:0;
+          transition:all 0.15s;
+        ">IPA ↓</button>
+      </div>
+      <p class="word-translation editable ${state.showTranslation ? '' : 'hidden'}" data-field="translation" onclick="onTranslationClick(event)">${escapeHtml(word.translation)}</p>
+    </div>
+    <div class="controls">
+      <button class="icon-btn" onclick="speakCurrent(0.9)" title="Произнести">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      </button>
+      <button class="icon-btn" onclick="speakCurrent(0.6)" title="Медленнее">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </button>
+      <button class="icon-btn" id="recordBtn" onclick="toggleRecordCurrent()" title="Записать произношение слова">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </button>
+    </div>
+    <div class="hint">Нажмите микрофон и произнесите — система проверит произношение</div>
+    <div class="feedback" id="feedback"></div>
+    <div class="recorded-audio" id="recordedAudio"></div>
+    ${exampleBlock}
+    ${state.editMode ? '<div class="edit-hint">Кликните по любому полю, чтобы отредактировать</div>' : ''}
+    <div class="nav-controls">
+      <button class="btn" onclick="prevWord()">← Назад</button>
+      <div class="progress">${state.currentIndex + 1} / ${total}</div>
+      <button class="btn primary" onclick="nextWord()">Далее →</button>
+    </div>
+  `;
+}
+
+// Обработчики, которые всегда берут актуальное слово из state по id
+function speakCurrent(rate) {
+  const w = state.wordsById.get(state.currentWordId);
+  if (w) speak(w.word, rate);
+}
+function speakExampleCurrent(rate) {
+  const w = state.wordsById.get(state.currentWordId);
+  if (w && w.example) speak(w.example, rate || 0.9);
+}
+function toggleRecordCurrent() {
+  const w = state.wordsById.get(state.currentWordId);
+  if (w) toggleRecord(w.word, 'word');
+}
+function toggleRecordExampleCurrent() {
+  const w = state.wordsById.get(state.currentWordId);
+  if (w && w.example) toggleRecord(w.example, 'example');
+}
+// Клик по переводу — сначала раскрываем (если скрыт), потом разрешаем редактировать
+function onTranslationClick(event) {
+  const el = event.currentTarget;
+  if (el.classList.contains('hidden')) {
+    el.classList.remove('hidden');
+    return;
+  }
+  if (!state.editMode) return;
+  startEdit('translation');
+}
+
+// === Inline editing ===
+function toggleEditMode() {
+  if (state.editMode) {
+    // Выходим из режима редактирования — предлагаем сохранить если есть несохранённые изменения
+    if (state.pendingEdits && Object.keys(state.pendingEdits).length > 0) {
+      const ok = confirm('Есть несохранённые изменения. Сохранить перед выходом?');
+      if (ok) { saveCardEdits(); return; }
+      else { state.pendingEdits = {}; }
+    }
+  } else {
+    // Входим в режим редактирования — инициализируем буфер изменений
+    state.pendingEdits = {};
+  }
+  state.editMode = !state.editMode;
+  updateLockBtn();
+  renderStudyArea();
+}
+
+function updateLockBtn() {
+  const btn = document.getElementById('editLockBtn');
+  const saveBtn = document.getElementById('saveCardBtn');
+  if (!btn) return;
+  btn.textContent = state.editMode ? '🔒 Закрыть' : '🔒 Редактировать';
+  btn.style.color = state.editMode ? 'var(--text-soft)' : 'var(--text-soft)';
+  btn.style.opacity = state.editMode ? '0.7' : '0.5';
+  btn.style.borderColor = state.editMode ? 'var(--border)' : 'var(--border)';
+  btn.title = state.editMode ? 'Закрыть режим редактирования' : 'Редактирование заблокировано — нажмите чтобы включить';
+  if (saveBtn) saveBtn.style.display = state.editMode ? 'inline-block' : 'none';
+}
+
+// Сохраняет все накопленные изменения карточки в IndexedDB одним кликом
+async function saveCardEdits() {
+  const w = state.wordsById.get(state.currentWordId);
+  if (!w) return;
+  // Собираем текущие значения всех открытых полей (если пользователь не нажал Enter)
+  const fields = ['word','translation','ipa','hint','example','exampleTranslation','level','topic'];
+  for (const field of fields) {
+    const el = document.querySelector(`[data-field="${field}"]`);
+    if (!el || !el.classList.contains('editing')) continue;
+    if (!state.pendingEdits) state.pendingEdits = {};
+    if (field === 'topic') {
+      const select = el.querySelector('select');
+      if (select && select.value === '__new__') {
+        const newInput = el.querySelector('.new-topic-input');
+        const newTopic = (newInput && newInput.value.trim()) || '';
+        if (!newTopic) { alert('Укажите название новой темы'); return; }
+        state.pendingEdits[field] = newTopic;
+      } else {
+        state.pendingEdits[field] = (select && select.value) || '';
+      }
+    } else if (field === 'level') {
+      const select = el.querySelector('select');
+      state.pendingEdits[field] = (select && select.value) || '';
+    } else {
+      const input = el.querySelector('.edit-input');
+      if (input) state.pendingEdits[field] = input.value.trim();
+    }
+  }
+  if (!state.pendingEdits || Object.keys(state.pendingEdits).length === 0) {
+    // Ничего не менялось — просто выходим из режима
+    state.editMode = false;
+    updateLockBtn();
+    renderStudyArea();
+    return;
+  }
+  // Применяем все накопленные изменения
+  const pending = { ...state.pendingEdits };
+  for (const [field, newValue] of Object.entries(pending)) {
+    if ((field === 'word' || field === 'translation') && !newValue) {
+      alert(field === 'word' ? 'Слово не может быть пустым' : 'Перевод не может быть пустым');
+      return;
+    }
+    // Обновляем индексы если меняется level/topic
+    if (field === 'level' || field === 'topic') {
+      const oldKey = w.level + '|' + w.topic;
+      const newLevel = field === 'level' ? newValue : w.level;
+      const newTopic = field === 'topic' ? newValue : w.topic;
+      const newKey = newLevel + '|' + newTopic;
+      if (oldKey !== newKey) {
+        const oldArr = state.topicIndex.get(oldKey);
+        if (oldArr) {
+          const i = oldArr.indexOf(w.id);
+          if (i >= 0) oldArr.splice(i, 1);
+          if (oldArr.length === 0) state.topicIndex.delete(oldKey);
+        }
+        if (!state.topicIndex.has(newKey)) state.topicIndex.set(newKey, []);
+        state.topicIndex.get(newKey).push(w.id);
+        if (state.currentLevel === w.level) state.currentLevel = newLevel;
+        if (state.currentTopic === w.topic) state.currentTopic = newTopic;
+      }
+    }
+    w[field] = newValue;
+  }
+  try {
+    await dbBulkPut([w]);
+    backupToLocalStorage();
+    state.pendingEdits = {};
+    state.editMode = false;
+    updateLockBtn();
+    renderLevelBar();
+    renderTopics();
+    renderStudyArea();
+    // Короткая визуальная индикация успеха
+    const saveBtn = document.getElementById('saveCardBtn');
+    if (saveBtn) {
+      saveBtn.textContent = '✓ Сохранено';
+      setTimeout(() => { saveBtn.style.display = 'none'; saveBtn.textContent = '💾 Сохранить'; }, 1000);
+    }
+  } catch(e) {
+    alert('Ошибка сохранения: ' + e.message);
+  }
+}
+
+function startEdit(field) {
+  if (!state.editMode) return;
+  const w = state.wordsById.get(state.currentWordId);
+  if (!w) return;
+  const el = document.querySelector(`[data-field="${field}"]`);
+  if (!el) return;
+  if (el.classList.contains('editing')) return; // уже редактируется
+
+  el.classList.add('editing');
+  const currentValue = w[field] || '';
+  const inputClass = field + '-input';
+  const placeholder = {
+    word: 'Слово на английском',
+    ipa: 'Транскрипция IPA',
+    hint: 'Подсказка (n / adj / phrase, ...)',
+    translation: 'Перевод',
+    example: 'Пример использования',
+    exampleTranslation: 'Перевод примера',
+    level: 'Уровень',
+    topic: 'Тема'
+  }[field] || '';
+
+  let inputEl;
+  if (field === 'level') {
+    // Выпадашка с фиксированными уровнями
+    const options = LEVELS.map(l => `<option value="${l.code}" ${l.code === currentValue ? 'selected' : ''}>${l.code} — ${l.name}</option>`).join('');
+    inputEl = `<select class="edit-input ${inputClass}" aria-label="${placeholder}">${options}</select>`;
+  } else if (field === 'topic') {
+    // Все темы всех уровней + пункт "новая тема"
+    const allTopics = [...new Set(state.words.map(x => x.topic))].sort();
+    const options = allTopics.map(t => `<option value="${escapeHtml(t)}" ${t === currentValue ? 'selected' : ''}>${escapeHtml(t)}</option>`).join('');
+    inputEl = `
+      <select class="edit-input ${inputClass}" onchange="onTopicSelectChange(event)" aria-label="${placeholder}">
+        ${options}
+        <option value="__new__">+ новая тема...</option>
+      </select>
+      <input type="text" class="edit-input ${inputClass} new-topic-input" placeholder="Название новой темы" style="display:none; margin-top: 6px;" aria-label="Название новой темы">
+    `;
+  } else if (field === 'example' || field === 'exampleTranslation') {
+    inputEl = `<textarea class="edit-input ${inputClass}" rows="2" placeholder="${placeholder}" aria-label="${placeholder}"></textarea>`;
+  } else {
+    inputEl = `<input type="text" class="edit-input ${inputClass}" placeholder="${placeholder}" aria-label="${placeholder}">`;
+  }
+
+  // Кнопки «Сохранить/Отмена» у полей убраны — используется глобальная кнопка 💾 Сохранить.
+  // Enter — принять значение поля, Escape — отменить, клик вне поля — принять.
+  el.innerHTML = `${inputEl}`;
+  const input = el.querySelector('.edit-input');
+  if (input.tagName !== 'SELECT') {
+    input.value = currentValue;
+  }
+  input.focus();
+  if (input.tagName === 'INPUT' && input.type === 'text') input.select();
+
+  input.addEventListener('keydown', (ev) => {
+    const multiline = (field === 'example' || field === 'exampleTranslation');
+    if (ev.key === 'Enter' && !ev.shiftKey && !multiline) {
+      ev.preventDefault();
+      saveEdit(field);
+    } else if (ev.key === 'Enter' && (ev.ctrlKey || ev.metaKey)) {
+      ev.preventDefault();
+      saveEdit(field);
+    } else if (ev.key === 'Escape') {
+      ev.preventDefault();
+      cancelEdit(field);
+    }
+  });
+
+  // blur как запасной вариант для мобильных / select
+  input.addEventListener('blur', (ev) => {
+    if (input.tagName === 'SELECT') {
+      setTimeout(() => {
+        const el2 = document.querySelector(`[data-field="${field}"]`);
+        if (el2 && el2.classList.contains('editing')) {
+          el2._savingByBlur = true;
+          saveEdit(field);
+          setTimeout(() => { el2._savingByBlur = false; }, 50);
+        }
+      }, 200);
+    }
+  });
+}
+
+// Глобальный обработчик клика вне редактируемого поля.
+// Надёжнее чем blur — срабатывает при клике на любой нефокусируемый элемент.
+document.addEventListener('mousedown', (ev) => {
+  if (!state.editMode) return;
+  const editing = document.querySelector('.editable.editing');
+  if (!editing) return;
+  // Клик внутри поля — не трогаем
+  if (editing.contains(ev.target)) return;
+  // Клик на кнопку 💾 Сохранить — не перехватываем
+  const saveCardBtn = document.getElementById('saveCardBtn');
+  if (saveCardBtn && saveCardBtn.contains(ev.target)) return;
+  // Клик вне — принимаем значение (если blur уже не обрабатывает)
+  const field = editing.dataset.field;
+  if (field && !editing._savingByBlur) saveEdit(field);
+});
+
+// Обработчик выбора "новая тема" в select
+function onTopicSelectChange(event) {
+  const select = event.target;
+  const parent = select.closest('[data-field="topic"]');
+  if (!parent) return;
+  const newInput = parent.querySelector('.new-topic-input');
+  if (!newInput) return;
+  if (select.value === '__new__') {
+    newInput.style.display = 'block';
+    newInput.focus();
+  } else {
+    newInput.style.display = 'none';
+    newInput.value = '';
+  }
+}
+
+function cancelEdit(field) {
+  renderStudyArea();
+}
+
+async function saveEdit(field) {
+  const w = state.wordsById.get(state.currentWordId);
+  if (!w) return;
+  const el = document.querySelector(`[data-field="${field}"]`);
+  if (!el) return;
+  // В режиме редактирования — накапливаем изменения в буфере, не пишем в DB сразу
+  if (state.editMode) {
+    let newValue;
+    if (field === 'topic') {
+      const select = el.querySelector('select');
+      if (select && select.value === '__new__') {
+        const newInput = el.querySelector('.new-topic-input');
+        newValue = (newInput && newInput.value.trim()) || '';
+        if (!newValue) { alert('Укажите название новой темы'); return; }
+      } else {
+        newValue = (select && select.value) || '';
+      }
+    } else if (field === 'level') {
+      const select = el.querySelector('select');
+      newValue = (select && select.value) || '';
+    } else {
+      const input = el.querySelector('.edit-input');
+      if (!input) return;
+      newValue = input.value.trim();
+    }
+    if ((field === 'word' || field === 'translation') && !newValue) {
+      alert(field === 'word' ? 'Слово не может быть пустым' : 'Перевод не может быть пустым');
+      return;
+    }
+    if (!state.pendingEdits) state.pendingEdits = {};
+    state.pendingEdits[field] = newValue;
+    // Обновляем отображение поля без перерисовки всей карточки
+    w[field] = newValue;
+    el.classList.remove('editing');
+    // Если добавлен первый пример — нужно перерисовать карточку,
+    // чтобы появились кнопки озвучки/записи и поле exampleTranslation
+    if (field === 'example') {
+      renderStudyArea();
+      return;
+    }
+    el.innerHTML = escapeHtml(newValue);
+    return;
+  }
+
+  let newValue;
+  if (field === 'topic') {
+    const select = el.querySelector('select');
+    if (select && select.value === '__new__') {
+      const newInput = el.querySelector('.new-topic-input');
+      newValue = (newInput && newInput.value.trim()) || '';
+      if (!newValue) {
+        alert('Укажите название новой темы или выберите существующую');
+        return;
+      }
+    } else {
+      newValue = (select && select.value) || '';
+    }
+  } else if (field === 'level') {
+    const select = el.querySelector('select');
+    newValue = (select && select.value) || '';
+  } else {
+    const input = el.querySelector('.edit-input');
+    if (!input) return;
+    newValue = input.value.trim();
+  }
+
+  // Валидация: слово, перевод, уровень, тема не могут быть пустыми
+  if ((field === 'word' || field === 'translation') && !newValue) {
+    alert(field === 'word' ? 'Слово не может быть пустым' : 'Перевод не может быть пустым');
+    return;
+  }
+  if ((field === 'level' || field === 'topic') && !newValue) {
+    alert('Значение не может быть пустым');
+    return;
+  }
+
+  if (newValue === (w[field] || '')) {
+    renderStudyArea();
+    return;
+  }
+
+  // Для level/topic — нужно обновить индексы
+  if (field === 'level' || field === 'topic') {
+    const oldKey = w.level + '|' + w.topic;
+    const newLevel = field === 'level' ? newValue : w.level;
+    const newTopic = field === 'topic' ? newValue : w.topic;
+    const newKey = newLevel + '|' + newTopic;
+    // Убираем из старого ключа
+    const oldArr = state.topicIndex.get(oldKey);
+    if (oldArr) {
+      const i = oldArr.indexOf(w.id);
+      if (i >= 0) oldArr.splice(i, 1);
+      if (oldArr.length === 0) state.topicIndex.delete(oldKey);
+    }
+    // Добавляем в новый
+    if (!state.topicIndex.has(newKey)) state.topicIndex.set(newKey, []);
+    state.topicIndex.get(newKey).push(w.id);
+    // Обновляем текущий контекст, чтобы пользователь остался "в той же карточке"
+    if (state.currentLevel === w.level) state.currentLevel = newLevel;
+    if (state.currentTopic === w.topic) state.currentTopic = newTopic;
+  }
+
+  w[field] = newValue;
+
+  try {
+    await dbBulkPut([w]);
+  } catch(e) {
+    alert('Ошибка сохранения: ' + e.message);
+    return;
+  }
+
+  // Если менялся level/topic — уровень-бар и сетка тем тоже изменились
+  if (field === 'level' || field === 'topic') {
+    renderLevelBar();
+    renderTopics();
+  }
+
+  renderStudyArea();
+}
+
+function toggleMode(show) {
+  state.showTranslation = show;
+  renderStudyArea();
+}
+
+function prevWord() {
+  const words = getCurrentWords();
+  state.currentIndex = (state.currentIndex - 1 + words.length) % words.length;
+  renderStudyArea();
+}
+function nextWord() {
+  const words = getCurrentWords();
+  state.currentIndex = (state.currentIndex + 1) % words.length;
+  renderStudyArea();
+}
+
+// ============ Fetch IPA from Free Dictionary API ============
+async function fetchIpa(wordId) {
+  const w = state.wordsById.get(wordId);
+  if (!w) return;
+
+  const btn = document.getElementById('fetchIpaBtn');
+  if (btn) { btn.textContent = '...'; btn.disabled = true; }
+
+  // Очищаем вхождение: убираем скобки, спецсимволы, берём только слова
+  const rawWords = w.word
+    .replace(/\(.*?\)/g, '')       // убрать (hint)
+    .replace(/[^a-zA-Z\s\'\-]/g, ' ')  // оставить буквы, апостроф, дефис
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  async function getIpaForWord(token) {
+    try {
+      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(token.toLowerCase())}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      for (const entry of data) {
+        for (const phonetic of (entry.phonetics || [])) {
+          if (phonetic.text && phonetic.text.startsWith('/')) {
+            // Вернуть содержимое без слэшей — склеим потом
+            return phonetic.text.replace(/^\/|\/$/g, '');
+          }
+        }
+        if (entry.phonetic) return entry.phonetic.replace(/^\/|\/$/g, '');
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  try {
+    const parts = await Promise.all(rawWords.map(getIpaForWord));
+    const found = parts.filter(Boolean);
+
+    if (found.length === 0) throw new Error('no IPA found');
+
+    // Склеиваем через пробел и оборачиваем в слэши
+    const ipa = '/' + found.join(' ') + '/';
+
+    w.ipa = ipa;
+    await saveWord(w);
+    renderStudyArea();
+
+  } catch (e) {
+    if (btn) {
+      btn.textContent = '✗';
+      btn.style.color = 'var(--danger, #e53)';
+      btn.title = 'Не найдено для: ' + w.word;
+      setTimeout(() => {
+        btn.textContent = 'IPA ↓';
+        btn.style.color = '';
+        btn.disabled = false;
+        btn.title = 'Подтянуть транскрипцию из словаря';
+      }, 2000);
+    }
+  }
+}
+
+
+function saveLastPosition() {
+  if (!state.currentTopic) return;
+  localStorage.setItem('vocab_last_pos', JSON.stringify({
+    level: state.currentLevel,
+    topic: state.currentTopic,
+    index: state.currentIndex
+  }));
+}
+
+function restoreLastPosition() {
+  try {
+    const raw = localStorage.getItem('vocab_last_pos');
+    if (!raw) return false;
+    const { level, topic, index } = JSON.parse(raw);
+    // Проверяем что уровень и тема существуют
+    const ids = state.topicIndex.get(level + '|' + topic);
+    if (!ids || ids.length === 0) return false;
+    state.currentLevel = level;
+    state.currentTopic = topic;
+    state.currentIndex = Math.min(index, ids.length - 1);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+// ============ Recording + Pronunciation check ============
+async function getMicStream() {
+  // Возвращаем существующий поток, если он ещё активен
+  if (state.micStream && state.micStream.active) {
+    const tracks = state.micStream.getAudioTracks();
+    if (tracks.length > 0 && tracks[0].readyState === 'live') {
+      return state.micStream;
+    }
+  }
+  // Иначе запрашиваем заново (первый раз или если пользователь отозвал доступ)
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  state.micStream = stream;
+  return stream;
+}
+
+async function toggleRecord(targetWord, context) {
+  context = context || 'word';
+  state.recordContext = context;
+  const btnId = context === 'example' ? 'recordExampleBtn' : 'recordBtn';
+  const feedbackId = context === 'example' ? 'feedbackExample' : 'feedback';
+  const audioId = context === 'example' ? 'recordedAudioExample' : 'recordedAudio';
+
+  if (state.isRecording) {
+    stopRecord();
+    return;
+  }
+  // Распознавание речи для проверки произношения
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    showFeedback('Ваш браузер не поддерживает распознавание речи. Работает в Chrome, Edge, Safari.', 'incorrect', null, feedbackId);
+    return;
+  }
+
+  // Очищаем предыдущую запись из памяти
+  if (state.lastRecordingUrl) {
+    URL.revokeObjectURL(state.lastRecordingUrl);
+    state.lastRecordingUrl = null;
+  }
+  const audioEl = document.getElementById(audioId);
+  if (audioEl) audioEl.innerHTML = '';
+
+  // Сначала инициализируем распознавание — микрофон стартует только в onstart
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 3;
+  recognition.continuous = false;
+
+  state.recognition = recognition;
+  const msgPrefix = context === 'example' ? 'Скажите предложение' : 'Говорите';
+
+  // Микрофон и запись включаются только когда распознавание реально готово
+  recognition.onstart = async () => {
+    let stream;
+    try {
+      stream = await getMicStream();
+    } catch(e) {
+      showFeedback('Не удалось получить доступ к микрофону: ' + e.message, 'incorrect', null, feedbackId);
+      stopRecord();
+      return;
+    }
+    try {
+      state.mediaRecorder = new MediaRecorder(stream);
+      state.recordedChunks = [];
+      state.mediaRecorder.ondataavailable = e => {
+        if (e.data.size > 0) state.recordedChunks.push(e.data);
+      };
+      state.mediaRecorder.onstop = () => {
+        const blob = new Blob(state.recordedChunks, { type: 'audio/webm' });
+        const url = URL.createObjectURL(blob);
+        state.lastRecordingUrl = url;
+        const el = document.getElementById(audioId);
+        if (el) el.innerHTML = `<audio controls src="${url}"></audio>`;
+      };
+      state.mediaRecorder.start();
+    } catch(e) {
+      showFeedback('Ошибка записи: ' + e.message, 'incorrect', null, feedbackId);
+      stopRecord();
+      return;
+    }
+    // Теперь кнопка горит красным — микрофон реально активен
+    state.isRecording = true;
+    const btn = document.getElementById(btnId);
+    if (btn) btn.classList.add('recording');
+    showFeedback(msgPrefix + ': "' + targetWord + '"...', 'info', null, feedbackId);
+  };
+
+  // Показываем нейтральное сообщение пока идёт инициализация
+  showFeedback('Подготовка...', 'info', null, feedbackId);
+
+  recognition.onresult = (event) => {
+    const alternatives = [];
+    for (let i = 0; i < event.results[0].length; i++) {
+      alternatives.push(event.results[0][i].transcript.trim().toLowerCase());
+    }
+    checkPronunciation(targetWord, alternatives, feedbackId);
+  };
+  recognition.onerror = (event) => {
+    if (event.error === 'aborted') {
+      // Ничего не показываем — это не ошибка
+    } else if (event.error === 'no-speech') {
+      showFeedback('Не услышал ничего. Попробуйте ещё раз.', 'incorrect', null, feedbackId);
+    } else if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+      showFeedback('Доступ к микрофону запрещён. Разрешите доступ в настройках браузера.', 'incorrect', null, feedbackId);
+    } else if (event.error === 'audio-capture') {
+      showFeedback('Микрофон не найден или недоступен.', 'incorrect', null, feedbackId);
+    } else if (event.error === 'network') {
+      showFeedback('Нет интернета. Распознавание речи требует подключения к сети.', 'incorrect', null, feedbackId);
+    } else {
+      showFeedback('Ошибка: ' + event.error, 'incorrect', null, feedbackId);
+    }
+    stopRecord();
+  };
+  recognition.onend = () => {
+    stopRecord();
+  };
+
+  try {
+    recognition.start();
+  } catch(e) {
+    showFeedback('Подождите секунду и попробуйте снова.', 'info', null, feedbackId);
+    stopRecord();
+  }
+}
+
+function stopRecord() {
+  if (!state.isRecording && !state.recognition && (!state.mediaRecorder || state.mediaRecorder.state === 'inactive')) {
+    return;
+  }
+  state.isRecording = false;
+  // Снимаем подсветку с обеих кнопок (если был контекст примера или слова)
+  ['recordBtn', 'recordExampleBtn'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.classList.remove('recording');
+  });
+  if (state.recognition) {
+    try {
+      state.recognition.onend = null;
+      state.recognition.onerror = null;
+      state.recognition.stop();
+    } catch(e) {}
+    state.recognition = null;
+  }
+  if (state.mediaRecorder && state.mediaRecorder.state !== 'inactive') {
+    try { state.mediaRecorder.stop(); } catch(e) {}
+  }
+}
+
+// Освобождаем микрофон только при закрытии вкладки
+window.addEventListener('beforeunload', () => {
+  if (state.micStream) {
+    state.micStream.getTracks().forEach(t => t.stop());
+  }
+  if (state.lastRecordingUrl) {
+    URL.revokeObjectURL(state.lastRecordingUrl);
+  }
+});
+
+// Alias tables loaded from aliases.js
+
+
+// Нормализация строки для сравнения: нижний регистр, убираем пунктуацию
+function normalizeForMatch(s) {
+  return s.toLowerCase().replace(/-/g, ' ').replace(/[.,!?;:'"()]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+// Нормализует строку ещё и по BR/US: заменяет каждое слово на US-вариант (если есть)
+// Применяется к обеим сторонам сравнения, поэтому armoury === armory
+// normalizeSpelling — только BR/US замены (безопасно для любого слова)
+function normalizeSpelling(s) {
+  return normalizeForMatch(s)
+    .split(' ')
+    .map(w => BR_US_SPELLINGS[w] || w)
+    .join(' ');
+}
+
+// Строим контекстную таблицу STT-замен: включаем пару только если каноническое
+// слово реально присутствует в цели. Так stars→tsars работает когда тренируем
+// "tsars", но НЕ ломает тренировку слова "star".
+function buildCtxNorm(targetNorm) {
+  const ctx = {};
+  for (const [sttWord, canonical] of Object.entries(STT_SOUND_NORM)) {
+    const re = new RegExp('\\b' + canonical + 's?\\b');
+    if (re.test(targetNorm)) ctx[sttWord] = canonical;
+  }
+  return ctx;
+}
+
+// normalizeSpelling с дополнительными контекстными заменами
+function normalizeSpellingCtx(s, ctxNorm) {
+  return normalizeForMatch(s)
+    .split(' ')
+    .map(w => BR_US_SPELLINGS[w] || ctxNorm[w] || w)
+    .join(' ');
+}
+
+// Автогенерация фонетических алиасов для топонимов, которых нет в ручном словаре.
+// Применяет типичные замены, которые делает en-US STT при русских транслитерациях.
+function generateRuToponymAliases(word) {
+  const w = normalizeForMatch(word);
+  const variants = new Set();
+
+  const rules = [
+    [/yu/g,    'you'],  [/you/g,   'yu'],
+    [/ya/g,    'ja'],   [/ja/g,    'ya'],
+    [/zh/g,    'j'],    [/j(?!r)/g,'zh'],
+    [/kh/g,    'h'],    [/\bh/g,   'kh'],
+    [/ts/g,    'c'],
+    [/sky$/g,  'ski'],  [/ski$/g,  'sky'],
+    [/iy\b/g,  'y'],    [/\by\b/g, 'iy'],
+    [/ev\b/g,  'ef'],   [/ef\b/g,  'ev'],
+    [/ov\b/g,  'of'],   [/of\b/g,  'ov'],
+    [/sk\b/g,  'sc'],   [/sc\b/g,  'sk'],
+    [/grad\b/g,'grod'], [/grod\b/g,'grad'],
+    [/burg\b/g,'berg'], [/berg\b/g,'burg'],
+    [/vsk\b/g, 'fsk'],
+  ];
+
+  for (const [from, to] of rules) {
+    const variant = w.replace(from, to).replace(/\s+/g, ' ').trim();
+    if (variant && variant !== w) variants.add(variant);
+  }
+
+  return [...variants];
+}
+
+// Получить все алиасы для слова: топонимы + звуковые замены + автогенерация
+function getAliasesForWord(word) {
+  const norm = normalizeForMatch(word);
+  const toponymAliases = TOPONYM_ALIASES[norm] || [];
+  const soundAliases   = SOUND_ALIASES[norm]   || [];
+  const autoAliases    = generateRuToponymAliases(norm);
+  // Также добавляем US-вариант написания каждого слова в предложении
+  const usSpelled = normalizeSpelling(norm);
+  const usVariants = usSpelled !== norm ? [usSpelled] : [];
+  return [...new Set([...toponymAliases, ...soundAliases, ...autoAliases, ...usVariants])];
+}
+
+function checkPronunciation(target, alternatives, feedbackId) {
+  // Базовая нормализация цели (BR/US)
+  const targetNorm = normalizeSpelling(target);
+  // Контекстная таблица STT-замен: stars→tsars только если в цели есть tsars
+  const ctxNorm = buildCtxNorm(targetNorm);
+  // Нормализуем распознанное с учётом контекста
+  const cleaned = alternatives.map(a => normalizeSpellingCtx(a, ctxNorm));
+
+  // 1. Точное совпадение (после нормализации орфографии)
+  if (cleaned.some(a => a === targetNorm)) {
+    showFeedback('✓ Отлично! Произношение правильное.', 'correct', null, feedbackId);
+    return;
+  }
+
+  // 2. Совпадение по фонетическому алиасу (ручной словарь + звуковые замены + автогенерация)
+  const aliases = getAliasesForWord(target);
+  const aliasMatch = cleaned.find(a => aliases.includes(a));
+
+
+
+  if (aliasMatch) {
+    showFeedback(`✓ Отлично! Принятое произношение: "${aliasMatch}"`, 'correct',
+      `Топоним распознан корректно.`, feedbackId);
+    return;
+  }
+
+  // 3. Fuzzy match — порог снижен для имён собственных (заглавная буква)
+  const best = cleaned.reduce((acc, a) => {
+    const sim = similarity(targetNorm, a);
+    return sim > acc.sim ? { text: a, sim } : acc;
+  }, { text: '', sim: 0 });
+
+  const highThreshold = 0.9;
+  const midThreshold  = 0.6;
+
+  if (best.sim >= highThreshold) {
+    showFeedback(`✓ Очень близко! Распознано как: "${best.text}"`, 'correct',
+      `Точность ${Math.round(best.sim * 100)}%. Цель: "${target}"`, feedbackId);
+  } else if (best.sim >= midThreshold) {
+    showFeedback(`△ Почти. Распознано: "${best.text}"`, 'info',
+      `Точность ${Math.round(best.sim * 100)}%. Попробуйте ещё раз и прислушайтесь к эталонному произношению.`, feedbackId);
+  } else {
+    showFeedback(`✗ Распознано как: "${best.text || alternatives[0]}"`, 'incorrect',
+      `Ожидалось: "${target}". Нажмите «Произнести», чтобы послушать образец.`, feedbackId);
+  }
+}
+
+// Simple Levenshtein-based similarity
+function similarity(a, b) {
+  if (!a || !b) return 0;
+  const longer = a.length >= b.length ? a : b;
+  const shorter = a.length < b.length ? a : b;
+  if (longer.length === 0) return 1;
+  return (longer.length - editDistance(longer, shorter)) / longer.length;
+}
+function editDistance(s1, s2) {
+  const costs = [];
+  for (let i = 0; i <= s1.length; i++) {
+    let lastValue = i;
+    for (let j = 0; j <= s2.length; j++) {
+      if (i === 0) { costs[j] = j; }
+      else if (j > 0) {
+        let newValue = costs[j - 1];
+        if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+          newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+        }
+        costs[j - 1] = lastValue;
+        lastValue = newValue;
+      }
+    }
+    if (i > 0) costs[s2.length] = lastValue;
+  }
+  return costs[s2.length];
+}
+
+function showFeedback(msg, type, detail, feedbackId) {
+  const fb = document.getElementById(feedbackId || 'feedback');
+  if (!fb) return;
+  fb.className = 'feedback show ' + type;
+  fb.innerHTML = msg + (detail ? `<div class="feedback-detail">${escapeHtml(detail)}</div>` : '');
+}
+
+// ============ Add word modal ============
+function openAddWord() {
+  const modal = document.getElementById('addWordModal');
+  // Сбрасываем режим редактирования, если он был
+  delete modal.dataset.editId;
+  const h3 = modal.querySelector('h3');
+  if (h3) h3.textContent = 'Добавить слово';
+
+  const topicSelect = document.getElementById('topicSelect');
+  const allTopics = [...new Set(state.words.map(w => w.topic))].sort();
+  topicSelect.innerHTML = '<option value="">-- выберите --</option>' +
+    allTopics.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+  if (state.currentTopic) topicSelect.value = state.currentTopic;
+  document.getElementById('levelSelect').value = state.currentLevel;
+  document.getElementById('wordInput').value = '';
+  document.getElementById('translationInput').value = '';
+  document.getElementById('transcriptionInput').value = '';
+  document.getElementById('hintInput').value = '';
+  document.getElementById('exampleInput').value = '';
+  document.getElementById('newTopicInput').value = '';
+  modal.classList.add('show');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+// ============ Icon picker ============
+// Популярные смайлы для сетки — сгруппированы по смыслу для удобного выбора
+const PICKER_EMOJIS = [
+  // Люди и лица
+  '🙂','😊','😍','🤔','😎','🙏','👪','👨‍👩‍👧','🧑','👤','👩','👨','👶','👴','👵','💬',
+  '🧔','👩‍🦰','👩‍🦱','👩‍🦳','👩‍🦲','🧕','👲','🧙','🧝','🧛','🧜','👷','💂','🕵️','👨‍⚕️','👩‍⚕️',
+  '👨‍🎓','👩‍🎓','👨‍🏫','👩‍🏫','👨‍⚖️','👩‍⚖️','👨‍🍳','👩‍🍳','👨‍🔧','👩‍🔧','👨‍🏭','👩‍🏭','👨‍💼','👩‍💼','👨‍🔬','👩‍🔬',
+  // Природа, животные
+  '🌳','🌲','🌱','🌸','🌺','🌻','🌹','🍀','🐾','🐶','🐱','🐴','🐸','🐝','🦋','🐢',
+  '🦁','🐯','🐻','🐼','🐨','🦊','🐺','🦝','🦦','🦥','🦔','🐭','🐰','🦌','🐸','🐊',
+  '🐦','🦅','🦆','🦉','🦜','🐧','🦚','🦩','🐓','🦃','🐠','🐬','🐳','🦈','🐙','🦑',
+  '🌵','🌴','🍁','🍂','🍃','🌾','🍄','🌰','🌊','🏔️','🌋','🗻','🏕️','🌅','🌄','🌠',
+  // Еда и напитки
+  '🍎','🍊','🍋','🍇','🍓','🍅','🥕','🥑','🥦','🌽','🍆','🫑','🥝','🍑','🍒','🥭',
+  '🍞','🥐','🧀','🍕','🍔','🍟','🌮','🌯','🥙','🥗','🍜','🍝','🍣','🍱','🍛','🥘',
+  '🍳','🥞','🧆','☕','🍵','🧃','🥤','🍷','🍸','🍹','🍺','🧋','🥛','🍫','🍰','🎂',
+  // Дом, предметы, места
+  '🏠','🏡','🏢','🏫','🏥','🏰','🏛️','🏙️','🌆','📍','🗺️','🛋️','🛏️','🚪','🪟','🪑',
+  '🛁','🪥','🧴','🧸','🎀','🪆','🏮','🕯️','💡','🔦','📦','📫','🗝️','🔑','🔒','🛡️',
+  '🧲','🔧','🔨','⛏️','🪛','🔬','🔭','💈','🪞','🪜','🧰','🧲','🪤','🪣','🧹','🧺',
+  // Транспорт, путешествия
+  '🚗','🚕','🚌','🚅','✈️','🚀','🚲','🛴','⛵','🗻','🏖️','🧳','🎒','🗽','⛩️','🏞️',
+  '🚁','🛸','🚂','🚢','🛳️','🚤','🛶','🏎️','🚑','🚒','🚓','🛻','🚐','🛺','🚠','🚡',
+  // Одежда, мода, тело
+  '👕','👔','👖','👗','👘','🥻','👙','🩱','🩲','🩳','👟','👠','👡','👢','🥾','👒',
+  '🧢','👑','💍','💎','👓','🕶️','🥽','🧣','🧤','🧥','👜','👛','💼','🎒','💄','💅',
+  '❤️','🧠','👁️','👂','👃','🦷','🦴','💪','🦵','🦶','🫀','🫁','🩺','💉','💊','🩹',
+  // Работа, образование, технологии
+  '💼','💻','🖥️','⌨️','🖱️','📊','📈','📉','💰','💵','💳','🏧','💹','🏦','📜','📋',
+  '✏️','📝','📖','📚','🎓','🔬','🧪','🧫','🧬','🔭','📐','📏','🗂️','📁','📂','🗃️',
+  '📎','🖇️','📌','📍','✂️','🖊️','🖋️','✒️','📤','📥','📬','📮','🗳️','📣','📢','🔔',
+  // Время, числа, символы
+  '⏰','⌚','📅','🗓️','⏳','🕐','🕑','🕒','🕓','🕔','🕕','🕖','🕗','🕘','🕙','🕚',
+  '🔢','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟','🥇','🥈','🥉','🏆','🎯',
+  // Эмоции, реакции
+  '😀','😂','🤣','😢','😭','😡','😱','😴','🥳','😇','🤗','👍','👎','🙌','👏','💪',
+  '🤝','✌️','🤞','👌','🤙','🫂','💔','💗','💓','💞','💝','💖','💘','🫶','❤️‍🔥','🩷',
+  // Медиа, искусство, развлечения
+  '📺','📻','🎵','🎶','🎤','🎸','🎹','🎻','🪗','🎺','🥁','🪘','🎭','🎬','🎨','📷',
+  '📽️','🎞️','🎮','🕹️','🎲','🎪','🎉','🎊','🎈','🎁','🪄','🎠','🎡','🎢','🎯','🎳',
+  // Спорт, игры
+  '⚽','🏀','🏈','⚾','🎾','🏐','🏉','🥏','🎱','🏓','🏸','🥍','🏒','🥊','🥋','⛳',
+  '🏄','🏊','🚴','🏃','🧘','🤸','🏋️','🤼','🤺','🏇','⛷️','🏂','🛷','🥌','🎿','🤿',
+  // Погода, стихии, космос
+  '☀️','🌤️','⛅','☁️','🌧️','⛈️','❄️','🌨️','🌩️','🌪️','🌈','💧','🔥','🌊','🌀','⚡',
+  '🌙','⭐','🌟','✨','💫','🌍','🌎','🌏','🪐','🌞','☄️','🌌','🔭','🪨','🧊','💨',
+  // Символы и разное
+  '✅','❌','❓','❗','💡','🔑','🔒','🎁','📦','🔗','📌','🎭','🔬','💭','💡','🗺️',
+  '🏳️','🏴','🚩','🎌','🏁','🔴','🟠','🟡','🟢','🔵','🟣','⚫','⚪','🟤','🔶','🔷'
+];
+
+let pickerCurrentTopic = null; // какую тему сейчас редактируем
+
+function openIconPicker(topic) {
+  pickerCurrentTopic = topic;
+  document.getElementById('iconPickerTopic').textContent = topic;
+  const grid = document.getElementById('iconPickerGrid');
+  const currentIcon = getTopicIcon(topic);
+  grid.innerHTML = PICKER_EMOJIS.map(em =>
+    `<button class="${em === currentIcon ? 'selected' : ''}" onclick="pickIcon('${em}')" title="${em}">${em}</button>`
+  ).join('');
+  document.getElementById('iconPickerInput').value = '';
+  document.getElementById('iconPickerPreview').textContent = '';
+  renderUserEmojiRow(currentIcon);
+  document.getElementById('iconPickerModal').classList.add('show');
+}
+
+// Рендерит строку пользовательских эмодзи под полем ввода
+function renderUserEmojiRow(currentIcon) {
+  const row = document.getElementById('userEmojiRow');
+  if (!row) return;
+  const userEmojis = getUserEmojis();
+  if (userEmojis.length === 0) { row.innerHTML = ''; return; }
+  row.innerHTML = '<span style="font-size:11px;color:var(--text-muted);width:100%;margin-bottom:2px;">Ваши эмодзи:</span>' +
+    userEmojis.map((em, i) =>
+      `<span style="position:relative;display:inline-block;">
+        <button class="${em === currentIcon ? 'selected' : ''}" onclick="pickIcon('${em}')"
+          style="font-size:22px;padding:4px 6px;cursor:pointer;border:1px solid var(--border);border-radius:6px;background:var(--surface);"
+          title="${em}">${em}</button>
+        <button onclick="removeUserEmoji(${i})" title="Удалить из коллекции"
+          style="position:absolute;top:-4px;right:-4px;font-size:9px;background:var(--danger,#c0392b);color:#fff;
+                 border:none;border-radius:50%;width:14px;height:14px;cursor:pointer;line-height:14px;padding:0;">✕</button>
+      </span>`
+    ).join('');
+}
+
+function previewCustomIcon(val) {
+  document.getElementById('iconPickerPreview').textContent = val.trim() || '';
+}
+
+function getUserEmojis() {
+  try { return JSON.parse(localStorage.getItem('userEmojis') || '[]'); }
+  catch(e) { return []; }
+}
+
+function saveUserEmojis(arr) {
+  localStorage.setItem('userEmojis', JSON.stringify(arr));
+}
+
+function removeUserEmoji(index) {
+  const arr = getUserEmojis();
+  arr.splice(index, 1);
+  saveUserEmojis(arr);
+  renderUserEmojiRow(null);
+}
+
+async function pickIcon(icon) {
+  if (!pickerCurrentTopic) return;
+  USER_TOPIC_ICONS[pickerCurrentTopic] = icon;
+  try {
+    await dbSetSetting('topicIcons', USER_TOPIC_ICONS);
+  } catch(e) {
+    alert('Ошибка сохранения: ' + e.message);
+    return;
+  }
+  closeModal('iconPickerModal');
+  renderTopics();
+}
+
+async function applyCustomIcon(addToCollection = false) {
+  const input = document.getElementById('iconPickerInput');
+  const value = (input.value || '').trim();
+  if (!value) {
+    alert('Введите эмодзи в поле ввода');
+    return;
+  }
+  if (addToCollection) {
+    // Добавляем в пользовательскую коллекцию (без дублей)
+    const arr = getUserEmojis();
+    if (!arr.includes(value)) {
+      arr.push(value);
+      saveUserEmojis(arr);
+    }
+    renderUserEmojiRow(value);
+    // Подсвечиваем добавленный эмодзи в строке
+    const btns = document.querySelectorAll('#userEmojiRow button');
+    btns.forEach(b => { if (b.textContent === value) b.style.outline = '2px solid var(--accent)'; });
+  }
+  await pickIcon(value);
+}
+
+async function resetTopicIcon() {
+  if (!pickerCurrentTopic) return;
+  delete USER_TOPIC_ICONS[pickerCurrentTopic];
+  try {
+    await dbSetSetting('topicIcons', USER_TOPIC_ICONS);
+  } catch(e) {
+    alert('Ошибка сохранения: ' + e.message);
+    return;
+  }
+  closeModal('iconPickerModal');
+  renderTopics();
+}
+
+async function saveWord() {
+  const word = document.getElementById('wordInput').value.trim();
+  const translation = document.getElementById('translationInput').value.trim();
+  let ipa = document.getElementById('transcriptionInput').value.trim();
+  const hint = document.getElementById('hintInput').value.trim();
+  const example = document.getElementById('exampleInput').value.trim();
+  const level = document.getElementById('levelSelect').value;
+  const newTopic = document.getElementById('newTopicInput').value.trim();
+  const topic = newTopic || document.getElementById('topicSelect').value;
+
+  if (!word || !translation) {
+    alert('Укажите слово и перевод');
+    return;
+  }
+  if (!topic) {
+    alert('Выберите или создайте тему');
+    return;
+  }
+  if (!ipa) {
+    ipa = await tryFetchIpa(word);
+  }
+
+  const modal = document.getElementById('addWordModal');
+  const editId = modal.dataset.editId ? parseInt(modal.dataset.editId, 10) : null;
+
+  if (editId) {
+    // Режим редактирования — обновляем существующее слово
+    const existing = state.wordsById.get(editId);
+    if (!existing) { alert('Слово не найдено'); return; }
+    // Если изменилась тема/уровень — нужно обновить индексы
+    const oldKey = existing.level + '|' + existing.topic;
+    const newKey = level + '|' + topic;
+    Object.assign(existing, { word, translation, ipa, hint, example, level, topic });
+    if (oldKey !== newKey) {
+      // Убираем из старого ключа
+      const oldArr = state.topicIndex.get(oldKey);
+      if (oldArr) {
+        const i = oldArr.indexOf(editId);
+        if (i >= 0) oldArr.splice(i, 1);
+        if (oldArr.length === 0) state.topicIndex.delete(oldKey);
+      }
+      // Добавляем в новый
+      if (!state.topicIndex.has(newKey)) state.topicIndex.set(newKey, []);
+      state.topicIndex.get(newKey).push(editId);
+    }
+    await dbBulkPut([existing]);
+    delete modal.dataset.editId;
+    document.querySelector('#addWordModal h3').textContent = 'Добавить слово';
+    closeModal('addWordModal');
+    renderTopics();
+    renderStudyArea();
+    return;
+  }
+
+  // Режим добавления нового — проверка на ПОЛНЫЙ дубликат (word + level + translation).
+  // Разные переводы одного слова = разные записи (например look/смотреть и look/искать).
+  const duplicate = state.words.find(w =>
+    w.word.toLowerCase() === word.toLowerCase() &&
+    w.level === level &&
+    (w.translation || '').toLowerCase().trim() === translation.toLowerCase().trim()
+  );
+  if (duplicate) {
+    const sameTopic = duplicate.topic === topic ? '' : ' (вы добавляете в «' + topic + '», а оно в теме «' + duplicate.topic + '»)';
+    const ok = confirm(
+      `Такая запись уже есть: «${word}» — «${translation}» на уровне ${level}${sameTopic}.\n\n` +
+      `OK — обновить существующую (IPA, пример, тема).\n` +
+      `Отмена — не добавлять.`
+    );
+    if (!ok) return;
+    const oldKey = duplicate.level + '|' + duplicate.topic;
+    const newKey = level + '|' + topic;
+    Object.assign(duplicate, { ipa, example, topic });
+    if (oldKey !== newKey) {
+      const oldArr = state.topicIndex.get(oldKey);
+      if (oldArr) {
+        const i = oldArr.indexOf(duplicate.id);
+        if (i >= 0) oldArr.splice(i, 1);
+        if (oldArr.length === 0) state.topicIndex.delete(oldKey);
+      }
+      if (!state.topicIndex.has(newKey)) state.topicIndex.set(newKey, []);
+      state.topicIndex.get(newKey).push(duplicate.id);
+    }
+    await dbBulkPut([duplicate]);
+    closeModal('addWordModal');
+    state.currentLevel = level;
+    state.currentTopic = topic;
+    state.trainingMode = 'topic';
+    renderLevelBar();
+    renderTopics();
+    renderStudyArea();
+    return;
+  }
+
+  const record = { word, translation, ipa, hint, example, exampleTranslation: '', level, topic, starred: false };
+  await new Promise((resolve, reject) => {
+    const req = dbTx('readwrite').add(record);
+    req.onsuccess = (e) => { record.id = e.target.result; resolve(); };
+    req.onerror = (e) => reject(e.target.error);
+  });
+  addWordToIndexes(record);
+  closeModal('addWordModal');
+  state.currentLevel = level;
+  state.currentTopic = topic;
+  state.trainingMode = 'topic';
+  renderLevelBar();
+  renderTopics();
+  renderStudyArea();
+}
+
+// Опциональная попытка получить IPA — без внешних зависимостей возвращаем пустую строку
+// Пользователь может добавить транскрипцию сам
+async function tryFetchIpa(word) {
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+    if (!res.ok) return '';
+    const data = await res.json();
+    if (data[0] && data[0].phonetics) {
+      const p = data[0].phonetics.find(x => x.text);
+      return p ? p.text : '';
+    }
+  } catch(e) {}
+  return '';
+}
+
+// ============ Bulk import ============
+let bulkParsedRows = [];
+
+function openBulkImport() {
+  document.getElementById('bulkLevelSelect').value = state.currentLevel;
+  document.getElementById('bulkTopicInput').value = state.currentTopic || '';
+  document.getElementById('bulkTextarea').value = '';
+  document.getElementById('bulkPreviewArea').style.display = 'none';
+  bulkParsedRows = [];
+  document.getElementById('bulkImportModal').classList.add('show');
+}
+
+function bulkShowExample() {
+  document.getElementById('bulkTextarea').value =
+`apple, яблоко, /ˈæpəl/, I eat an apple every day.
+bread — хлеб
+water: вода, /ˈwɔːtə/
+house	дом	/haʊs/	My house is big.
+journey; путешествие; /ˈdʒɜːni/; A long journey home.`;
+}
+
+// Определяем разделитель по содержимому строки
+function detectDelimiter(line) {
+  if (line.includes('\t')) return '\t';
+  // Считаем частоту разделителей и выбираем самый распространённый
+  const candidates = [';', ',', ' — ', ' - ', ' – ', ':'];
+  for (const d of candidates) {
+    if (line.includes(d)) return d;
+  }
+  return null;
+}
+
+// Разбираем одну строку на поля с учётом CSV-кавычек
+function parseCsvLine(line, delim) {
+  if (delim === '\t' || delim === ';' || delim === ',') {
+    const result = [];
+    let cur = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"' && inQuotes && line[i + 1] === '"') {
+        cur += '"'; i++;
+      } else if (ch === '"') {
+        inQuotes = !inQuotes;
+      } else if (ch === delim && !inQuotes) {
+        result.push(cur); cur = '';
+      } else {
+        cur += ch;
+      }
+    }
+    result.push(cur);
+    return result.map(s => s.trim());
+  }
+  // Для простых разделителей берём только первое вхождение (слово — перевод)
+  const idx = line.indexOf(delim);
+  if (idx === -1) return [line.trim()];
+  return [line.slice(0, idx).trim(), line.slice(idx + delim.length).trim()];
+}
+
+function bulkParse() {
+  const text = document.getElementById('bulkTextarea').value.trim();
+  if (!text) {
+    alert('Вставьте данные в поле выше');
+    return;
+  }
+  const defaultLevel = document.getElementById('bulkLevelSelect').value;
+  const defaultTopic = document.getElementById('bulkTopicInput').value.trim() || 'Разное';
+
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l);
+  const rows = [];
+
+  // Определяем, является ли первая строка заголовком (содержит "word", "translation" и т.п.)
+  let startIdx = 0;
+  let headerMap = null;
+  if (lines.length > 1) {
+    const firstLine = lines[0].toLowerCase();
+    const headerKeywords = ['word', 'слово', 'translation', 'перевод', 'transcription', 'транскрипция', 'ipa', 'example', 'пример', 'level', 'уровень', 'topic', 'тема'];
+    const looksLikeHeader = headerKeywords.some(k => firstLine.includes(k));
+    if (looksLikeHeader) {
+      const delim = detectDelimiter(lines[0]) || ',';
+      const headers = parseCsvLine(lines[0], delim).map(h => h.toLowerCase());
+      headerMap = {};
+      headers.forEach((h, i) => {
+        if (/word|слово/.test(h)) headerMap.word = i;
+        else if (/translat|перевод/.test(h) && !/example|пример/.test(h)) headerMap.translation = i;
+        else if (/transcript|ipa|транскрип/.test(h)) headerMap.ipa = i;
+        else if (/hint|подсказка/.test(h)) headerMap.hint = i;
+        else if (/example.*translat|пример.*перевод|exampletranslation|перевод.*пример/i.test(h)) headerMap.exampleTranslation = i;
+        else if (/example|пример/.test(h)) headerMap.example = i;
+        else if (/level|уровень/.test(h)) headerMap.level = i;
+        else if (/topic|тема/.test(h)) headerMap.topic = i;
+      });
+      if (headerMap.word !== undefined || headerMap.translation !== undefined) {
+        startIdx = 1;
+      } else {
+        headerMap = null;
+      }
+    }
+  }
+
+  for (let i = startIdx; i < lines.length; i++) {
+    const line = lines[i];
+    const delim = detectDelimiter(line);
+    if (!delim) {
+      rows.push({ valid: false, raw: line, reason: 'Не найден разделитель' });
+      continue;
+    }
+    const fields = parseCsvLine(line, delim);
+    let word, translation, ipa, hint, example, exampleTranslation, level, topic;
+    if (headerMap) {
+      word = fields[headerMap.word] || '';
+      translation = fields[headerMap.translation] || '';
+      ipa = headerMap.ipa !== undefined ? fields[headerMap.ipa] || '' : '';
+      hint = headerMap.hint !== undefined ? fields[headerMap.hint] || '' : '';
+      example = headerMap.example !== undefined ? fields[headerMap.example] || '' : '';
+      exampleTranslation = headerMap.exampleTranslation !== undefined ? fields[headerMap.exampleTranslation] || '' : '';
+      level = headerMap.level !== undefined ? fields[headerMap.level] || '' : '';
+      topic = headerMap.topic !== undefined ? fields[headerMap.topic] || '' : '';
+    } else {
+      // Позиционный формат: word, translation, ipa, example, level, topic, [exampleTranslation]
+      [word, translation, ipa, example, level, topic, exampleTranslation] = fields;
+      hint = '';
+    }
+    word = (word || '').trim();
+    translation = (translation || '').trim();
+    ipa = (ipa || '').trim();
+    hint = (hint || '').trim();
+    example = (example || '').trim();
+    exampleTranslation = (exampleTranslation || '').trim();
+    level = (level || '').trim().toUpperCase();
+    topic = (topic || '').trim();
+    if (!['A1','A2','B1','B2','C1','C2','S'].includes(level)) level = defaultLevel;
+    if (!topic) topic = defaultTopic;
+
+    if (!word || !translation) {
+      rows.push({ valid: false, raw: line, reason: 'Нет слова или перевода' });
+      continue;
+    }
+    rows.push({ valid: true, word, translation, ipa, hint, example, exampleTranslation, level, topic });
+  }
+
+  // Проверка на дубликаты ВНУТРИ списка (по word + level + hint): оставляем первое, остальные помечаем.
+  const seenKeys = new Map();
+  rows.forEach((r, idx) => {
+    if (!r.valid) return;
+    const key = r.word.toLowerCase() + '|' + r.level + '|' + (r.hint || '').toLowerCase().trim();
+    if (seenKeys.has(key)) {
+      rows[idx] = {
+        valid: false,
+        raw: r.word + ' — ' + r.translation + ' (' + r.level + ')',
+        reason: 'Полный дубликат в списке: слово+уровень+подсказка уже встречались выше'
+      };
+    } else {
+      seenKeys.set(key, idx);
+    }
+  });
+
+  bulkParsedRows = rows;
+  renderBulkPreview();
+}
+
+function renderBulkPreview() {
+  const area = document.getElementById('bulkPreviewArea');
+  const body = document.getElementById('bulkPreviewBody');
+  const summary = document.getElementById('bulkPreviewSummary');
+  const okCount = bulkParsedRows.filter(r => r.valid).length;
+  const badCount = bulkParsedRows.length - okCount;
+
+  summary.innerHTML = `Распознано строк: <span class="count-ok">${okCount}</span>` +
+    (badCount ? ` · Пропущено: <span class="count-bad">${badCount}</span>` : '');
+
+  body.innerHTML = bulkParsedRows.map(r => {
+    if (!r.valid) {
+      return `<tr class="invalid"><td colspan="6" style="font-size:12px;">✗ ${escapeHtml(r.raw)} — ${escapeHtml(r.reason)}</td></tr>`;
+    }
+    return `<tr>
+      <td><strong>${escapeHtml(r.word)}</strong></td>
+      <td>${escapeHtml(r.translation)}</td>
+      <td style="color: var(--info); font-family: serif;">${escapeHtml(r.ipa) || '<span style="color: var(--text-soft);">авто</span>'}</td>
+      <td style="font-style:italic; color: var(--text-muted);">${escapeHtml(r.hint || '')}</td>
+      <td>${escapeHtml(r.level)}</td>
+      <td>${escapeHtml(r.topic)}</td>
+    </tr>`;
+  }).join('');
+
+  area.style.display = 'block';
+}
+
+async function bulkConfirm() {
+  const valid = bulkParsedRows.filter(r => r.valid);
+  if (valid.length === 0) {
+    alert('Нет корректных строк для добавления');
+    return;
+  }
+  const autoIpa = document.getElementById('bulkAutoIpa').checked;
+  const updateExisting = document.getElementById('bulkUpdateExisting').checked;
+  const summary = document.getElementById('bulkPreviewSummary');
+  const confirmBtn = document.querySelector('#bulkPreviewArea .btn.primary');
+  if (confirmBtn) confirmBtn.disabled = true;
+
+  if (autoIpa) {
+    const needIpa = valid.filter(r => !r.ipa);
+    let done = 0;
+    for (const row of needIpa) {
+      summary.innerHTML = `Загрузка транскрипций: ${done} / ${needIpa.length}...`;
+      try {
+        row.ipa = await tryFetchIpa(row.word);
+      } catch(e) {}
+      done++;
+    }
+  }
+
+  // Индекс существующих: ключ = word.toLowerCase() + '|' + level + '|' + hint.toLowerCase()
+  const existingMap = new Map();
+  if (updateExisting) {
+    state.words.forEach(w => {
+      const k = w.word.toLowerCase() + '|' + w.level + '|' + (w.hint || '').toLowerCase().trim();
+      existingMap.set(k, w);
+    });
+  }
+
+  // Разделяем на новые и обновлённые
+  const toAdd = [];
+  const toUpdate = [];
+  for (const r of valid) {
+    const key = r.word.toLowerCase() + '|' + r.level + '|' + (r.hint || '').toLowerCase().trim();
+    const existing = updateExisting ? existingMap.get(key) : null;
+    if (existing) {
+      if (r.ipa) existing.ipa = r.ipa;
+      if (r.hint !== undefined) existing.hint = r.hint;
+      if (r.example) existing.example = r.example;
+      if (r.exampleTranslation) existing.exampleTranslation = r.exampleTranslation;
+      if (r.topic) existing.topic = r.topic;
+      toUpdate.push(existing);
+    } else {
+      toAdd.push({
+        word: r.word,
+        translation: r.translation,
+        ipa: r.ipa || '',
+        hint: r.hint || '',
+        example: r.example || '',
+        exampleTranslation: r.exampleTranslation || '',
+        level: r.level,
+        topic: r.topic,
+        starred: false,
+      });
+    }
+  }
+
+  const BATCH = 500;
+  let saved = 0;
+  const total = toAdd.length + toUpdate.length;
+
+  // Сохраняем обновлённые (put сохраняет id)
+  for (let i = 0; i < toUpdate.length; i += BATCH) {
+    const batch = toUpdate.slice(i, i + BATCH);
+    summary.innerHTML = `Обновление: ${saved} / ${total}...`;
+    await new Promise((resolve, reject) => {
+      const tx = state.db.transaction(STORE, 'readwrite');
+      const store = tx.objectStore(STORE);
+      batch.forEach(rec => store.put(rec));
+      tx.oncomplete = () => resolve();
+      tx.onerror = (e) => reject(e.target.error);
+    });
+    saved += batch.length;
+    await new Promise(r => setTimeout(r, 0));
+  }
+
+  // Сохраняем новые (add генерирует id)
+  for (let i = 0; i < toAdd.length; i += BATCH) {
+    const batch = toAdd.slice(i, i + BATCH);
+    summary.innerHTML = `Сохранение: ${saved} / ${total}...`;
+    await new Promise((resolve, reject) => {
+      const tx = state.db.transaction(STORE, 'readwrite');
+      const store = tx.objectStore(STORE);
+      batch.forEach((rec) => {
+        const req = store.add(rec);
+        req.onsuccess = (e) => { rec.id = e.target.result; };
+      });
+      tx.oncomplete = () => resolve();
+      tx.onerror = (e) => reject(e.target.error);
+    });
+    saved += batch.length;
+    await new Promise(r => setTimeout(r, 0));
+  }
+
+  // Обновляем state.words: сначала добавляем новые записи, потом перестраиваем индексы
+  // (обновления уже применены inplace к существующим объектам через existing.translation = ...)
+  for (const rec of toAdd) {
+    state.words.push(rec);
+  }
+  // Единый rebuild: гарантирует что state.wordsById, topicIndex и starredIds согласованы
+  rebuildIndexes();
+
+  if (confirmBtn) confirmBtn.disabled = false;
+  closeModal('bulkImportModal');
+
+  if (!state.currentTopic && valid.length > 0) {
+    state.currentLevel = valid[0].level;
+  }
+  renderLevelBar();
+  renderTopics();
+  renderStudyArea();
+
+  const msg = [];
+  if (toAdd.length) msg.push(`Добавлено: ${toAdd.length}`);
+  if (toUpdate.length) msg.push(`Обновлено: ${toUpdate.length}`);
+  if (msg.length) alert(msg.join(', '));
+}
+
+// ============ Favorites (starred) ============
+async function toggleStar(id) {
+  const w = state.wordsById.get(id);
+  if (!w) return;
+  w.starred = !w.starred;
+  if (w.starred) state.starredIds.add(id);
+  else state.starredIds.delete(id);
+  await dbBulkPut([w]);
+  // Сохраняем Избранное в localStorage для сохранения между сессиями
+  saveStarredToLS(state.starredIds);
+  // Если в режиме starred и слово убрали — может сместиться список
+  renderStudyArea();
+}
+
+function openFavorites() {
+  if (state.starredIds.size === 0) {
+    alert('Избранное пусто. Отмечайте слова звёздочкой во время учёбы, чтобы тренировать трудные.');
+    return;
+  }
+  state.trainingMode = 'starred';
+  state.currentIndex = 0;
+  state.currentTopic = null;
+  document.querySelectorAll('.topic-card.active').forEach(el => el.classList.remove('active'));
+  document.getElementById('favoritesBtn').classList.add('primary');
+  renderTopics();
+  renderStudyArea();
+}
+
+function exitFavorites() {
+  state.trainingMode = 'topic';
+  state.currentIndex = 0;
+  document.getElementById('favoritesBtn').classList.remove('primary');
+  renderStudyArea();
+}
+
+// ============ Search (full dictionary editor) ============
+function openSearch() {
+  document.getElementById('searchModal').classList.add('show');
+  const inp = document.getElementById('searchInput');
+  inp.value = '';
+  inp.focus();
+  renderSearchResults('');
+}
+
+let searchDebounceTimer = null;
+function onSearchInput(e) {
+  if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+  const q = e.target.value;
+  searchDebounceTimer = setTimeout(() => renderSearchResults(q), 120);
+}
+
+function renderSearchResults(query) {
+  const container = document.getElementById('searchResults');
+  const hint = document.getElementById('searchHint');
+  const q = query.trim().toLowerCase();
+
+  if (q.length < 2) {
+    container.innerHTML = '';
+    hint.textContent = `Введите минимум 2 символа. Всего слов в словаре: ${state.words.length}.`;
+    return;
+  }
+
+  // Ищем по word и translation
+  const results = [];
+  for (const w of state.words) {
+    if (w.word.toLowerCase().includes(q) || w.translation.toLowerCase().includes(q)) {
+      results.push(w);
+      if (results.length >= 200) break; // не показываем больше 200, иначе рендер тормозит
+    }
+  }
+
+  if (results.length === 0) {
+    container.innerHTML = '<div class="empty-state" style="padding: 1.5rem;">Ничего не найдено.</div>';
+    hint.textContent = '';
+    return;
+  }
+
+  hint.textContent = `Найдено: ${results.length}${results.length >= 200 ? '+ (уточните запрос)' : ''}`;
+
+  container.innerHTML = results.map(w => `
+    <div class="search-item" data-id="${w.id}">
+      <div class="search-item-main">
+        <div class="search-item-line">
+          <strong>${escapeHtml(w.word)}</strong>
+          ${w.ipa ? `<span class="search-item-ipa">${escapeHtml(w.ipa)}</span>` : ''}
+          <span class="badge">${w.level}</span>
+          ${w.starred ? '<span class="star-badge">★</span>' : ''}
+        </div>
+        <div class="search-item-sub">${escapeHtml(w.translation)} · ${escapeHtml(w.topic)}</div>
+        ${w.example ? `<div class="search-item-example">${escapeHtml(w.example)}</div>` : ''}
+      </div>
+      <div class="search-item-actions">
+        <button class="icon-small" title="${w.starred ? 'Убрать из избранного' : 'В избранное'}" onclick="toggleStarFromSearch(${w.id})">${w.starred ? '★' : '☆'}</button>
+        <button class="icon-small" title="Изменить" onclick="editWordFromSearch(${w.id})">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </button>
+        <button class="icon-small danger" title="Удалить" onclick="deleteWordFromSearch(${w.id})">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function toggleStarFromSearch(id) {
+  await toggleStar(id);
+  // Перерисуем текущие результаты поиска
+  const q = document.getElementById('searchInput').value;
+  renderSearchResults(q);
+}
+
+async function deleteWordFromSearch(id) {
+  if (!confirm('Удалить это слово?')) return;
+  await dbDelete(id);
+  removeWordFromIndexes(id);
+  const q = document.getElementById('searchInput').value;
+  renderSearchResults(q);
+  renderTopics();
+  renderStudyArea();
+}
+
+function editWordFromSearch(id) {
+  const w = state.wordsById.get(id);
+  if (!w) return;
+  // Открываем модалку, но БЕЗ вызова openAddWord (который сбросит editId)
+  const modal = document.getElementById('addWordModal');
+  const topicSelect = document.getElementById('topicSelect');
+  const allTopics = [...new Set(state.words.map(x => x.topic))].sort();
+  topicSelect.innerHTML = '<option value="">-- выберите --</option>' +
+    allTopics.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+  // Убедимся, что в списке тем есть текущая тема
+  if (![...topicSelect.options].some(o => o.value === w.topic)) {
+    const opt = document.createElement('option');
+    opt.value = w.topic; opt.textContent = w.topic;
+    topicSelect.appendChild(opt);
+  }
+  document.getElementById('wordInput').value = w.word;
+  document.getElementById('translationInput').value = w.translation;
+  document.getElementById('transcriptionInput').value = w.ipa || '';
+  document.getElementById('hintInput').value = w.hint || '';
+  document.getElementById('exampleInput').value = w.example || '';
+  document.getElementById('levelSelect').value = w.level;
+  document.getElementById('newTopicInput').value = '';
+  topicSelect.value = w.topic;
+
+  modal.dataset.editId = id;
+  modal.querySelector('h3').textContent = 'Изменить слово';
+  closeModal('searchModal');
+  modal.classList.add('show');
+}
+
+// ============ Export / Import ============
+async function exportData() {
+  const data = state.words.map(w => ({
+    word: w.word,
+    translation: w.translation,
+    ipa: w.ipa,
+    hint: w.hint || '',
+    example: w.example,
+    exampleTranslation: w.exampleTranslation || '',
+    level: w.level,
+    topic: w.topic,
+    starred: !!w.starred,
+  }));
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'vocab-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function exportTsv() {
+  // Экспорт в TSV для Google Sheets / Excel.
+  // Колонки: word, translation, ipa, example, exampleTranslation, level, topic
+  // Порядок такой, чтобы TSV, импортированный обратно, сохранил все поля.
+  const esc = (s) => {
+    s = String(s == null ? '' : s);
+    // В TSV запрещены табы и переводы строк внутри значений. Заменяем на пробел.
+    return s.replace(/\t/g, ' ').replace(/\r?\n/g, ' ');
+  };
+  const header = ['word','translation','ipa','hint','example','exampleTranslation','level','topic'].join('\t');
+  const lines = state.words.map(w => [
+    esc(w.word),
+    esc(w.translation),
+    esc(w.ipa || ''),
+    esc(w.hint || ''),
+    esc(w.example || ''),
+    esc(w.exampleTranslation || ''),
+    esc(w.level),
+    esc(w.topic),
+  ].join('\t'));
+  // Spreadsheet-friendly: BOM, чтобы Excel корректно читал UTF-8
+  const content = '\uFEFF' + header + '\n' + lines.join('\n');
+  const blob = new Blob([content], { type: 'text/tab-separated-values;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'vocab-' + new Date().toISOString().slice(0,10) + '.tsv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function clearLevelData() {
+  const level = state.currentLevel;
+  const count = state.words.filter(w => w.level === level).length;
+  if (count === 0) {
+    alert('На уровне ' + level + ' нет слов.');
+    return;
+  }
+  if (!confirm(`Удалить ВСЕ ${count} слов уровня ${level}? Это действие нельзя отменить.`)) return;
+  if (!confirm('Вы уверены? Будут удалены слова уровня ' + level + ' со всеми пометками «избранное».')) return;
+
+  const toDelete = state.words.filter(w => w.level === level).map(w => w.id);
+  await new Promise((resolve, reject) => {
+    const tx = state.db.transaction(STORE, 'readwrite');
+    const store = tx.objectStore(STORE);
+    toDelete.forEach(id => store.delete(id));
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e.target.error);
+  });
+  // Обновим state
+  state.words = state.words.filter(w => w.level !== level);
+  rebuildIndexes();
+  state.currentTopic = null;
+  renderLevelBar();
+  renderTopics();
+  renderStudyArea();
+  alert(`Удалено: ${count} слов уровня ${level}.`);
+}
+
+async function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!Array.isArray(data)) throw new Error('Неверный формат');
+      const currentCount = state.words.length;
+      const replace = confirm(
+        `JSON-файл содержит ${data.length} слов.\n\n` +
+        `OK — ЗАМЕНИТЬ всю базу: удалить текущие ${currentCount} слов и загрузить ${data.length} из файла (полное восстановление из бэкапа).\n` +
+        `Отмена — ДОБАВИТЬ к существующим (если слово с тем же word+level уже есть, оно обновится).`
+      );
+
+      const records = data.map(w => ({
+        word: w.word || '',
+        translation: w.translation || '',
+        ipa: w.ipa || '',
+        hint: w.hint || '',
+        example: w.example || '',
+        exampleTranslation: w.exampleTranslation || '',
+        level: w.level || 'A1',
+        topic: w.topic || 'Разное',
+        starred: !!w.starred,
+      }));
+
+      if (replace) {
+        // Очищаем БД и пишем всё из JSON
+        await new Promise((resolve, reject) => {
+          const tx = state.db.transaction(STORE, 'readwrite');
+          const store = tx.objectStore(STORE);
+          const req = store.clear();
+          tx.oncomplete = () => resolve();
+          tx.onerror = (e) => reject(e.target.error);
+        });
+        // Теперь добавляем всё из файла
+        await new Promise((resolve, reject) => {
+          const tx = state.db.transaction(STORE, 'readwrite');
+          const store = tx.objectStore(STORE);
+          records.forEach(rec => {
+            const req = store.add(rec);
+            req.onsuccess = (e) => { rec.id = e.target.result; };
+          });
+          tx.oncomplete = () => resolve();
+          tx.onerror = (e) => reject(e.target.error);
+        });
+        state.words = records;
+        rebuildIndexes();
+        state.currentTopic = null;
+        renderLevelBar();
+        renderTopics();
+        renderStudyArea();
+        alert(`База заменена: ${records.length} слов загружено.`);
+        return;
+      }
+
+      // Режим добавления с обновлением полных дублей (по word + level + translation)
+      const existingMap = new Map();
+      state.words.forEach(w => {
+        const k = w.word.toLowerCase() + '|' + w.level + '|' + (w.translation || '').toLowerCase().trim();
+        existingMap.set(k, w);
+      });
+      const toAdd = [];
+      const toUpdate = [];
+      for (const r of records) {
+        const key = r.word.toLowerCase() + '|' + r.level + '|' + (r.translation || '').toLowerCase().trim();
+        const existing = existingMap.get(key);
+        if (existing) {
+          // translation не обновляем — он и так совпадает
+          if (r.ipa) existing.ipa = r.ipa;
+          if (r.hint !== undefined) existing.hint = r.hint;
+          if (r.example) existing.example = r.example;
+          if (r.exampleTranslation) existing.exampleTranslation = r.exampleTranslation;
+          if (r.topic) existing.topic = r.topic;
+          if (r.starred) existing.starred = true;
+          toUpdate.push(existing);
+        } else {
+          toAdd.push(r);
+        }
+      }
+
+      await new Promise((resolve, reject) => {
+        const tx = state.db.transaction(STORE, 'readwrite');
+        const store = tx.objectStore(STORE);
+        toUpdate.forEach(rec => store.put(rec));
+        toAdd.forEach(rec => {
+          const req = store.add(rec);
+          req.onsuccess = (e) => { rec.id = e.target.result; };
+        });
+        tx.oncomplete = () => resolve();
+        tx.onerror = (e) => reject(e.target.error);
+      });
+      for (const rec of toAdd) state.words.push(rec);
+      rebuildIndexes();
+      renderTopics();
+      renderStudyArea();
+      const msg = [];
+      if (toAdd.length) msg.push(`Добавлено: ${toAdd.length}`);
+      if (toUpdate.length) msg.push(`Обновлено: ${toUpdate.length}`);
+      alert('Импорт завершён. ' + msg.join(', '));
+    } catch(err) {
+      alert('Ошибка импорта: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ============ Helpers ============
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+function escapeJs(s) {
+  return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+// ============ Restricted / in-app browser banner ============
+(function() {
+  const ua = navigator.userAgent;
+  const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  const isSafari = /^((?!chrome|android|crios|fxios|opera|opios).)*safari/i.test(ua);
+  const isAndroidWebview = /Android.*; wv\)/i.test(ua);
+  const isKnownInApp = /FBAN|FBAV|FB_IAB|Instagram|Line\/|Telegram|TgWebView|MicroMessenger/i.test(ua);
+  const isRestricted = (isIOS && !isSafari) || isAndroidWebview || isKnownInApp;
+  if (isRestricted) {
+    const banner = document.getElementById('browserBanner');
+    if (banner) banner.classList.add('visible');
+    if (isIOS && !isSafari) {
+      const hint = document.getElementById('browserBannerHint');
+      if (hint) hint.textContent = 'На iPhone/iPad озвучка работает только в Safari. Нажми «⋮» или «…» и выбери «Открыть в Safari», либо скопируй ссылку кнопкой ниже.';
+    }
+  }
+})();
+
+function dismissBrowserBanner() {
+  const banner = document.getElementById('browserBanner');
+  if (banner) banner.classList.remove('visible');
+}
+
+async function copyAppLink(ev) {
+  const btn = ev && ev.currentTarget;
+  const url = window.location.href;
+  let ok = false;
+  try {
+    await navigator.clipboard.writeText(url);
+    ok = true;
+  } catch (_) {
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { ok = document.execCommand('copy'); } catch (__) {}
+    document.body.removeChild(ta);
+  }
+  if (ok && btn) {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Скопировано';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  } else if (!ok) {
+    prompt('Скопируй ссылку вручную:', url);
+  }
+}
+
+// ============ Init ============
+(async function init() {
+  // Показываем подсказку "загрузка" пока идёт миграция / seed
+  const area = document.getElementById('studyArea');
+  if (area) area.innerHTML = '<div class="empty-state"><p>Загрузка словаря...</p></div>';
+  try {
+    await loadTopicIcons();
+    await loadWords();
+  } catch(e) {
+    console.error('Load failed:', e);
+    if (area) area.innerHTML = '<div class="empty-state"><p>Ошибка загрузки словаря: ' + e.message + '</p></div>';
+    return;
+  }
+  renderGroupBadge();
+  restoreLastPosition();
+  renderLevelBar();
+  renderTopics();
+  renderStudyArea();
+})();
+
+// ============ Starred List (side panel) ============
+function openStarredList() {
+  renderStarredList();
+  document.getElementById('starredListPanel').style.display = 'flex';
+  document.getElementById('starredListBackdrop').style.display = 'block';
+}
+
+function closeStarredList() {
+  document.getElementById('starredListPanel').style.display = 'none';
+  document.getElementById('starredListBackdrop').style.display = 'none';
+}
+
+function renderStarredList() {
+  const words = [...state.starredIds]
+    .map(id => state.wordsById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => a.word.localeCompare(b.word));
+
+  document.getElementById('starredListCount').textContent =
+    words.length ? `(${words.length})` : '';
+
+  const listEl = document.getElementById('starredWordsList');
+  const emptyEl = document.getElementById('starredListEmpty');
+
+  if (words.length === 0) {
+    listEl.innerHTML = '';
+    emptyEl.style.display = 'block';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  listEl.innerHTML = words.map(w => `
+    <div class="sl-row" onclick="toggleStarredTranslation(this)" style="
+      padding:9px 1.1rem;cursor:pointer;border-bottom:1px solid var(--border);
+      display:flex;flex-direction:column;gap:2px;
+      transition:background 0.1s;
+    " onmouseenter="this.style.background='var(--bg)'" onmouseleave="this.style.background=''">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+        <span style="font-size:15px;font-weight:500">${escapeHtml(w.word)}${w.hint ? `<span style="font-size:12px;font-weight:400;color:var(--text-muted)"> ${escapeHtml(w.hint)}</span>` : ''}</span>
+        <button onclick="event.stopPropagation();removeFromStarredList(${w.id})" title="Убрать из избранного" style="
+          background:none;border:none;cursor:pointer;color:var(--warning);
+          font-size:15px;padding:0;line-height:1;flex-shrink:0;opacity:0.7;
+        ">★</button>
+      </div>
+      <div class="sl-translation" style="display:none;padding-top:6px">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:4px">
+          ${escapeHtml(w.translation)}${w.ipa ? `<span style="color:var(--text-soft);margin-left:6px">${escapeHtml(w.ipa)}</span>` : ''}
+        </div>
+        ${w.example ? `<div style="font-size:12px;color:var(--text-soft);font-style:italic;margin-bottom:4px">"${escapeHtml(w.example)}"</div>` : ''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:2px">
+          ${w.topic ? `<span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 6px;color:var(--text-muted)">📁 ${escapeHtml(w.topic)}</span>` : ''}
+          ${w.level ? `<span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 6px;color:var(--text-muted)">${escapeHtml(w.level)}</span>` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleStarredTranslation(row) {
+  const t = row.querySelector('.sl-translation');
+  t.style.display = t.style.display === 'none' ? 'block' : 'none';
+}
+
+async function removeFromStarredList(id) {
+  await toggleStar(id);
+  renderStarredList();
+}
+
+function downloadStarredCsv() {
+  const words = [...state.starredIds]
+    .map(id => state.wordsById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => a.word.localeCompare(b.word));
+
+  if (!words.length) return;
+
+  const esc = v => `"${String(v || '').replace(/"/g, '""')}"`;
+  const rows = [
+    ['word','hint','translation','ipa','example','exampleTranslation','level','topic'].map(esc).join(','),
+    ...words.map(w => [w.word, w.hint||'', w.translation, w.ipa||'', w.example||'', w.exampleTranslation||'', w.level, w.topic].map(esc).join(','))
+  ].join('\r\n');
+
+  const blob = new Blob(['﻿' + rows], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'starred-words.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function copyStarredWords() {
+  const text = [...state.starredIds]
+    .map(id => state.wordsById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => a.word.localeCompare(b.word))
+    .map(w => w.word)
+    .join('\n');
+
+  if (!text) return;
+  const btn = document.getElementById('copyStarredBtn');
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Скопировано';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  }).catch(() => {
+    prompt('Скопируй вручную:', text);
+  });
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => {
+    if (e.target === m) m.classList.remove('show');
+  });
+});
+</script>
+<!-- Starred List Panel -->
+<div id="starredListBackdrop" onclick="closeStarredList()" style="
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:900;
+"></div>
+<div id="starredListPanel" style="
+  display:none;position:fixed;top:0;right:0;height:100%;width:340px;max-width:92vw;
+  background:var(--surface);border-left:1px solid var(--border);
+  box-shadow:-4px 0 24px rgba(0,0,0,0.13);z-index:901;
+  display:none;flex-direction:column;
+">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.1rem 0.75rem;border-bottom:1px solid var(--border)">
+    <span style="font-weight:500;font-size:15px">★ Избранное &nbsp;<span id="starredListCount" style="font-size:13px;font-weight:400;color:var(--text-muted)"></span></span>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button onclick="downloadStarredCsv()" title="Скачать CSV" style="
+        background:none;border:1px solid var(--border);border-radius:6px;
+        padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text-muted);font-family:inherit;
+      ">⬇ CSV</button>
+      <button onclick="closeStarredList()" style="
+        background:none;border:none;font-size:20px;cursor:pointer;
+        color:var(--text-muted);line-height:1;padding:2px 4px;
+      ">×</button>
+    </div>
+  </div>
+  <div id="starredListEmpty" style="display:none;padding:3rem 1.5rem;text-align:center;color:var(--text-muted);font-size:14px">
+    Избранное пусто.<br>Отмечайте слова звёздочкой во время учёбы.
+  </div>
+  <div id="starredWordsList" style="flex:1;overflow-y:auto;padding:0.5rem 0"></div>
+</div>
+
+</body>
+</html>
