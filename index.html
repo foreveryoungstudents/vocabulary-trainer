@@ -1245,6 +1245,7 @@ const GROUP_META = {
   marketing: { label: 'Маркетинг',      icon: '📣', color: '#c96442' },
   tourism:   { label: 'Туризм',         icon: '🗺️', color: '#0891b2' },
   beads:     { label: 'Game of Beads',  icon: '📿', color: '#b45309' },
+  drone: { label: 'Дроны', icon: '🚁', color: '#0ea5e9' },
 };
 
 // ============ Professional vocabulary per group ============
@@ -1257,7 +1258,7 @@ let _profWordsCache = null;
 async function loadProfWords() {
   if (!CURRENT_GROUP) return [];
   // Группы без отдельного проф. файла (например, beads) хранят слова иначе
-  const GROUPS_WITH_FILES = ['it', 'design', 'marketing', 'tourism', 'beads'];
+  const GROUPS_WITH_FILES = ['it', 'design', 'marketing', 'tourism', 'beads', 'drone'];
   if (!GROUPS_WITH_FILES.includes(CURRENT_GROUP)) return [];
   try {
     const res = await fetch(`./data/${CURRENT_GROUP}-vocab.json`);
