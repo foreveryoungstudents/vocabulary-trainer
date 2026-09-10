@@ -1,0 +1,762 @@
+[
+  {
+    "word": "inertial measurement unit",
+    "translation": "инерциальный измерительный блок",
+    "ipa": "/ɪˈnɜːʃəl ˈmeʒərmənt ˈjuːnɪt/",
+    "example": "The IMU senses acceleration and rotation across three axes.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "micro-electro-mechanical systems",
+    "translation": "микроэлектромеханические системы",
+    "ipa": "/ˈmaɪkrəʊ ɪˌlektrəʊ məˈkænɪkəl ˈsɪstəmz/",
+    "example": "MEMS sensors are compact and consume minimal power.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "capacitance",
+    "translation": "ёмкость (электрическая)",
+    "ipa": "/kəˈpæsɪtəns/",
+    "example": "Capacitance affects the filtering efficiency in power circuits.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "dynamic notch filter",
+    "translation": "динамический режекторный фильтр",
+    "ipa": "/daɪˈnæmɪk ˈnɒtʃ ˈfɪltə/",
+    "example": "The dynamic notch filter removes motor vibration harmonics automatically.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "static notch filter",
+    "translation": "статический режекторный фильтр",
+    "ipa": "/ˈstætɪk ˈnɒtʃ ˈfɪltə/",
+    "example": "Static notch filters target fixed frequencies like propeller noise.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "RPM filter",
+    "translation": "фильтр по оборотам двигателя",
+    "ipa": "/ˌɑːr piː ˈem ˈfɪltə/",
+    "example": "The RPM filter adapts to changing motor speeds in real-time.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "low-pass filter",
+    "translation": "фильтр низких частот",
+    "ipa": "/ˈləʊ pɑːs ˈfɪltə/",
+    "example": "A low-pass filter smooths gyro readings and reduces noise.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "buck regulator",
+    "translation": "понижающий регулятор напряжения",
+    "ipa": "/bʌk ˈreɡjəleɪtə/",
+    "example": "The buck regulator steps down 5V to 3.3V for the microcontroller.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "inductor",
+    "translation": "катушка индуктивности",
+    "ipa": "/ɪnˈdʌktə/",
+    "example": "Inductors smooth current ripple in the power supply stage.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "MOSFET",
+    "translation": "полевой транзистор (тип транзистора)",
+    "ipa": "/ˈmɒzfet/",
+    "example": "MOSFETs in the speed controller handle high switching currents.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "electronic speed controller",
+    "translation": "регулятор скорости (для мотора)",
+    "ipa": "/ɪˌlektrɒnɪk ˈspiːd kənˈtrəʊlə/",
+    "example": "The ESC converts command signals into three-phase motor power.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "proportional-integral-derivative controller",
+    "translation": "ПИД-регулятор",
+    "ipa": "/prəˈpɔːʃənəl ˈɪntɪɡrəl dɪˈrɪvətɪv kənˈtrəʊlə/",
+    "example": "The PID controller maintains stable flight through continuous error correction.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "steady-state error",
+    "translation": "установившаяся ошибка",
+    "ipa": "/ˈstedɪ steɪt ˈerə/",
+    "example": "Tuning the integral term reduces steady-state error in altitude hold.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "angular momentum",
+    "translation": "угловой момент (момент импульса)",
+    "ipa": "/ˈæŋɡjələ məˈmentəm/",
+    "example": "Angular momentum is conserved when the aircraft changes orientation.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "torque",
+    "translation": "крутящий момент",
+    "ipa": "/tɔːk/",
+    "example": "Motor torque must overcome frame resonance for smooth control.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "resonance frequency",
+    "translation": "резонансная частота",
+    "ipa": "/ˈrezənəns ˈfriːkwənsi/",
+    "example": "The frame resonance frequency should be above the filter bandwidth.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "harmonics",
+    "translation": "гармоники",
+    "ipa": "/hɑːˈmɒnɪks/",
+    "example": "Motor harmonics appear at multiples of the blade pass frequency.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "induced current",
+    "translation": "наведённый (индуцированный) ток",
+    "ipa": "/ɪnˈdjuːst ˈkɜːrənt/",
+    "example": "Induced current from motor switching creates electromagnetic noise.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "printed circuit board trace",
+    "translation": "дорожка на печатной плате",
+    "ipa": "/ˈprɪntɪd ˈsɜːkɪt bɔːrd treɪs/",
+    "example": "PCB traces must be wide enough to handle motor return currents.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "flash memory",
+    "translation": "флеш-память",
+    "ipa": "/flæʃ ˈmeməri/",
+    "example": "Flight parameters are stored in flash memory for retrieval.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "general-purpose input/output",
+    "translation": "универсальный вход/выход",
+    "ipa": "/ˈdʒenərəl ˈpɜːpəs ˈɪnpʊt ˈaʊtpʊt/",
+    "example": "GPIO pins interface with external sensors and devices.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "on-screen display",
+    "translation": "экранное меню/индикация",
+    "ipa": "/ɒn skriːn dɪˈspleɪ/",
+    "example": "The OSD overlays flight data on the video feed in real-time.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "blackbox logging",
+    "translation": "«чёрный ящик» (запись полётных данных)",
+    "ipa": "/ˈblækbɒks ˈlɒɡɪŋ/",
+    "example": "Blackbox logging records every sensor reading for later analysis.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "rate of change",
+    "translation": "скорость изменения (величины)",
+    "ipa": "/reɪt əv tʃeɪndʒ/",
+    "example": "The rate of change in gyro readings indicates angular acceleration.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "time derivative",
+    "translation": "производная по времени",
+    "ipa": "/taɪm dɪˈrɪvətɪv/",
+    "example": "The time derivative of position gives you velocity.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "error signal",
+    "translation": "сигнал ошибки",
+    "ipa": "/ˈerə ˈsɪɡnəl/",
+    "example": "The PID controller processes the error signal to adjust motor commands.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "set point",
+    "translation": "заданное значение (уставка)",
+    "ipa": "/set pɔɪnt/",
+    "example": "The set point for altitude hold is compared against sensor readings.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "relative orientation",
+    "translation": "относительная ориентация",
+    "ipa": "/ˈrelətɪv ˌɔːrɪenˈteɪʃən/",
+    "example": "Relative orientation between frame and earth reference changes during flight.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "angular direction",
+    "translation": "направление вращения",
+    "ipa": "/ˈæŋɡjələ dɪˈrekʃən/",
+    "example": "Angular direction of propeller rotation affects yaw control authority.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "preserve momentum",
+    "translation": "сохранять импульс",
+    "ipa": "/prɪˈzɜːv ˈməʊməntəm/",
+    "example": "Smooth transitions preserve momentum and prevent aggressive oscillations.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "rotational speed",
+    "translation": "скорость вращения",
+    "ipa": "/rəʊˈteɪʃənəl ˈspiːd/",
+    "example": "Motor rotational speed is measured in RPM or electrical frequency.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "three-axis gyroscope",
+    "translation": "трёхосевой гироскоп",
+    "ipa": "/θriː ˈæksɪs ˈdʒaɪrəskeɪp/",
+    "example": "A three-axis gyroscope measures rotation around each flight axis.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "three-axis accelerometer",
+    "translation": "трёхосевой акселерометр",
+    "ipa": "/θriː ˈæksɪs ækˌseləˈrɒmɪtə/",
+    "example": "The accelerometer detects gravity and linear acceleration simultaneously.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "magnetic field",
+    "translation": "магнитное поле",
+    "ipa": "/mæɡˈnetɪk fiːld/",
+    "example": "Magnetic field distortion from metal frames affects compass accuracy.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "electrical field",
+    "translation": "электрическое поле",
+    "ipa": "/ɪˈlektrɪkəl fiːld/",
+    "example": "Electrical field coupling between traces causes crosstalk on the board.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "regulated power supply",
+    "translation": "стабилизированный источник питания",
+    "ipa": "/ˈreɡjəleɪtɪd ˈpaʊə səˈplaɪ/",
+    "example": "A regulated power supply maintains stable voltage during motor startup.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "voltage",
+    "translation": "напряжение",
+    "ipa": "/ˈvəʊltɪdʒ/",
+    "example": "Battery voltage sag during acceleration affects motor response.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "interference",
+    "translation": "помехи",
+    "ipa": "/ɪntəˈfɪrəns/",
+    "example": "Motor switching interference can corrupt gyro and compass data.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "filter stack",
+    "translation": "«стек» фильтров (набор фильтров подряд)",
+    "ipa": "/ˈfɪltə stæk/",
+    "example": "The filter stack applies multiple filters to gyro data sequentially.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "frame resonance",
+    "translation": "резонанс рамы (корпуса)",
+    "ipa": "/freɪm ˈrezənəns/",
+    "example": "Frame resonance peaks should be filtered out to prevent oscillation.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "damping",
+    "translation": "демпфирование / гасить (колебания)",
+    "ipa": "/ˈdæmpɪŋ/",
+    "example": "Damping the control response reduces overshooting and vibration.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "oscillation",
+    "translation": "колебание",
+    "ipa": "/ˌɒsɪˈleɪʃən/",
+    "example": "Oscillation in pitch control can destabilize the aircraft.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "feedback loop",
+    "translation": "обратная связь",
+    "ipa": "/ˈfiːdbæk luːp/",
+    "example": "The feedback loop compares target and actual values constantly.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "signal flow",
+    "translation": "поток сигнала",
+    "ipa": "/ˈsɪɡnəl fləʊ/",
+    "example": "Signal flow from sensors to motors passes through several stages.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "motor mixing",
+    "translation": "микширование моторов",
+    "ipa": "/ˈməʊtə ˈmɪksɪŋ/",
+    "example": "Motor mixing converts control commands into individual motor speeds.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "diagonal motors",
+    "translation": "диагональные моторы",
+    "ipa": "/daɪˈæɡənəl ˈməʊtəz/",
+    "example": "Diagonal motors on a quadcopter spin opposite directions.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "yaw",
+    "translation": "рыскание (вращение по вертикальной оси)",
+    "ipa": "/jɔː/",
+    "example": "Yaw rate is controlled by throttle difference between motor pairs.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "pitch",
+    "translation": "тангаж (наклон вперёд/назад)",
+    "ipa": "/pɪtʃ/",
+    "example": "Pitch control tilts the aircraft forward or backward for movement.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "roll",
+    "translation": "крен (наклон вбок)",
+    "ipa": "/rəʊl/",
+    "example": "Roll angle determines lateral tilt during turning maneuvers.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "thrust",
+    "translation": "тяга",
+    "ipa": "/θrʌst/",
+    "example": "Total thrust must exceed aircraft weight plus control authority.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "spin up",
+    "translation": "раскручивать (мотор)",
+    "ipa": "/spɪn ʌp/",
+    "example": "Motors spin up gradually to prevent sudden jerky movements.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "spin down",
+    "translation": "замедлять (мотор)",
+    "ipa": "/spɪn daʊn/",
+    "example": "Motors spin down smoothly when disarming the aircraft.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "positive torque",
+    "translation": "положительный крутящий момент",
+    "ipa": "/ˈpɒzətɪv ˈtɔːk/",
+    "example": "Positive torque accelerates rotation in the commanded direction.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "clean gyro data",
+    "translation": "«чистые» данные с гироскопа",
+    "ipa": "/kliːn ˈdʒaɪrəʊ ˈdeɪtə/",
+    "example": "Clean gyro data improves flight stability and control precision.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "circuitry",
+    "translation": "электронная схема/обвязка",
+    "ipa": "/ˈsɜːkɪtri/",
+    "example": "Circuitry design minimizes noise coupling and improves signal integrity.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "microcontroller chip",
+    "translation": "чип микроконтроллера",
+    "ipa": "/ˌmaɪkrəʊ kənˈtrəʊlə tʃɪp/",
+    "example": "The microcontroller chip runs the flight firmware and processes sensor data.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "hardware platform",
+    "translation": "аппаратная платформа",
+    "ipa": "/ˈhɑːdweə ˈplætfɔːm/",
+    "example": "Different hardware platforms require specific firmware versions.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "PCB routing",
+    "translation": "трассировка (платы)",
+    "ipa": "/ˌpiː siː ˈbiː ˈruːtɪŋ/",
+    "example": "PCB routing separates analog and digital ground planes for noise immunity.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "board layout",
+    "translation": "компоновка (платы)",
+    "ipa": "/bɔːd ˈleɪaʊt/",
+    "example": "Board layout places sensitive components away from power switching.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "proportional term",
+    "translation": "пропорциональная составляющая",
+    "ipa": "/prəˈpɔːʃənəl tɜːm/",
+    "example": "The proportional term provides immediate response to control error.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "integral term",
+    "translation": "интегральная составляющая",
+    "ipa": "/ˈɪntɪɡrəl tɜːm/",
+    "example": "The integral term eliminates steady-state error over time.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "derivative term",
+    "translation": "дифференциальная составляющая",
+    "ipa": "/dɪˈrɪvətɪv tɜːm/",
+    "example": "The derivative term damps oscillations and improves stability.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "motor correction",
+    "translation": "коррекция (скорости мотора)",
+    "ipa": "/ˈməʊtə kəˈrekʃən/",
+    "example": "Motor correction commands adjust speed based on sensor feedback.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "proof mass",
+    "translation": "инерционная масса (в MEMS-датчике)",
+    "ipa": "/pruːf mæs/",
+    "example": "The proof mass in an accelerometer moves during acceleration.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "fork structure",
+    "translation": "«вилочная» структура (в MEMS)",
+    "ipa": "/fɔːk ˈstrʌktʃə/",
+    "example": "Fork structure in MEMS sensors vibrates to measure acceleration.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "capacitor",
+    "translation": "конденсатор",
+    "ipa": "/kəˈpæsɪtə/",
+    "example": "Bypass capacitors near the microcontroller reduce supply noise.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "constant acceleration",
+    "translation": "постоянное ускорение",
+    "ipa": "/ˈkɒnstənt ækˌseləˈreɪʃən/",
+    "example": "Constant acceleration in one direction changes velocity linearly.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "gravity",
+    "translation": "гравитация, сила тяжести",
+    "ipa": "/ˈɡrævɪti/",
+    "example": "Gravity bias in accelerometer readings is subtracted during calibration.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "frequency spectrum",
+    "translation": "частотный спектр",
+    "ipa": "/ˈfriːkwənsi ˈspektrəm/",
+    "example": "Frequency spectrum analysis reveals motor harmonics and resonance peaks.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "flight controller",
+    "translation": "полётный контроллер",
+    "ipa": "/flaɪt kənˈtrəʊlə/",
+    "example": "The flight controller processes sensor data and commands motor speeds.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "speed controller",
+    "translation": "регулятор скорости",
+    "ipa": "/ˈspiːd kənˈtrəʊlə/",
+    "example": "Each motor has a dedicated speed controller powered by the battery.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "receiver",
+    "translation": "приёмник",
+    "ipa": "/rɪˈsiːvə/",
+    "example": "The receiver decodes radio signals from the remote control.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "transmitter",
+    "translation": "передатчик",
+    "ipa": "/trænzˈmɪtə/",
+    "example": "The transmitter sends pilot commands over a secure frequency band.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "stick commands",
+    "translation": "команды со стиков (пульта)",
+    "ipa": "/stɪk ˈkɒmændz/",
+    "example": "Stick commands from the controller map to pitch, roll, throttle, and yaw.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "first-person view",
+    "translation": "вид от первого лица",
+    "ipa": "/ˌfɜːst ˈpɜːsən vjuː/",
+    "example": "First-person view flying requires low-latency video transmission.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "return-to-home function",
+    "translation": "функция возврата домой",
+    "ipa": "/rɪˈtɜːn tə ˈhəʊm ˈfʌŋkʃən/",
+    "example": "Return-to-home activates GPS-guided flight back to launch point.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "throttle",
+    "translation": "газ (управление тягой)",
+    "ipa": "/ˈθrɒtəl/",
+    "example": "Throttle input controls total motor power and altitude change.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "tuning",
+    "translation": "настройка / настраивать",
+    "ipa": "/ˈtjuːnɪŋ/",
+    "example": "Tuning PID parameters requires flight testing and data analysis.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "preset",
+    "translation": "заготовленная настройка",
+    "ipa": "/ˈpriːset/",
+    "example": "Different presets optimize flight characteristics for various conditions.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "drift",
+    "translation": "снос, дрейф (в полёте)",
+    "ipa": "/drɪft/",
+    "example": "Gyro drift causes the aircraft to deviate from intended heading.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "visibility",
+    "translation": "видимость",
+    "ipa": "/ˌvɪzɪˈbɪlɪti/",
+    "example": "Visibility of the aircraft determines safe flight distance.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "field test",
+    "translation": "полевое испытание",
+    "ipa": "/fiːld test/",
+    "example": "Field testing validates performance under real environmental conditions.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "flight test",
+    "translation": "лётное испытание",
+    "ipa": "/flaɪt test/",
+    "example": "Flight testing data is logged to the blackbox for later review.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "mechanical noise",
+    "translation": "механический шум",
+    "ipa": "/mɪˈkænɪkəl nɔɪz/",
+    "example": "Mechanical noise from propeller imbalance corrupts gyro data.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "electrical noise",
+    "translation": "электрический шум",
+    "ipa": "/ɪˈlektrɪkəl nɔɪz/",
+    "example": "Electrical noise from switching circuits is filtered by the firmware.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "vibration",
+    "translation": "вибрация",
+    "ipa": "/vaɪˈbreɪʃən/",
+    "example": "Vibration isolation mounts reduce transmission of motor noise to sensors.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "power supply",
+    "translation": "источник питания",
+    "ipa": "/ˈpaʊə səˈplaɪ/",
+    "example": "Battery power supply must deliver current surges during throttle changes.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "chip",
+    "translation": "микросхема",
+    "ipa": "/tʃɪp/",
+    "example": "The main chip executes flight control algorithms at high frequency.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "board",
+    "translation": "плата",
+    "ipa": "/bɔːd/",
+    "example": "All components are mounted on a single flight controller board.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "internal flash",
+    "translation": "встроенная флеш-память",
+    "ipa": "/ɪnˈtɜːnəl flæʃ/",
+    "example": "Firmware is stored in internal flash and executed from RAM.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "SD card",
+    "translation": "SD-карта",
+    "ipa": "/ˌes ˈdiː kɑːd/",
+    "example": "Blackbox logs can be extracted from an external SD card.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "I/O pin",
+    "translation": "контакт (вход/выход)",
+    "ipa": "/ˈaɪ əʊ pɪn/",
+    "example": "Each I/O pin can be configured as input or output.",
+    "level": "S",
+    "topic": "Электроника"
+  },
+  {
+    "word": "axis",
+    "translation": "ось",
+    "ipa": "/ˈæksɪs/",
+    "example": "Three axes define pitch, roll, and yaw for the aircraft.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "orientation",
+    "translation": "ориентация",
+    "ipa": "/ˌɔːrɪenˈteɪʃən/",
+    "example": "Orientation is calculated from gyro and accelerometer readings.",
+    "level": "S",
+    "topic": "Дроны"
+  },
+  {
+    "word": "correction rate",
+    "translation": "частота коррекции",
+    "ipa": "/kəˈrekʃən reɪt/",
+    "example": "Higher correction rates improve responsiveness but increase noise sensitivity.",
+    "level": "S",
+    "topic": "Дроны"
+  }
+]
