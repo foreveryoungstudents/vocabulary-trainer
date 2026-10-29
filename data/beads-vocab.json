@@ -423,7 +423,7 @@
     "ipa": "/ˈhɒdʒpɒdʒ/",
     "hint": "a confused mixture of different things",
     "example": "The old museum was a spectacular hodgepodge of zoo and lecture hall.",
-    "exampleTranslation": "Старый музей был великолепной мешаниной из зоопарка и лекционного зала.",
+    "exampleTranslation": "Старинный музей был поразительной мешаниной из зоопарка и лекционного зала.",
     "level": "S",
     "topic": "Museum history",
     "starred": false
@@ -434,7 +434,7 @@
     "ipa": "/ɪˈklektɪk/",
     "hint": "made up of many different styles or sources",
     "example": "The collection is known for its eclectic mix of objects.",
-    "exampleTranslation": "Коллекция известна своим пёстрым набором предметов.",
+    "exampleTranslation": "Коллекция известна своим разношерстным набором предметов.",
     "level": "S",
     "topic": "Museum history",
     "starred": false
@@ -555,7 +555,7 @@
     "ipa": "/kiːp wɒtʃ ˈəʊvə/",
     "hint": "to guard or protect (elevated register)",
     "example": "The muses were believed to keep watch over scholars.",
-    "exampleTranslation": "Считалось, что музы оберегают учёных.",
+    "exampleTranslation": "Считалось, что музы покровительствуют учёным.",
     "level": "S",
     "topic": "Museum history",
     "starred": false
@@ -564,9 +564,9 @@
     "word": "to deem",
     "translation": "считать, признавать (формально)",
     "ipa": "/diːm/",
-    "hint": "to judge or consider something in a certain way (formal)",
+    "hint": "to judge or consider something in a certain way (formal), а Слово ingenuity сочетает в себе значения изобретательности, находчивости, остроумия и мастерства.",
     "example": "The gods granted ingenuity to those they deemed worthy.",
-    "exampleTranslation": "Боги даровали находчивость тем, кого считали достойными.",
+    "exampleTranslation": "Боги даровали изобретательность тем, кого считали достойными.",
     "level": "S",
     "topic": "Museum history",
     "starred": false
@@ -819,7 +819,7 @@
     "ipa": "/ˈprɪmətɪv/",
     "hint": "very simple; offensive when used about cultures",
     "example": "Old museums described other societies as primitive, which is now seen as biased.",
-    "exampleTranslation": "Старые музеи называли другие общества примитивными, что теперь считается предвзятым.",
+    "exampleTranslation": "Старинные музеи называли другие общества примитивными, что теперь считается предвзятым.",
     "level": "S",
     "topic": "Colonial legacy & ethics",
     "starred": false
@@ -945,18 +945,7 @@
     "topic": "Colonial legacy & ethics",
     "starred": false
   },
-  {
-    "word": "to recap",
-    "translation": "подвести итог, повторить главное",
-    "ipa": "/ˈriːkæp/",
-    "hint": "to repeat the main points",
-    "example": "Let’s recap the vocabulary we’ve learned.",
-    "exampleTranslation": "Давайте повторим слова, которые мы выучили.",
-    "level": "S",
-    "topic": "Opinion & argument",
-    "starred": false
-  },
-  {
+   {
     "word": "to reveal",
     "translation": "раскрыть, сообщить (тайну, ответ)",
     "ipa": "/rɪˈviːl/",
@@ -998,17 +987,6 @@
     "exampleTranslation": "Многие считают, что предметы следует вернуть.",
     "level": "S",
     "topic": "Colonial legacy & ethics",
-    "starred": false
-  },
-  {
-    "word": "as well as",
-    "translation": "а также, так же как и",
-    "ipa": "/əz wel əz/",
-    "hint": "used to add another item",
-    "example": "We must consider local leaders as well as European powers.",
-    "exampleTranslation": "Нужно учитывать местных лидеров, а также европейские державы.",
-    "level": "S",
-    "topic": "Opinion & argument",
     "starred": false
   },
   {
