@@ -1588,7 +1588,7 @@ async function loadWords() {
     if (!migrated) {
       // Seed: общий словарь + профессиональный блок группы
       const baseRecords = SEED_WORDS.map(w => ({ ...w, starred: false, exampleTranslation: '' }));
-      const profRecords = getProfWords().map(w => ({ ...w, starred: false, exampleTranslation: '' }));
+      const profRecords = getProfWords().map(w => ({ exampleTranslation: '', ...w, starred: false }));
       await dbBulkPut([...baseRecords, ...profRecords]);
     }
     items = await dbGetAll();
@@ -1600,8 +1600,23 @@ async function loadWords() {
       const existingKeys = new Set(items.map(w => w.word.toLowerCase() + '|' + w.level));
       const toAdd = profWords.filter(w => !existingKeys.has(w.word.toLowerCase() + '|' + w.level));
       if (toAdd.length > 0) {
-        const newRecords = toAdd.map(w => ({ ...w, starred: false, exampleTranslation: '' }));
+        const newRecords = toAdd.map(w => ({ exampleTranslation: '', ...w, starred: false }));
         await dbBulkPut(newRecords);
+        items = await dbGetAll();
+      }
+
+      // Дозаполняем пустые переводы примеров из файла группы (существующие не трогаем)
+      const profMap = new Map(profWords.map(w => [w.word.toLowerCase() + '|' + w.level, w]));
+      const toFill = [];
+      for (const it of items) {
+        const pw = profMap.get(it.word.toLowerCase() + '|' + it.level);
+        if (pw && pw.exampleTranslation && !it.exampleTranslation) {
+          it.exampleTranslation = pw.exampleTranslation;
+          toFill.push(it);
+        }
+      }
+      if (toFill.length > 0) {
+        await dbBulkPut(toFill);
         items = await dbGetAll();
       }
     }
