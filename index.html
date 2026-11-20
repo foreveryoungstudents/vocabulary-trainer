@@ -990,10 +990,33 @@
   /* Значки на кнопках и спокойная подсветка */
   .btn svg { width: 16px; height: 16px; flex: 0 0 auto; }
   label[title^="Выберите голос"] svg { flex: 0 0 auto; }
-  /* активный «S» — как остальные активные кнопки, без яркой заливки */
-  .level-btn.special.active { background: var(--btn-bg); border-color: var(--btn-border); color: var(--btn-text); }
+  /* активный уровень — светлая сланцевая заливка и тёмный текст (на всех уровнях, включая «S») */
+  .level-btn.active,
+  .level-btn.special.active { background: #6b7d7f; border-color: #6b7d7f; color: #0d1117; }
   /* иконки тем (папки и эмодзи) — приглушить */
   .topic-icon { filter: saturate(.55) brightness(.92); }
+
+  /* Лёгкий объём только у кнопок уровней */
+  :root { --lvl-shadow: rgba(90, 66, 40, .30); --lvl-light: rgba(255, 255, 255, .55); }
+  :root[data-theme="dark"] { --lvl-shadow: rgba(0, 0, 0, .55); --lvl-light: rgba(255, 255, 255, .07); }
+  .level-bar { padding-bottom: 3px; }
+  .level-btn {
+    background-image: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.07));
+    box-shadow: 0 3px 0 var(--lvl-shadow), inset 0 1px 0 var(--lvl-light);
+    transition: transform .12s ease, box-shadow .12s ease, border-color .15s;
+  }
+  .level-btn:active:not(.active) { transform: translateY(2px); box-shadow: 0 1px 0 var(--lvl-shadow), inset 0 1px 0 var(--lvl-light); }
+  /* выбранный — мягкая подсветка изнутри */
+  .level-btn.active,
+  .level-btn.special.active {
+    background-image: radial-gradient(ellipse at 50% 25%, rgba(255,255,255,.28), rgba(255,255,255,0) 72%);
+    box-shadow: 0 3px 0 var(--lvl-shadow), inset 0 0 14px rgba(255,255,255,.16), inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  /* подпись выбранного уровня — чуть жирнее и контрастнее */
+  .level-btn.active,
+  .level-btn.special.active { font-weight: 800; letter-spacing: .01em; text-shadow: 0 1px 0 rgba(255,255,255,.25); }
+  .level-btn.active .level-desc,
+  .level-btn.special.active .level-desc { opacity: .9; font-weight: 600; }
 </style>
 <script>
     /* ТЕМА: Авто / Светлая / Тёмная.
