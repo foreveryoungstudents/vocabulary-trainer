@@ -1029,6 +1029,60 @@
     font-size: 22px; line-height: 1;
   }
   .topic-icon svg { width: 24px; height: 24px; }
+  /* ─── Спокойная палитра: оливковый + терракотовый, без синих кнопок ─── */
+  :root {
+    --btn-bg: #3f5a3e; --btn-text: #f4efe3; --btn-border: #3f5a3e;   /* главные кнопки — глубокий оливковый */
+    --group-bg: #4d6249;                                            /* бедж группы */
+    --subtitle: #3f5a3e;                                            /* контраст на бежевом фоне ≥ 4.5:1 */
+    --nav-active: #a14534; --on-accent: #fff0bf; --on-accent-glow: rgba(255, 226, 140, .45);                    /* выбранный уровень, включая S */
+  }
+  :root[data-theme="dark"] { --nav-active: #c9835f; --on-accent: #1b1410; --on-accent-glow: transparent; }
+
+  /* выбранный уровень: заливка с мягким свечением изнутри (S — так же) */
+  .level-btn.active,
+  .level-btn.special.active {
+    background-color: var(--nav-active);
+    background-image: radial-gradient(ellipse at 50% 40%, rgba(255,255,255,.26), rgba(255,255,255,0) 70%);
+    border-color: var(--nav-active); color: var(--on-accent);
+    text-shadow: 0 0 7px var(--on-accent-glow);
+    box-shadow: 0 3px 0 var(--lvl-shadow), inset 0 0 16px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  /* S в обычном состоянии — тёплый песочный, а не голубой */
+  .level-btn.special:not(.active) { background: var(--accent-soft); }
+
+  /* вторичные кнопки — читаются, но не кричат */
+  .btn { border-width: 1px; border-color: var(--border-strong); }
+  .btn:focus-visible, .manage-item:focus-visible, .level-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ─── Панель: студенческий ряд + меню «Управление» ─── */
+  .toolbar { align-items: center; }
+  .voice-label { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+  .manage { position: relative; margin-left: auto; }
+  .manage[hidden] { display: none; }
+  .manage > summary { list-style: none; user-select: none; }
+  .manage > summary::-webkit-details-marker { display: none; }
+  .manage[open] > summary { border-color: var(--accent); }
+  .manage-chev { transition: transform .15s ease; }
+  .manage[open] .manage-chev { transform: rotate(180deg); }
+  .manage-panel {
+    position: absolute; right: 0; top: calc(100% + 6px); z-index: 50;
+    min-width: 250px; max-width: min(300px, 92vw);
+    background: var(--surface); border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg); padding: 6px;
+    box-shadow: 0 10px 28px rgba(42, 35, 32, .20);
+  }
+  .manage-group { padding: 4px 0; }
+  .manage-group + .manage-group { border-top: 1px solid var(--border); }
+  .manage-title { padding: 6px 10px 2px; font-size: 12px; font-weight: 700; color: var(--text-soft); }
+  .manage-item {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 9px 10px; background: none; border: 0; border-radius: var(--radius-sm);
+    font: inherit; font-size: 13px; color: var(--text); text-align: left; cursor: pointer;
+  }
+  .manage-item svg { flex: 0 0 auto; color: var(--text-soft); }
+  .manage-item:hover { background: var(--accent-soft); }
+  .manage-item.danger, .manage-item.danger svg { color: var(--danger); }
+  .manage-item.danger:hover { background: var(--danger-soft); }
 </style>
 <script>
     /* ТЕМА: Авто / Светлая / Тёмная.
@@ -1134,19 +1188,35 @@
   <div class="level-bar" id="levelBar"></div>
 
   <div class="toolbar">
-    <button class="btn primary" onclick="openAddWord()">+ Добавить слово</button>
-    <button class="btn" onclick="openBulkImport()">+ Список / таблица</button>
-    <button class="btn" onclick="openSearch()">Поиск</button>
-    <button id="favoritesBtn" class="btn" onclick="openFavorites()">★ Избранное</button>
-    <button class="btn" onclick="openStarredList()" title="Просмотр избранного списком"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></svg> Список</button>
-    <button class="btn ghost" onclick="exportTsv()" title="Скачать словарь в виде TSV-таблицы для Excel/Google Sheets"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg> Экспорт TSV</button>
-    <button class="btn ghost" onclick="exportData()" title="Скачать словарь в JSON для бэкапа">JSON</button>
-    <button class="btn ghost" onclick="document.getElementById('importFile').click()" title="Импорт из JSON"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg> Импорт</button>
-    <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
-    <button class="btn ghost" onclick="clearLevelData()" title="Очистить все слова текущего уровня" style="color: var(--danger, #c0392b);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Очистить уровень</button>
-    <label style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-muted);" title="Выберите голос для озвучки слов и примеров">
+    <!-- Для студентов: голос, избранное, список, поиск -->
+    <label class="voice-label" title="Выберите голос для озвучки слов и примеров">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> <select id="voiceSelect" class="voice-select" title="Голос озвучки" aria-label="Голос озвучки"></select>
     </label>
+    <button id="favoritesBtn" class="btn" onclick="openFavorites()">★ Избранное</button>
+    <button class="btn" onclick="openStarredList()" title="Просмотр избранного списком"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></svg> Список</button>
+    <button class="btn" onclick="openSearch()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Поиск</button>
+
+    <!-- Для преподавателя: всё остальное в одном меню -->
+    <details class="manage" id="manageMenu">
+      <summary class="btn" aria-label="Управление словарём"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg> Управление <svg class="manage-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="manage-panel">
+        <div class="manage-group">
+          <div class="manage-title">Добавить</div>
+          <button class="manage-item" onclick="openAddWord()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Слово</button>
+          <button class="manage-item" onclick="openBulkImport()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="14" x="3" y="5" rx="2"/><path d="M3 10h18M9 5v14"/></svg> Список или таблицу</button>
+        </div>
+        <div class="manage-group">
+          <div class="manage-title">Данные</div>
+          <button class="manage-item" onclick="exportTsv()" title="Скачать словарь в виде TSV-таблицы для Excel/Google Sheets"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg> Экспорт в TSV (Excel)</button>
+          <button class="manage-item" onclick="exportData()" title="Скачать словарь в JSON для бэкапа"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg> Экспорт в JSON (копия)</button>
+          <button class="manage-item" onclick="document.getElementById('importFile').click()" title="Импорт из JSON"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg> Импорт из JSON</button>
+        </div>
+        <div class="manage-group">
+          <button class="manage-item danger" onclick="clearLevelData()" title="Очистить все слова текущего уровня"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Очистить уровень…</button>
+        </div>
+      </div>
+    </details>
+    <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
   </div>
 
   <div class="topics-grid" id="topicsGrid"></div>
@@ -2211,9 +2281,9 @@ function renderLevelBar() {
     if (lvl.code === 'S') cls += ' special';
     btn.className = cls;
     // Для S показываем название группы вместо "Специальный"
-    const descText = lvl.code === 'S' && GROUP_META[CURRENT_GROUP]
-      ? GROUP_META[CURRENT_GROUP].label
-      : lvl.name;
+    // Для S подпись одинаковая во всех группах; название группы показывает бедж сверху
+    const descText = lvl.code === 'S' ? 'Спец. лексика' : lvl.name;
+    btn.title = lvl.code === 'S' ? 'Специальная лексика: профессиональные выражения группы' : lvl.name;
     btn.innerHTML = `${lvl.code}<span class="level-desc">${descText}</span>`;
     btn.onclick = () => {
       state.currentLevel = lvl.code;
@@ -4490,5 +4560,23 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
   <div id="starredWordsList" style="flex:1;overflow-y:auto;padding:0.5rem 0"></div>
 </div>
 
+<script>
+/* Меню «Управление»: закрывается по клику снаружи, по Esc и после выбора пункта.
+   MANAGE_FOR_STUDENTS = false — меню видно только по ссылке с ?teacher=1 */
+(function () {
+  var MANAGE_FOR_STUDENTS = true;
+  var m = document.getElementById('manageMenu');
+  if (!m) return;
+  var teacher = new URLSearchParams(location.search).get('teacher') === '1';
+  if (!MANAGE_FOR_STUDENTS && !teacher) { m.hidden = true; return; }
+  document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); }
+  });
+  m.querySelector('.manage-panel').addEventListener('click', function (e) {
+    if (e.target.closest('.manage-item')) m.open = false;
+  });
+})();
+</script>
 </body>
 </html>
